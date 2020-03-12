@@ -7,10 +7,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { LandingPageComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LandingPageComponent,
     DashboardComponent
   ],
   imports: [
