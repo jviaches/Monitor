@@ -1,0 +1,177 @@
+.mat-tab-label-content {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.mat-tab-label .mat-tab-label-content {
+  color: var(--text-secondary-color);
+}
+
+// .mat-form-field-infix .mat-input-element {
+//   caret-color:  var(--selected-color);
+// }
+
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: var(--selected-color);
+}
+
+.mat-card.main {
+  width: 100%;
+  min-height: 740px;
+  background: var(--panel-color);
+  font-size: 0.875rem;
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+.mat-card.widget {
+  min-height: 120px;
+  background: var(--panel-color);
+  font-size: 0.875rem;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+mat-card-title {
+  color: var(--selected-color);
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-form-field {
+  color: #00d318;
+}
+
+.mat-table {
+  background: var(--panel-color);
+}
+
+.mat-paginator-container {
+  background: var(--panel-color);
+}
+
+.mat-paginator-range-label {
+  color: var(--text-secondary-color);
+}
+
+.mat-paginator-page-size-label {
+  color: var(--text-secondary-color);
+}
+
+.mat-paginator-icon {
+  color: var(--text-secondary-color);
+}
+
+.ng-star-inserted {
+  color: var(--text-secondary-color);
+}
+
+.mat-paginator-icon path {
+  color: var(--text-secondary-color);
+}
+
+.mat-error {
+  color: red;
+}
+
+.logout-dialog .mat-dialog-container {
+  text-align: center;
+  height: 200px;
+  width: 400px;
+  border-radius: 10px;
+  color: var(--selected-color);
+}
+
+.invoice-dialog-large .mat-dialog-container {
+  text-align: center;
+  border-radius: 10px;
+  color: var(--selected-color);
+}
+
+.invoice-dialog-medium {
+  .mat-dialog-content {
+    text-align: center;
+    height: 380px;
+    color: var(--selected-color);
+  }
+
+  .mat-dialog-container {
+    text-align: center;
+    border-radius: 10px;
+    color: var(--selected-color);
+  }
+}
+
+.mat-dialog-title {
+  color: var(--selected-color);
+}
+
+.mat-dialog-actions {
+  justify-content: center;
+
+  //  &.mat-raised-button {
+  //   padding: 50;
+  // }
+}
+
+mat-card-actions {
+  text-align: center;
+}
+
+.mat-slide-toggle.mat-checked {
+  .mat-slide-toggle-bar {
+    background-color: var(--selected-color);
+  }
+
+  .mat-slide-toggle-thumb {
+    background-color: white;
+  }
+
+}
+
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+  background-color: var(--selected-color);
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--selected-color);
+}
+
+.custom-modal-dialog-transparent-background {
+  .mat-dialog-container {
+    background: transparent !important;
+    padding: 0 !important;
+  }
+}
+
+.mat-step-header .mat-step-icon-selected {
+  background-color: var(--selected-color);
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: var(--selected-color);
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent 
+.mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), 
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, 
+.mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+  background-color: var(--selected-color);
+}
+
+.mat-step-header .mat-step-icon-state-edit {
+  background-color:gray;
+}
+
+.mat-tab-body-content {
+  height: 100%;
+  overflow: hidden !important;
+}
+
+.mat-tab-body-wrapper {
+  margin: 20px;
+}
