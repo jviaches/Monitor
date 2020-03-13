@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,22 +11,22 @@ export class DashboardComponent implements OnInit {
   title = 'front';
   panelOpenState = false;
 
-  view: any[] = [900, 400];
+  view: any[] = [900, 360];
 
   public multi = [
     {
       name: 'Amazon',
       series: [
         {
-          name: 5,
-          value: 2650
+          name: 'Jan 5, 2020',
+          value: 200
         },
         {
-          name: 10,
-          value: 2800      },
+          name: 'Jan 6, 2020',
+          value: 404      },
         {
-          name: 15,
-          value: 2000
+          name: 'Jan 7, 2020',
+          value: 200
         }
       ]
     },
@@ -33,16 +34,16 @@ export class DashboardComponent implements OnInit {
       name: 'Google',
       series: [
         {
-          name: 5,
-          value: 2500
+          name: 'Jan 5, 2020',
+          value: 400
         },
         {
-          name: 10,
-          value: 3100
+          name: 'Jan 6, 2020',
+          value: 200
         },
         {
-          name: 15,
-          value: 2350
+          name: 'Jan 7, 2020',
+          value: 404
         }
       ]
     }
@@ -63,6 +64,11 @@ export class DashboardComponent implements OnInit {
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
+
+
+  color: ThemePalette = 'accent';
+  checked = true;
+  disabled = false;
 
   constructor() {
   }
