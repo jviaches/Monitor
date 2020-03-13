@@ -1,3 +1,4 @@
+import { ResourceService } from './core/services/resource.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -8,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LandingPageComponent } from './landing/landing.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,14 @@ import { LandingPageComponent } from './landing/landing.component';
     DashboardComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgxChartsModule
+    NgxChartsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ResourceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

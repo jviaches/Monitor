@@ -1,11 +1,46 @@
-.container {
-    display: flex; /* or inline-flex */
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    margin-top: 20px;
+
+.resources-stats {
+  display: flex;
+  flex-direction: column;
 }
 
-.widget {
-    width: 100%;
+.resources-stats-item-descriprion {
+  align-self: center;
+  font-size: 12px;
+  color: gray;
+  margin-top: 30%;
+}
+
+.resources-stats-item {
+  align-self: center;
+}
+
+.resources-stats-item {
+  align-self: center;
+  font-size: 42px;
+}
+
+.btn-add-site {
+  margin-top: 5%;
+}
+
+resource-list {
+  display: flex;
+  flex-direction: row;
+}
+
+resource-name-list-item {
+  order: 1;
+}
+
+resource-date-list-item {
+  order: 2;
+}
+
+resource-type-list-item {
+  order: 2;
+}
+
+resource-status-list-item {
+  order: 2;
 }

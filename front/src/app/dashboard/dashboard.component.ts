@@ -1,5 +1,7 @@
+import { ResourceService } from './../core/services/resource.service';
 import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { IResource } from '../core/models/resource.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +10,10 @@ import { ThemePalette } from '@angular/material/core';
 })
 export class DashboardComponent implements OnInit {
 
-  title = 'front';
+  resources: IResource[] = [];
+  activeResources: IResource[] = [];
+  inActiveResources: IResource[] = [];
+
   panelOpenState = false;
 
   view: any[] = [900, 360];
@@ -70,15 +75,19 @@ export class DashboardComponent implements OnInit {
   checked = true;
   disabled = false;
 
-  constructor() {
+  constructor(private resourceService: ResourceService) {
   }
 
   ngOnInit(): void {
+    this.resourceService.getResources(1).subscribe( resources => {
+      this.resources = JSON.parse(resources.toString());
+      this.activeResources = this.resources.filter(res => res.isMonitorActive);
+      this.inActiveResources = this.resources.filter(res => !res.isMonitorActive);
+    });
   }
 
   onSelect(event) {
     console.log(event);
   }
-
 }
 

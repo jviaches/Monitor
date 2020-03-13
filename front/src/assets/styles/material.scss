@@ -34,7 +34,7 @@
 }
 
 mat-card-title {
-  color: var(--selected-color);
+  color: gray;
 }
 
 .mat-form-field {
@@ -133,9 +133,9 @@ mat-card-actions {
 
 }
 
-.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
-  background-color: var(--selected-color);
-}
+// .mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary, .mat-stroked-button {
+//   //background-color: blue;
+// }
 
 .mat-form-field.mat-focused .mat-form-field-label {
   color: var(--selected-color);
@@ -156,9 +156,9 @@ mat-card-actions {
   border-color: var(--selected-color);
 }
 
-.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent 
-.mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), 
-.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, 
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent
+.mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
 .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
   background-color: var(--selected-color);
 }
@@ -175,3 +175,13 @@ mat-card-actions {
 .mat-tab-body-wrapper {
   margin: 20px;
 }
+
+// .mat-expansion-panel-header-title,
+// .mat-expansion-panel-header-description {
+//   flex-basis: 0;
+// }
+
+
+// .mat-expansion-panel-header {
+//   border: 6px solid #fafafa;
+// }

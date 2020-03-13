@@ -18,6 +18,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCommonModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button/';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { MatCommonModule } from '@angular/material/core';
     MatGridListModule,
     MatRadioModule,
     MatSelectModule,
-    MatCommonModule
+    MatCommonModule,
+    MatButtonModule
   ],
   exports: [
     MatCardModule,
@@ -62,7 +64,8 @@ import { MatCommonModule } from '@angular/material/core';
     MatGridListModule,
     MatRadioModule,
     MatSelectModule,
-    MatCommonModule
+    MatCommonModule,
+    MatButtonModule
   ],
   providers: [
     MatDatepickerModule,
