@@ -10,7 +10,6 @@ using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using ResourcesLambda.Models;
 using ResourcesLambda.Settings;
 using ResourcesLambda.ViewModels;
@@ -19,12 +18,12 @@ namespace ResourcesLambda.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResourcesHistoryController : ControllerBase
+    public class ResourcesController : ControllerBase
     {
         private static AmazonDynamoDBClient client;
         private static DynamoDBContext context;
 
-        public ResourcesHistoryController(Credentials credentials)
+        public ResourcesController(Credentials credentials)
         {
             var awsOptions = new Amazon.Extensions.NETCore.Setup.AWSOptions()
             {
@@ -36,67 +35,56 @@ namespace ResourcesLambda.Controllers
             context = new DynamoDBContext(client);
         }
 
-        // GET: api/ResourcesHistory/5
-        [HttpGet("{id}", Name = "Get")]
-        public async Task<ResourcesHistory> Get(string id)
+        // GET: api/Resources/5
+        [HttpGet("{id}", Name = "/Resources/Get")]
+        public async Task<Resource> GetById(string id)
         {
-           var item = await context.LoadAsync<ResourcesHistory>(id);
+            var item = await context.LoadAsync<Resource>(id);
             return item;
         }
 
         // GET: api/Resources/5
         [Route("[action]/{id}")]
         [HttpGet]
-        public async Task<IEnumerable<ResourcesHistory>> GetByResourceId(string id)
+        public async Task<IEnumerable<Resource>> GetByUserId(string id)
         {
             var conditions = new List<ScanCondition>
             {
-               new ScanCondition("resourceId", ScanOperator.Equal, id)
+               new ScanCondition("userId", ScanOperator.Equal, id)
             };
 
-            var allDocs = await context.ScanAsync<ResourcesHistory>(conditions).GetRemainingAsync();
+            var allDocs = await context.ScanAsync<Resource>(conditions).GetRemainingAsync();
             return allDocs;
         }
 
-        [Route("[action]/{id}")]
-        [HttpGet]
-        public async Task<IEnumerable<ResourcesHistory>> GetByMonitorTypeId(string id)
-        {
-            var conditions = new List<ScanCondition>
-            {
-               new ScanCondition("monitorTypeId", ScanOperator.Equal, id)
-            };
-
-            var allDocs = await context.ScanAsync<ResourcesHistory>(conditions).GetRemainingAsync();
-            return allDocs;
-        }
-
-        // POST: api/ResourcesHistory
+        // POST: api/Resources
         [HttpPost]
-        public async Task Post([FromBody] ResourceHistoryViewModel resourceHistoryVM)
+        public async Task Post([FromBody] ResourceViewModel resourceHistoryVM)
         {
             var putItemRequest = new PutItemRequest()
             {
-                TableName = "ResourcesHistory",
+                TableName = "Resources",
                 Item = new Dictionary<string, AttributeValue>
                 {
                     {"id", new AttributeValue {S = Guid.NewGuid().ToString()}},
-                    {"resourceId", new AttributeValue {S = resourceHistoryVM.resourceId.ToString()}},
-                    {"monitorTypeId", new AttributeValue {S = resourceHistoryVM.monitorTypeId.ToString()}},
-                    {"requestDate", new AttributeValue {S = resourceHistoryVM.requestDate.ToString()}},
+                    {"isMonitorActivated", new AttributeValue {BOOL = resourceHistoryVM.isMonitorActivated}},
+                    {"monitorActivationDate", new AttributeValue {S = resourceHistoryVM.monitorActivationDate.ToString()}},
+                    {"monitorActivationType", new AttributeValue {S = resourceHistoryVM.monitorActivationType.ToString()}},
+                    {"url", new AttributeValue {S = resourceHistoryVM.url.ToString()}},
+                    {"userId", new AttributeValue {S = resourceHistoryVM.userId.ToString()}},
                 }
             };
 
             await client.PutItemAsync(putItemRequest);
         }
 
-        // PUT: api/ResourcesHistory/5
+        // PUT: api/Resources/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)
         //{
         //}
 
-        // DELETE: api/ResourcesHistory/5
+        //// DELETE: api/ApiWithActions/5
         //[HttpDelete("{id}")]
         //public void Delete(int id)
         //{
