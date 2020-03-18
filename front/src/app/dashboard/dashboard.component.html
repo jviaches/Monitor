@@ -49,7 +49,7 @@
                             {{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}
                         </div>
                         <div class="resource-type-list-item">
-                            {{resource.monitorActivationType}}
+                            {{resource.monitorActivationType | periodicy}}
                         </div>
                         <div>
                             Status
@@ -57,14 +57,14 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="widget">
-                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
+                    <!-- <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
                         [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
                         [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                         [autoScale]="autoScale" [timeline]="timeline" (select)="onSelect($event)">
-                    </ngx-charts-line-chart>
+                    </ngx-charts-line-chart> -->
                 </div>
                 <div class="container">
-                    <mat-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled">
+                    <!-- <mat-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled">
                         Diactivate
                     </mat-slide-toggle>
 
@@ -76,7 +76,7 @@
                             <option value="mercedes">1 week</option>
                             <option value="audi">1 month</option>
                         </select>
-                    </mat-form-field>
+                    </mat-form-field> -->
                 </div>
             </mat-expansion-panel>
             <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -133,7 +133,7 @@
                         {{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}
                     </div>
                     <div class="resource-type-list-item">
-                        {{resource.monitorActivationType}}
+                        {{resource.monitorActivationType | periodicy}}
                     </div>
                     <div>
                         Status

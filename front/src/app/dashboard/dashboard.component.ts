@@ -70,7 +70,6 @@ export class DashboardComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-
   color: ThemePalette = 'accent';
   checked = true;
   disabled = false;

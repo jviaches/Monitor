@@ -10,12 +10,14 @@ import { MaterialModule } from './material.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LandingPageComponent } from './landing/landing.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PeriodicyPipe } from './core/pipes/periodicy.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
-    DashboardComponent
+    DashboardComponent,
+    PeriodicyPipe
   ],
   imports: [
     AppRoutingModule,
