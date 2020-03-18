@@ -7,4 +7,14 @@ export interface IResource {
   monitorActivationType: Periodicy;
   isMonitorActivated: boolean;
   monitorActivationDate: Date;
+  history: IResourceHistory[];
+}
+
+export interface IResourceHistory {
+  id: number;
+  resourceId: string;
+  monitorTypeId: string;
+  requestDate: Date;
+  responseDate: Date;
+  result: string;
 }

@@ -46,15 +46,30 @@ namespace ResourcesLambda.Controllers
         // GET: api/Resources/5
         [Route("[action]/{id}")]
         [HttpGet]
-        public async Task<IEnumerable<Resource>> GetByUserId(string id)
+        public async Task<IEnumerable<ResourceResultViewModel>> GetByUserId(string id)
         {
-            var conditions = new List<ScanCondition>
+            var resourceConditions = new List<ScanCondition>
             {
                new ScanCondition("userId", ScanOperator.Equal, id)
             };
 
-            var allDocs = await context.ScanAsync<Resource>(conditions).GetRemainingAsync();
-            return allDocs;
+            var allDocs = await context.ScanAsync<Resource>(resourceConditions).GetRemainingAsync();
+            var resources = allDocs.Select(resource => new ResourceResultViewModel(resource)).ToArray();
+
+            for (int i = 0; i < resources.Count(); i++)
+            {
+                var resourceHistoryConditions = new List<ScanCondition>
+                {
+                    new ScanCondition("resourceId", ScanOperator.Equal, id)
+                };
+
+                var resourcesHistory = await context.ScanAsync<ResourcesHistory>(resourceHistoryConditions).GetRemainingAsync();
+                var history = resourcesHistory.Select(resourcehistory => new ResourceHistoryResultViewModel(resourcehistory)).ToList();
+
+                resources[i].history = history;
+            }
+
+            return resources;
         }
 
         // POST: api/Resources
