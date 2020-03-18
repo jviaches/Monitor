@@ -1,9 +1,10 @@
+import { Periodicy } from '../enums/periodicy';
 
 export interface IResource {
   id: number;
   url: string;
   userId: string;
-  monitorPeriod: string;
-  isMonitorActive: boolean;
-  monitorLastActivationDate: Date;
+  monitorActivationType: Periodicy;
+  isMonitorActivated: boolean;
+  monitorActivationDate: Date;
 }

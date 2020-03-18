@@ -79,10 +79,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.resourceService.getResources(1).subscribe( resources => {
-      this.resources = JSON.parse(resources.toString());
-      this.activeResources = this.resources.filter(res => res.isMonitorActive);
-      this.inActiveResources = this.resources.filter(res => !res.isMonitorActive);
+    this.resourceService.getResources(1).subscribe( resource => {
+      this.resources = resource;
+      this.activeResources = this.resources.filter(res => res.isMonitorActivated);
+      this.inActiveResources = this.resources.filter(res => !res.isMonitorActivated);
     });
   }
 

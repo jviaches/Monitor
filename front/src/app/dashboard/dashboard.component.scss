@@ -24,23 +24,22 @@
   margin-top: 5%;
 }
 
-resource-list {
+.resource-wrapper {
   display: flex;
-  flex-direction: row;
+  justify-content: flex-end;
 }
 
-resource-name-list-item {
-  order: 1;
+.resource-name-list-item {
+  flex: 10 0 0;
+  flex-grow: 10;
+//  margin-left: auto;
 }
 
-resource-date-list-item {
-  order: 2;
+.resource-date-list-item {
+  flex: 0.4 0 0;
 }
 
-resource-type-list-item {
-  order: 2;
+.resource-type-list-item {
+  flex: 0.2 0 0;
 }
 
-resource-status-list-item {
-  order: 2;
-}

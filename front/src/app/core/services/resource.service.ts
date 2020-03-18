@@ -11,6 +11,6 @@ export class ResourceService {
     constructor(private httpClient: HttpClient) { }
 
     getResources(userId: number): Observable<IResource[]> {
-        return this.httpClient.get<IResource[]>(`api/resources/${userId}`);
+        return this.httpClient.get<IResource[]>(`https://localhost:44356/api/Resources/GetByUserId/${userId}`);
     }
 }

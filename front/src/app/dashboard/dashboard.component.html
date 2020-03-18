@@ -23,83 +23,63 @@
             </mat-card-content>
         </mat-card>
         <mat-card class="card">
-          <mat-card-title>Statistics</mat-card-title>
-          <mat-card-content>
-            <div class="resources-stats">
-              <div class="resources-stats-item-descriprion">Active  Inactive</div>
-              <div class="resources-stats-item">{{activeResources.length}} | {{resources.length}}</div>
-              <button mat-stroked-button class="btn-add-site">Add Web Site</button>
-            </div>
-          </mat-card-content>
-      </mat-card>
+            <mat-card-title>Statistics</mat-card-title>
+            <mat-card-content>
+                <div class="resources-stats">
+                    <div class="resources-stats-item-descriprion">Active Inactive</div>
+                    <div class="resources-stats-item">{{activeResources.length}} | {{resources.length}}</div>
+                    <button mat-stroked-button class="btn-add-site">Add Web Site</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
     </div>
 
     <div>
-      <h3>Monitored Jobs</h3>
+        <h3>Monitored Jobs</h3>
         <mat-accordion>
             <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <div class="resource-list">
-                    <div class="resource-name-list-item">
-                      www.google.com
-                    </div>
-                    <div class="resource-date-list-item">
-                      2020/08/02 12:24 PM
-                    </div>
-                    <div class="resource-type-list-item">
-                      Every hour
-                    </div>
-                    <div class="resource-status-list-item">
-                      OK
-                    </div>
-
-                  </div>
-                    <!-- <mat-panel-title>
-                        www.google.com
+                <mat-expansion-panel-header *ngFor="let resource of activeResources">
+                    <mat-panel-title>
+                        <div class="resource-name-list-item">
+                            {{resource.url}}
+                        </div>
                     </mat-panel-title>
-                    <mat-panel-description>
-                        Last monitor date: Jun 15, 2015, 9:03:01 AM
-                    </mat-panel-description> -->
+                    <mat-panel-description class="resource-wrapper">
+                        <div class="resource-date-list-item">
+                            {{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}
+                        </div>
+                        <div class="resource-type-list-item">
+                            {{resource.monitorActivationType}}
+                        </div>
+                        <div>
+                            Status
+                        </div>
+                    </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="widget">
-                    <ngx-charts-line-chart
-                        [view]="view"
-                        [scheme]="colorScheme"
-                        [results]="multi"
-                        [gradient]="gradient"
-                        [xAxis]="showXAxis"
-                        [yAxis]="showYAxis"
-                        [legend]="showLegend"
-                        [showXAxisLabel]="showXAxisLabel"
-                        [showYAxisLabel]="showYAxisLabel"
-                        [xAxisLabel]="xAxisLabel"
-                        [yAxisLabel]="yAxisLabel"
-                        [autoScale]="autoScale"
-                        [timeline]="timeline"
-                        (select)="onSelect($event)">
+                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
+                        [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                        [autoScale]="autoScale" [timeline]="timeline" (select)="onSelect($event)">
                     </ngx-charts-line-chart>
                 </div>
                 <div class="container">
-                    <mat-slide-toggle
-                        class="example-margin"
-                        [color]="color"
-                        [checked]="checked"
-                        [disabled]="disabled">
-                    Diactivate
+                    <mat-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled">
+                        Diactivate
                     </mat-slide-toggle>
 
                     <mat-form-field>
-                    <mat-label>Monitor Periodicity</mat-label>
-                    <select matNativeControl required>
-                        <option value="volvo">1 hour</option>
-                        <option value="saab">1 day</option>
-                        <option value="mercedes">1 week</option>
-                        <option value="audi">1 month</option>
-                    </select>
+                        <mat-label>Monitor Periodicity</mat-label>
+                        <select matNativeControl required>
+                            <option value="volvo">1 hour</option>
+                            <option value="saab">1 day</option>
+                            <option value="mercedes">1 week</option>
+                            <option value="audi">1 month</option>
+                        </select>
                     </mat-form-field>
                 </div>
             </mat-expansion-panel>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         www.amazon.com
@@ -109,43 +89,28 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="widget">
-                    <ngx-charts-line-chart
-                        [view]="view"
-                        [scheme]="colorScheme"
-                        [results]="multi"
-                        [gradient]="gradient"
-                        [xAxis]="showXAxis"
-                        [yAxis]="showYAxis"
-                        [legend]="showLegend"
-                        [showXAxisLabel]="showXAxisLabel"
-                        [showYAxisLabel]="showYAxisLabel"
-                        [xAxisLabel]="xAxisLabel"
-                        [yAxisLabel]="yAxisLabel"
-                        [autoScale]="autoScale"
-                        [timeline]="timeline"
-                        (select)="onSelect($event)">
+                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
+                        [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                        [autoScale]="autoScale" [timeline]="timeline" (select)="onSelect($event)">
                     </ngx-charts-line-chart>
                 </div>
                 <div class="container">
-                    <mat-slide-toggle
-                        class="example-margin"
-                        [color]="color"
-                        [checked]="checked"
-                        [disabled]="disabled">
-                    Diactivate
+                    <mat-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled">
+                        Diactivate
                     </mat-slide-toggle>
 
                     <mat-form-field>
-                    <mat-label>Monitor Periodicity</mat-label>
-                    <select matNativeControl required>
-                        <option value="volvo">1 hour</option>
-                        <option value="saab">1 day</option>
-                        <option value="mercedes">1 week</option>
-                        <option value="audi">1 month</option>
-                    </select>
+                        <mat-label>Monitor Periodicity</mat-label>
+                        <select matNativeControl required>
+                            <option value="volvo">1 hour</option>
+                            <option value="saab">1 day</option>
+                            <option value="mercedes">1 week</option>
+                            <option value="audi">1 month</option>
+                        </select>
                     </mat-form-field>
                 </div>
-            </mat-expansion-panel>
+            </mat-expansion-panel> -->
         </mat-accordion>
     </div>
 </div>
@@ -154,68 +119,27 @@
 
 
 <div class="content">
-  <div>
     <h3>Inactive Jobs</h3>
-      <mat-accordion>
-          <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                  <mat-panel-title>
-                      www.google.com
-                  </mat-panel-title>
-                  <mat-panel-description>
-                      Last monitor date: Jun 15, 2015, 9:03:01 AM
-                  </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div class="container">
-                  <mat-slide-toggle
-                      class="example-margin"
-                      [color]="color"
-                      [checked]="checked"
-                      [disabled]="disabled">
-                  Diactivate
-                  </mat-slide-toggle>
-
-                  <mat-form-field>
-                  <mat-label>Monitor Periodicity</mat-label>
-                  <select matNativeControl required>
-                      <option value="volvo">1 hour</option>
-                      <option value="saab">1 day</option>
-                      <option value="mercedes">1 week</option>
-                      <option value="audi">1 month</option>
-                  </select>
-                  </mat-form-field>
-              </div>
-          </mat-expansion-panel>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-              <mat-expansion-panel-header>
-                  <mat-panel-title>
-                      www.amazon.com
-                  </mat-panel-title>
-                  <mat-panel-description>
-                      Last monitor date: Jun 15, 2015, 9:03:01 AM
-                  </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div class="container">
-                  <mat-slide-toggle
-                      class="example-margin"
-                      [color]="color"
-                      [checked]="checked"
-                      [disabled]="disabled">
-                  Diactivate
-                  </mat-slide-toggle>
-
-                  <mat-form-field>
-                  <mat-label>Monitor Periodicity</mat-label>
-                  <select matNativeControl required>
-                      <option value="volvo">1 hour</option>
-                      <option value="saab">1 day</option>
-                      <option value="mercedes">1 week</option>
-                      <option value="audi">1 month</option>
-                  </select>
-                  </mat-form-field>
-              </div>
-          </mat-expansion-panel>
-      </mat-accordion>
-  </div>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header *ngFor="let resource of inActiveResources">
+                <mat-panel-title>
+                    <div class="resource-name-list-item">
+                        {{resource.url}}
+                    </div>
+                </mat-panel-title>
+                <mat-panel-description class="resource-wrapper">
+                    <div class="resource-date-list-item">
+                        {{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}
+                    </div>
+                    <div class="resource-type-list-item">
+                        {{resource.monitorActivationType}}
+                    </div>
+                    <div>
+                        Status
+                    </div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>
-
