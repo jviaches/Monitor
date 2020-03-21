@@ -7,24 +7,24 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LandingPageComponent } from './landing/landing.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PeriodicyPipe } from './core/pipes/periodicy.pipe';
+import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     DashboardComponent,
-    PeriodicyPipe
+    PeriodicyPipe,
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgxChartsModule,
+    ChartModule,
     HttpClientModule
   ],
   providers: [ResourceService],
