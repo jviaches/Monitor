@@ -60,7 +60,7 @@ namespace ResourcesLambda.Controllers
             {
                 var resourceHistoryConditions = new List<ScanCondition>
                 {
-                    new ScanCondition("resourceId", ScanOperator.Equal, id)
+                    new ScanCondition("resourceId", ScanOperator.Equal, resources[i].id)
                 };
 
                 var resourcesHistory = await context.ScanAsync<ResourcesHistory>(resourceHistoryConditions).GetRemainingAsync();
