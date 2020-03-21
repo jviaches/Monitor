@@ -37,8 +37,8 @@
     <div>
         <h3>Monitored Jobs</h3>
         <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header *ngFor="let resource of activeResources">
+            <mat-expansion-panel *ngFor="let resource of activeResources">
+                <mat-expansion-panel-header>
                     <mat-panel-title>
                         <div class="resource-name-list-item">
                             {{resource.url}}
@@ -57,56 +57,9 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="widget">
-                    <div [chart]="chart"></div>
-                </div>
-                <div class="container">
-                    <!-- <mat-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled">
-                        Diactivate
-                    </mat-slide-toggle>
-
-                    <mat-form-field>
-                        <mat-label>Monitor Periodicity</mat-label>
-                        <select matNativeControl required>
-                            <option value="volvo">1 hour</option>
-                            <option value="saab">1 day</option>
-                            <option value="mercedes">1 week</option>
-                            <option value="audi">1 month</option>
-                        </select>
-                    </mat-form-field> -->
+                    <div [chart]="chartMap[resource.id]"></div>
                 </div>
             </mat-expansion-panel>
-            <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        www.amazon.com
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Last monitor date: Jun 15, 2015, 9:03:01 AM
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div class="widget">
-                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
-                        [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
-                        [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                        [autoScale]="autoScale" [timeline]="timeline" (select)="onSelect($event)">
-                    </ngx-charts-line-chart>
-                </div>
-                <div class="container">
-                    <mat-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled">
-                        Diactivate
-                    </mat-slide-toggle>
-
-                    <mat-form-field>
-                        <mat-label>Monitor Periodicity</mat-label>
-                        <select matNativeControl required>
-                            <option value="volvo">1 hour</option>
-                            <option value="saab">1 day</option>
-                            <option value="mercedes">1 week</option>
-                            <option value="audi">1 month</option>
-                        </select>
-                    </mat-form-field>
-                </div>
-            </mat-expansion-panel> -->
         </mat-accordion>
     </div>
 </div>
@@ -117,8 +70,8 @@
 <div class="content">
     <h3>Inactive Jobs</h3>
     <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header *ngFor="let resource of inActiveResources">
+        <mat-expansion-panel *ngFor="let resource of inActiveResources">
+            <mat-expansion-panel-header>
                 <mat-panel-title>
                     <div class="resource-name-list-item">
                         {{resource.url}}
@@ -136,6 +89,9 @@
                     </div>
                 </mat-panel-description>
             </mat-expansion-panel-header>
+            <div class="widget">
+                <div [chart]="chartMap[resource.id]"></div>
+            </div>
         </mat-expansion-panel>
     </mat-accordion>
 </div>
