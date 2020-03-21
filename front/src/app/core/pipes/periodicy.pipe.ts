@@ -8,13 +8,13 @@ export class PeriodicyPipe implements PipeTransform {
     const num = Number(periodicy);
     switch (num) {
         case Periodicy.OnceInHour:
-            return 'Every Hour';
+            return 'Houry';
         case 2: // TODO: Periodicy.OnceInDay
-            return 'Once a Day';
+            return 'Daily';
         case 3: // TODO: Periodicy.OnceInWeek
-            return 'Once a Week';
+            return 'Weekly';
         case 4: // TODO: Periodicy.OnceInMonth
-            return 'Once a Month';
+            return 'Monthly';
         default:
             return '-';
     }

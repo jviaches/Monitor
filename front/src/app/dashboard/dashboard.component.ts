@@ -46,9 +46,19 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.resourceService.getResources(1).subscribe(resource => {
       this.resources = resource;
+      this.setResourceStatus(resource);
       this.buildHistoryStatusChart(resource);
       this.activeResources = this.resources.filter(res => res.isMonitorActivated);
       this.inActiveResources = this.resources.filter(res => !res.isMonitorActivated);
+    });
+  }
+
+  setResourceStatus(resources: IResource[]) {
+    resources.map(record => {
+      const lastResponseDate = new Date(Math.max.apply(null, record.history.map(e => {
+        return new Date(e.responseDate);
+      })));
+      record.status = record.history.filter( item => new Date(item.responseDate).getTime() === lastResponseDate.getTime())[0].result;
     });
   }
 
