@@ -1,17 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AWSProjectType>Lambda</AWSProjectType>
-    <UserSecretsId>0245f94c-1cb4-46a4-95bd-71628d472ce9</UserSecretsId>
+    <UserSecretsId>d3dae904-e402-45b0-b9d0-ce6804d58682</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
+    <PackageReference Include="Amazon.Lambda.DynamoDBEvents" Version="1.1.0" />
+    <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.7.0" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.105.14" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="AWSSDK.S3" Version="3.3.110.38" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.101" />
-    <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="4.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Monitor.Core\Monitor.Core.csproj" />

@@ -11,8 +11,8 @@ using Amazon.Runtime;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using ResourcesLambda.Models;
-using ResourcesLambda.Settings;
+using Monitor.Core.Models;
+using Monitor.Core.Settings;
 using ResourcesLambda.ViewModels;
 
 namespace ResourcesLambda.Controllers

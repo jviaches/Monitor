@@ -58,7 +58,12 @@ export class DashboardComponent implements OnInit {
       const lastResponseDate = new Date(Math.max.apply(null, record.history.map(e => {
         return new Date(e.responseDate);
       })));
-      record.status = record.history.filter( item => new Date(item.responseDate).getTime() === lastResponseDate.getTime())[0].result;
+
+      if (record.history.length > 0) {
+        record.status = record.history.filter( item => new Date(item.responseDate).getTime() === lastResponseDate.getTime())[0].result;
+      } else {
+        record.status = '000';
+      }
     });
   }
 

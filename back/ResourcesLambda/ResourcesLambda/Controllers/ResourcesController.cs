@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
@@ -10,8 +11,8 @@ using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ResourcesLambda.Models;
-using ResourcesLambda.Settings;
+using Monitor.Core.Models;
+using Monitor.Core.Settings;
 using ResourcesLambda.ViewModels;
 
 namespace ResourcesLambda.Controllers

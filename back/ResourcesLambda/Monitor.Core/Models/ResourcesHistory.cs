@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ResourcesLambda.Models
+namespace Monitor.Core.Models
 {
     [DynamoDBTable("ResourcesHistory")]
     public class ResourcesHistory
