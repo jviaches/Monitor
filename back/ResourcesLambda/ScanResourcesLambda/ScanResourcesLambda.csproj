@@ -7,10 +7,5 @@
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
     <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.7.0" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.101" />
-    <PackageReference Include="AWSSDK.Lambda" Version="3.3.108.17" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Monitor.Core\Monitor.Core.csproj" />
   </ItemGroup>
 </Project>

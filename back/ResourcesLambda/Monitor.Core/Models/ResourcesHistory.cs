@@ -10,11 +10,9 @@ namespace Monitor.Core.Models
     public class ResourcesHistory
     {
         [DynamoDBHashKey]
-        public string id { get; set; }
-        public string resourceId { get; set; }
-        public string monitorTypeId { get; set; }
-        public string requestDate { get; set; }
-        public string responseDate { get; set; }
-        public string result { get; set; }
+        public string Id { get; set; }
+        public string ResourceId { get; set; }
+        public string RequestDate { get; set; }
+        public string Result { get; set; }
     }
 }

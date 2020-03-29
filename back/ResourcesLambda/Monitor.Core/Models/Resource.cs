@@ -10,11 +10,13 @@ namespace Monitor.Core.Models
     public class Resource
     {
         [DynamoDBHashKey]
-        public string id { get; set; }
-        public bool isMonitorActivated { get; set; }
-        public string monitorActivationDate { get; set; }
-        public string monitorActivationType { get; set; }
-        public string url { get; set; }
-        public string userId { get; set; }
+        public string Id { get; set; }
+        public string Url { get; set; }
+        public string UserId { get; set; }
+        public int MonitorPeriod { get; set; }
+        
+        //[DynamoDBProperty("IsMonitorActivated", Converter = typeof(bool), StoreAsEpoch = false)]
+        public int IsMonitorActivated { get; set; }
+        public string MonitorActivationDate { get; set; }
     }
 }

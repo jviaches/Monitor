@@ -50,6 +50,21 @@
         }
     },
 
+    "GetResourceStatusTask" : {
+        "Type" : "AWS::Lambda::Function",
+        "Properties" : {
+            "Handler" : "Monitor.StepperLogic::Monitor.StepperLogic.StepFunctionTasks::GetResourceStatus",
+            "Role"    : {"Fn::GetAtt" : [ "LambdaRole", "Arn"]},
+            "Runtime" : "dotnetcore2.1",
+            "MemorySize" : 128,
+            "Timeout" : 30,
+            "Code" : {
+                "S3Bucket" : "",
+                "S3Key" : ""
+            }
+        }
+    },
+
     "StateMachine" : {
         "Type" : "AWS::StepFunctions::StateMachine",
         "Properties": {

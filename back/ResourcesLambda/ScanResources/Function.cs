@@ -32,7 +32,9 @@ namespace ScanResources
 
             var awsOptions = new Amazon.Extensions.NETCore.Setup.AWSOptions()
             {
-                Credentials = new BasicAWSCredentials("AKIATCF5UENNOJWDLUVU", "YUy4AL06ZBfHpNuRWn2F2TE04vJ/UUeZz+fmN5+i"),
+
+                Credentials = new BasicAWSCredentials(Environment.GetEnvironmentVariable("AccessKey"),
+                                                      Environment.GetEnvironmentVariable("SecretKey")),
                 Region = RegionEndpoint.USEast2
             };
 
@@ -69,9 +71,11 @@ namespace ScanResources
             }
             catch (WebException e)
             {
+                context.Logger.LogLine("Web exception: " + e);
             }
             catch (Exception e)
             {
+                context.Logger.LogLine("Exception: " + e);
             }
 
             context.Logger.LogLine("Stream processing complete.");

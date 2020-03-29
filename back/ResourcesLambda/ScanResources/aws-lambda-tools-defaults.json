@@ -1,24 +1,23 @@
-
 {
-    "Information" : [
-        "This file provides default values for the deployment wizard inside Visual Studio and the AWS Lambda commands added to the .NET Core CLI.",
-        "To learn more about the Lambda commands with the .NET Core CLI execute the following command at the command line in the project root directory.",
-        "dotnet lambda help",
-        "All the command line options for the Lambda command can be specified in this file."
-    ],
-    "profile"     : "dev",
-    "region"      : "us-east-2",
-    "configuration" : "Release",
-    "framework"     : "netcoreapp2.1",
-    "function-runtime" : "dotnetcore2.1",
-    "function-memory-size" : 256,
-    "function-timeout"     : 30,
-    "function-handler"     : "ScanResources::ScanResources.Function::FunctionHandler",
-    "function-name"        : "ScanResourceLambda",
-    "function-role"        : "arn:aws:iam::210851079002:role/lambda_exec_ScanResources",
-    "tracing-mode"         : "PassThrough",
-    "environment-variables" : "",
-    "s3-bucket"             : "monitor-backet",
-    "template"              : "serverless.template",
-    "stack-name"            : "ResourcesScanLambda"
+  "Information": [
+    "This file provides default values for the deployment wizard inside Visual Studio and the AWS Lambda commands added to the .NET Core CLI.",
+    "To learn more about the Lambda commands with the .NET Core CLI execute the following command at the command line in the project root directory.",
+    "dotnet lambda help",
+    "All the command line options for the Lambda command can be specified in this file."
+  ],
+  "profile": "dev",
+  "region": "us-east-2",
+  "configuration": "Release",
+  "framework": "netcoreapp2.1",
+  "function-runtime": "dotnetcore2.1",
+  "function-memory-size": 128,
+  "function-timeout": 30,
+  "function-handler": "ScanResources::ScanResources.Function::FunctionHandler",
+  "function-name": "ScanResourceLambda",
+  "function-role": "arn:aws:iam::210851079002:role/lambda_exec_ScanResources",
+  "tracing-mode": "PassThrough",
+  "environment-variables": "",
+  "s3-bucket": "monitor-backet",
+  "template": "serverless.template",
+  "stack-name": "ResourcesScanLambda"
 }
