@@ -14,8 +14,6 @@ namespace Monitor.Core.Models
         public string Url { get; set; }
         public string UserId { get; set; }
         public int MonitorPeriod { get; set; }
-        
-        //[DynamoDBProperty("IsMonitorActivated", Converter = typeof(bool), StoreAsEpoch = false)]
         public int IsMonitorActivated { get; set; }
         public string MonitorActivationDate { get; set; }
     }

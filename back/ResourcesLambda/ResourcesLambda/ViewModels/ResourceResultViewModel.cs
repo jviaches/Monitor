@@ -15,13 +15,14 @@ namespace ResourcesLambda.ViewModels
             _resource = resource;
             history = new List<ResourceHistoryResultViewModel>();
         }
+        
+        public string Id { get { return _resource.Id; } }
+        public string Url { get { return _resource.Url; } }
+        public string UserId { get { return _resource.UserId; } }
+        public int MonitorPeriod { get { return _resource.MonitorPeriod; } }
+        public int IsMonitorActivated { get { return _resource.IsMonitorActivated; } }
+        public string MonitorActivationDate { get { return _resource.MonitorActivationDate; } }
 
-        public string id { get { return _resource.id; } }
-        public bool isMonitorActivated { get { return _resource.isMonitorActivated; } }
-        public string monitorActivationDate { get { return _resource.monitorActivationDate; } }
-        public string monitorActivationType { get { return _resource.monitorActivationType; } }
-        public string url { get { return _resource.url; } }
-        public string userId { get { return _resource.userId; } }
         public IEnumerable<ResourceHistoryResultViewModel> history { get; set; }
     }
 }

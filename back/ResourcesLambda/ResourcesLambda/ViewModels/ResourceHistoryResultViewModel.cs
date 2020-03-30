@@ -15,11 +15,9 @@ namespace ResourcesLambda.ViewModels
             _resourcehistory = resourcehistory;
         }
 
-        public string id { get { return _resourcehistory.id; } }
-        public string resourceId { get { return _resourcehistory.resourceId; } }
-        public string monitorTypeId { get { return _resourcehistory.monitorTypeId; } }
-        public string requestDate { get { return _resourcehistory.requestDate; } }
-        public string responseDate { get { return _resourcehistory.responseDate; } }
-        public string result { get { return _resourcehistory.result; } }
+        public string Id { get { return _resourcehistory.Id; } }
+        public string ResourceId { get { return _resourcehistory.ResourceId; } }
+        public string RequestDate { get { return _resourcehistory.RequestDate; } }
+        public string Result { get { return _resourcehistory.Result; } }
     }
 }

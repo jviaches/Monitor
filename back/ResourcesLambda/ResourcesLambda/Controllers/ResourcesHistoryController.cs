@@ -36,14 +36,6 @@ namespace ResourcesLambda.Controllers
             context = new DynamoDBContext(client);
         }
 
-        // GET: api/ResourcesHistory/5
-        [HttpGet("{id}", Name = "Get")]
-        public async Task<ResourcesHistory> Get(string id)
-        {
-           var item = await context.LoadAsync<ResourcesHistory>(id);
-            return item;
-        }
-
         // GET: api/Resources/5
         [Route("[action]/{id}")]
         [HttpGet]
@@ -51,55 +43,24 @@ namespace ResourcesLambda.Controllers
         {
             var conditions = new List<ScanCondition>
             {
-               new ScanCondition("resourceId", ScanOperator.Equal, id)
+               new ScanCondition("ResourceId", ScanOperator.Equal, id)
             };
 
             var allDocs = await context.ScanAsync<ResourcesHistory>(conditions).GetRemainingAsync();
             return allDocs;
         }
 
-        [Route("[action]/{id}")]
-        [HttpGet]
-        public async Task<IEnumerable<ResourcesHistory>> GetByMonitorTypeId(string id)
-        {
-            var conditions = new List<ScanCondition>
-            {
-               new ScanCondition("monitorTypeId", ScanOperator.Equal, id)
-            };
-
-            var allDocs = await context.ScanAsync<ResourcesHistory>(conditions).GetRemainingAsync();
-            return allDocs;
-        }
-
-        // POST: api/ResourcesHistory
-        [HttpPost]
-        public async Task Post([FromBody] ResourceHistoryViewModel resourceHistoryVM)
-        {
-            var putItemRequest = new PutItemRequest()
-            {
-                TableName = "ResourcesHistory",
-                Item = new Dictionary<string, AttributeValue>
-                {
-                    {"id", new AttributeValue {S = Guid.NewGuid().ToString()}},
-                    {"resourceId", new AttributeValue {S = resourceHistoryVM.resourceId.ToString()}},
-                    {"monitorTypeId", new AttributeValue {S = resourceHistoryVM.monitorTypeId.ToString()}},
-                    {"requestDate", new AttributeValue {S = resourceHistoryVM.requestDate.ToString()}},
-                }
-            };
-
-            await client.PutItemAsync(putItemRequest);
-        }
-
-        // PUT: api/ResourcesHistory/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
+        //[Route("[action]/{id}")]
+        //[HttpGet]
+        //public async Task<IEnumerable<ResourcesHistory>> GetByMonitorTypeId(string id)
         //{
-        //}
+        //    var conditions = new List<ScanCondition>
+        //    {
+        //       new ScanCondition("monitorTypeId", ScanOperator.Equal, id)
+        //    };
 
-        // DELETE: api/ResourcesHistory/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
+        //    var allDocs = await context.ScanAsync<ResourcesHistory>(conditions).GetRemainingAsync();
+        //    return allDocs;
         //}
     }
 }

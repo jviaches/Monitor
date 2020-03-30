@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
@@ -9,7 +8,6 @@ using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Monitor.Core.Models;
 using Monitor.Core.Settings;
@@ -51,7 +49,7 @@ namespace ResourcesLambda.Controllers
         {
             var resourceConditions = new List<ScanCondition>
             {
-               new ScanCondition("userId", ScanOperator.Equal, id)
+               new ScanCondition("UserId", ScanOperator.Equal, id)
             };
 
             var allDocs = await context.ScanAsync<Resource>(resourceConditions).GetRemainingAsync();
@@ -61,7 +59,7 @@ namespace ResourcesLambda.Controllers
             {
                 var resourceHistoryConditions = new List<ScanCondition>
                 {
-                    new ScanCondition("resourceId", ScanOperator.Equal, resources[i].id)
+                    new ScanCondition("ResourceId", ScanOperator.Equal, resources[i].Id)
                 };
 
                 var resourcesHistory = await context.ScanAsync<ResourcesHistory>(resourceHistoryConditions).GetRemainingAsync();
@@ -82,12 +80,12 @@ namespace ResourcesLambda.Controllers
                 TableName = "Resources",
                 Item = new Dictionary<string, AttributeValue>
                 {
-                    {"id", new AttributeValue {S = Guid.NewGuid().ToString()}},
-                    {"isMonitorActivated", new AttributeValue {BOOL = resourceHistoryVM.isMonitorActivated}},
-                    {"monitorActivationDate", new AttributeValue {S = resourceHistoryVM.monitorActivationDate.ToString()}},
-                    {"monitorActivationType", new AttributeValue {S = resourceHistoryVM.monitorActivationType.ToString()}},
-                    {"url", new AttributeValue {S = resourceHistoryVM.url.ToString()}},
-                    {"userId", new AttributeValue {S = resourceHistoryVM.userId.ToString()}},
+                    {"Id", new AttributeValue {S = Guid.NewGuid().ToString()}},
+                    {"Url", new AttributeValue {S = resourceHistoryVM.Url}},
+                    {"UserId", new AttributeValue {S = resourceHistoryVM.UserId}},
+                    {"MonitorPeriod", new AttributeValue {N = resourceHistoryVM.MonitorPeriod.ToString()}},
+                    {"IsMonitorActivated", new AttributeValue {N = resourceHistoryVM.IsMonitorActivated.ToString()}},
+                    {"MonitorActivationDate", new AttributeValue {S = resourceHistoryVM.MonitorActivationDate}},
                 }
             };
 

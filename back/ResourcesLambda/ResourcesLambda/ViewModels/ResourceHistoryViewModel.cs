@@ -7,8 +7,7 @@ namespace ResourcesLambda.ViewModels
 {
     public class ResourceHistoryViewModel
     {
-        public string resourceId { get; set; }
-        public string monitorTypeId { get; set; }
-        public string requestDate { get; set; }
+        public string ResourceId { get; set; }
+        public string RequestDate { get; set; }
     }
 }
