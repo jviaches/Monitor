@@ -11,6 +11,9 @@ import { LandingPageComponent } from './landing/landing.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PeriodicyPipe } from './core/pipes/periodicy.pipe';
 import { ChartModule } from 'angular-highcharts';
+import { ModalDialogComponent } from './core/components/modal-dialog/modal-dialog.component';
+import { GeneralService } from './core/services/general.service';
+import { ResourceAddComponent } from './resources/resource-add/resource-add.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import { ChartModule } from 'angular-highcharts';
     LandingPageComponent,
     DashboardComponent,
     PeriodicyPipe,
+    ModalDialogComponent,
+    ResourceAddComponent
   ],
   imports: [
     AppRoutingModule,
@@ -27,7 +32,8 @@ import { ChartModule } from 'angular-highcharts';
     ChartModule,
     HttpClientModule
   ],
-  providers: [ResourceService],
-  bootstrap: [AppComponent]
+  providers: [ResourceService, GeneralService],
+  bootstrap: [AppComponent],
+  entryComponents: [ModalDialogComponent]
 })
 export class AppModule { }

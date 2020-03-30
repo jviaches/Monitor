@@ -5,6 +5,8 @@ import { IResource } from '../core/models/resource.model';
 import { Chart } from 'angular-highcharts';
 import { Options, PointOptionsObject, Point } from 'highcharts';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { ResourceAddComponent } from '../resources/resource-add/resource-add.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,26 +23,8 @@ export class DashboardComponent implements OnInit {
 
   panelOpenState = false;
 
-  // options
-  // showXAxis = true;
-  // showYAxis = true;
-  // gradient = false;
-  // showLegend = false;
-  // showXAxisLabel = true;
-  // xAxisLabel = 'Date';
-  // showYAxisLabel = true;
-  // yAxisLabel = 'Status Code';
-  // timeline = false;
-  // autoScale = true;
-  // options: Options;
+  constructor(private resourceService: ResourceService, public dialog: MatDialog) {
 
-  // color: ThemePalette = 'accent';
-  // checked = true;
-  // disabled = false;
-
-  // chartOptions: any;
-
-  constructor(private resourceService: ResourceService) {
   }
 
   ngOnInit(): void {
@@ -110,6 +94,19 @@ export class DashboardComponent implements OnInit {
           },
         },
       });
+    });
+  }
+
+  addWebSite() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { data: '' };
+    dialogConfig.disableClose = true;
+    dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
+    const dialogRef = this.dialog.open(ResourceAddComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(() => {
+      // TODO: add after close behavior
     });
   }
 }
