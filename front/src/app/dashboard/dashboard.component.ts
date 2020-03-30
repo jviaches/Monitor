@@ -56,11 +56,11 @@ export class DashboardComponent implements OnInit {
   setResourceStatus(resources: IResource[]) {
     resources.map(record => {
       const lastResponseDate = new Date(Math.max.apply(null, record.history.map(e => {
-        return new Date(e.responseDate);
+        return new Date(e.requestDate);
       })));
 
       if (record.history.length > 0) {
-        record.status = record.history.filter( item => new Date(item.responseDate).getTime() === lastResponseDate.getTime())[0].result;
+        record.status = record.history.filter( item => new Date(item.requestDate).getTime() === lastResponseDate.getTime())[0].result;
       } else {
         record.status = '000';
       }
@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit {
     resources.forEach(element => {
 
       const historyData: any[] = [];
-      element.history.map(record => historyData.push( ({ name: record.responseDate, y: Number(record.result) })));
+      element.history.map(record => historyData.push( ({ name: record.requestDate, y: Number(record.result) })));
 
       this.chartMap[element.id] = new Chart({
         chart: {

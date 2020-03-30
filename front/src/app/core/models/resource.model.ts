@@ -4,8 +4,8 @@ export interface IResource {
   id: number;
   url: string;
   userId: string;
-  monitorActivationType: Periodicy;
-  isMonitorActivated: boolean;
+  monitorPeriod: Periodicy;
+  isMonitorActivated: number;
   monitorActivationDate: Date;
   history: IResourceHistory[];
   status: string;
@@ -14,8 +14,6 @@ export interface IResource {
 export interface IResourceHistory {
   id: number;
   resourceId: string;
-  monitorTypeId: string;
   requestDate: Date;
-  responseDate: Date;
   result: string;
 }
