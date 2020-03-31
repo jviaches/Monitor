@@ -5,6 +5,7 @@ import { ResourceService } from 'src/app/core/services/resource.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SelectionOptions } from 'src/app/core/shared/selection-options';
 import { IResource } from 'src/app/core/models/resource.model';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
     selector: 'app-root',
@@ -23,6 +24,7 @@ export class ResourceAddComponent {
         this.siteFormGroup = this.formBuilder.group({
             url: ['', [Validators.required, Validators.pattern(this.urlRegex)]],
             periodicity: ['', Validators.required],
+            isActivated: []
         });
     }
 
@@ -34,7 +36,12 @@ export class ResourceAddComponent {
         return this.siteFormGroup.get('periodicity');
     }
 
+    get getActivationState() {
+        return this.siteFormGroup.get('isActivated');
+    }
+
     closeDialog() {
+        console.log(this.getActivationState.value);
         this.dialog.closeAll();
     }
 
@@ -50,7 +57,7 @@ export class ResourceAddComponent {
             url: this.getUrl.value + '',
             userId: '1',
             monitorPeriod: this.getPeriodicity.value,
-            isMonitorActivated: '0',
+            isMonitorActivated: this.getActivationState.value === true ? '1' : '0',
             monitorActivationDate: new Intl.DateTimeFormat('en-US', timeOptions).format(new Date()).toString()
         };
 
