@@ -24,10 +24,13 @@ export class DashboardComponent implements OnInit {
   panelOpenState = false;
 
   constructor(private resourceService: ResourceService, public dialog: MatDialog) {
-
   }
 
   ngOnInit(): void {
+    this.getResources();
+  }
+
+  getResources() {
     this.resourceService.getResources(1).subscribe(resource => {
       this.resources = resource;
       this.setResourceStatus(resource);
@@ -106,7 +109,7 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(ResourceAddComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(() => {
-      // TODO: add after close behavior
+      this.getResources();
     });
   }
 }

@@ -75,6 +75,7 @@ namespace ResourcesLambda.Controllers
         [HttpPost]
         public async Task Post([FromBody] ResourceViewModel resourceHistoryVM)
         {
+            var periodTimeInSeconds = resourceHistoryVM.MonitorPeriod * 1000;
             var putItemRequest = new PutItemRequest()
             {
                 TableName = "Resources",
@@ -83,7 +84,7 @@ namespace ResourcesLambda.Controllers
                     {"Id", new AttributeValue {S = Guid.NewGuid().ToString()}},
                     {"Url", new AttributeValue {S = resourceHistoryVM.Url}},
                     {"UserId", new AttributeValue {S = resourceHistoryVM.UserId}},
-                    {"MonitorPeriod", new AttributeValue {N = resourceHistoryVM.MonitorPeriod.ToString()}},
+                    {"MonitorPeriod", new AttributeValue {N = periodTimeInSeconds.ToString()}},
                     {"IsMonitorActivated", new AttributeValue {N = resourceHistoryVM.IsMonitorActivated.ToString()}},
                     {"MonitorActivationDate", new AttributeValue {S = resourceHistoryVM.MonitorActivationDate}},
                 }

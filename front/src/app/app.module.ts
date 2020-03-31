@@ -14,6 +14,7 @@ import { ChartModule } from 'angular-highcharts';
 import { ModalDialogComponent } from './core/components/modal-dialog/modal-dialog.component';
 import { GeneralService } from './core/services/general.service';
 import { ResourceAddComponent } from './resources/resource-add/resource-add.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ResourceAddComponent } from './resources/resource-add/resource-add.comp
     BrowserAnimationsModule,
     MaterialModule,
     ChartModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule, ReactiveFormsModule
   ],
   providers: [ResourceService, GeneralService],
   bootstrap: [AppComponent],

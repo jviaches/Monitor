@@ -13,4 +13,8 @@ export class ResourceService {
     getResources(userId: number): Observable<IResource[]> {
         return this.httpClient.get<IResource[]>(`https://localhost:44356/api/Resources/GetByUserId/${userId}`);
     }
+
+    addResource(resource: any): Observable<any> {
+        return this.httpClient.post<any>('https://localhost:44356/api/Resources', resource);
+    }
 }

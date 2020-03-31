@@ -4,7 +4,7 @@ export interface IResource {
   id: number;
   url: string;
   userId: string;
-  monitorPeriod: Periodicy;
+  monitorPeriod: number;
   isMonitorActivated: number;
   monitorActivationDate: Date;
   history: IResourceHistory[];
