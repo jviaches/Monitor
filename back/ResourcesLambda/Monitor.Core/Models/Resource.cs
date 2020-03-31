@@ -16,5 +16,8 @@ namespace Monitor.Core.Models
         public int MonitorPeriod { get; set; }
         public int IsMonitorActivated { get; set; }
         public string MonitorActivationDate { get; set; }
+
+        [DynamoDBIgnore]
+        public List<ResourcesHistory> History { get; set; }
     }
 }

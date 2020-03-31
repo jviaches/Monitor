@@ -1,4 +1,3 @@
-import { Periodicy } from '../enums/periodicy';
 
 export interface IResource {
   id: number;

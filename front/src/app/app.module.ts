@@ -8,13 +8,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { LandingPageComponent } from './landing/landing.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PeriodicyPipe } from './core/pipes/periodicy.pipe';
 import { ChartModule } from 'angular-highcharts';
 import { ModalDialogComponent } from './core/components/modal-dialog/modal-dialog.component';
 import { GeneralService } from './core/services/general.service';
 import { ResourceAddComponent } from './resources/resource-add/resource-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpErrorInterceptor } from './core/interceptors/error-interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule, ReactiveFormsModule
   ],
-  providers: [ResourceService, GeneralService],
+  providers: [ ResourceService, GeneralService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }],
   bootstrap: [AppComponent],
   entryComponents: [ModalDialogComponent]
 })

@@ -10,7 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Monitor.Core.Interfaces;
 using Monitor.Core.Settings;
+using ResourcesLambda.Services;
 
 namespace ResourcesLambda
 {
@@ -28,6 +30,16 @@ namespace ResourcesLambda
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("GlobalCorPolicy",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Add S3 to the ASP.NET Core dependency injection framework.
@@ -36,6 +48,7 @@ namespace ResourcesLambda
             var awsCredential = Configuration.GetSection("AWSCredentials");
             services.Configure<Credentials>(awsCredential, binderOptions => binderOptions.BindNonPublicProperties = true);
             services.AddSingleton(provider => provider.GetService<IOptions<Credentials>>().Value);
+            services.AddScoped<IResourceService, ResourceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

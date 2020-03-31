@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Monitor.Core.Models;
 using Monitor.Core.Settings;
-using ResourcesLambda.ViewModels;
 
 namespace ResourcesLambda.Controllers
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ResourcesLambda.ViewModels
+namespace Monitor.Core.ViewModels
 {
     public class ResourceResultViewModel
     {
@@ -13,7 +13,7 @@ namespace ResourcesLambda.ViewModels
         public ResourceResultViewModel(Resource resource)
         {
             _resource = resource;
-            history = new List<ResourceHistoryResultViewModel>();
+            history = resource.History.Select(item => new ResourceHistoryResultViewModel(item));
         }
         
         public string Id { get { return _resource.Id; } }

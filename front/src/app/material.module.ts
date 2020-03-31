@@ -19,6 +19,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button/';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { MatButtonModule } from '@angular/material/button/';
     MatRadioModule,
     MatSelectModule,
     MatCommonModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   exports: [
     MatCardModule,
@@ -65,7 +67,8 @@ import { MatButtonModule } from '@angular/material/button/';
     MatRadioModule,
     MatSelectModule,
     MatCommonModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   providers: [
     MatDatepickerModule,
