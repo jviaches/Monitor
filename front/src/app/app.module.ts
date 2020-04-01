@@ -16,6 +16,8 @@ import { GeneralService } from './core/services/general.service';
 import { ResourceAddComponent } from './resources/resource-add/resource-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorInterceptor } from './core/interceptors/error-interceptor';
+import { ResourceEditComponent } from './resources/resource-edit/resource-edit.component';
+import { ModalYesNoDialogComponent } from './core/components/yesno-modal-dialog/yesno-modal-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { HttpErrorInterceptor } from './core/interceptors/error-interceptor';
     DashboardComponent,
     PeriodicyPipe,
     ModalDialogComponent,
-    ResourceAddComponent
+    ModalYesNoDialogComponent,
+    ResourceAddComponent,
+    ResourceEditComponent
   ],
   imports: [
     AppRoutingModule,
@@ -38,6 +42,6 @@ import { HttpErrorInterceptor } from './core/interceptors/error-interceptor';
   providers: [ ResourceService, GeneralService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }],
   bootstrap: [AppComponent],
-  entryComponents: [ModalDialogComponent]
+  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent]
 })
 export class AppModule { }

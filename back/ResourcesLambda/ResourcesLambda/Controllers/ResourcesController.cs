@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@ namespace ResourcesLambda.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ErrorViewModel), 400)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> Post([FromBody] ResourceViewModel resourceHistoryVM)
+        public async Task<IActionResult> Add([FromBody] ResourceViewModel resourceHistoryVM)
         {
            var result = await _resourceService.Add(resourceHistoryVM);
             if (!result.Success)
@@ -49,16 +50,26 @@ namespace ResourcesLambda.Controllers
             return Ok();
         }
 
-        // PUT: api/Resources/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPost("{id}", Name = "/Resources/Update")]
+        [ProducesResponseType(typeof(ErrorViewModel), 400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> Update([FromBody] UpdateResourceViewModel viewModel)
+        {
+            var result = await _resourceService.Update(viewModel);
+            if (!result.Success)
+                return BadRequest(new ErrorViewModel { Message = $"Error to update resource: ${viewModel.Url}" });
 
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] UpdateResourceViewModel viewModel)
+        {
+            var result = await _resourceService.Delete(viewModel);
+            if (!result.Success)
+                return BadRequest(new ErrorViewModel { Message = $"Error deleting resource: {viewModel.Url}" });
+
+            return Ok();
+        }
     }
 }

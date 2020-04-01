@@ -7,7 +7,9 @@ namespace Monitor.Core.ViewModels
 {
     public class ResourceHistoryViewModel
     {
+        public string Id { get; set; }
         public string ResourceId { get; set; }
         public string RequestDate { get; set; }
+        public string Result { get; set; }
     }
 }

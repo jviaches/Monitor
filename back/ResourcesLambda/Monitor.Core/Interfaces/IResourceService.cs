@@ -12,6 +12,9 @@ namespace Monitor.Core.Interfaces
     {
         Task<Resource> GetById(string id);
         Task<IEnumerable<Resource>> GetByUserId(string id);
-        Task<Result> Add(ResourceViewModel resourceHistoryVM);
+        Task<Result> Add(ResourceViewModel resourceVM);
+        Task<Result> Update(UpdateResourceViewModel resourceVM);
+        Task<Result> Delete(UpdateResourceViewModel resourceVM);
+        Task<IEnumerable<ResourcesHistory>> GetHistoryByResourceId(string resourceId);
     }
 }

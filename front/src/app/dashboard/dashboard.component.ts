@@ -7,6 +7,8 @@ import { Options, PointOptionsObject, Point } from 'highcharts';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ResourceAddComponent } from '../resources/resource-add/resource-add.component';
+import { ResourceEditComponent } from '../resources/resource-edit/resource-edit.component';
+import { GeneralService } from '../core/services/general.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   panelOpenState = false;
 
-  constructor(private resourceService: ResourceService, public dialog: MatDialog) {
+  constructor(private resourceService: ResourceService, public dialog: MatDialog, private generalService: GeneralService) {
   }
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class DashboardComponent implements OnInit {
       })));
 
       if (record.history.length > 0) {
-        record.status = record.history.filter( item => new Date(item.requestDate).getTime() === lastResponseDate.getTime())[0].result;
+        record.status = record.history.filter(item => new Date(item.requestDate).getTime() === lastResponseDate.getTime())[0].result;
       } else {
         record.status = '000';
       }
@@ -64,7 +66,7 @@ export class DashboardComponent implements OnInit {
     resources.forEach(element => {
 
       const historyData: any[] = [];
-      element.history.map(record => historyData.push( ({ name: record.requestDate, y: Number(record.result) })));
+      element.history.map(record => historyData.push(({ name: record.requestDate, y: Number(record.result) })));
 
       this.chartMap[element.id] = new Chart({
         chart: {
@@ -89,7 +91,7 @@ export class DashboardComponent implements OnInit {
           title: {
             text: 'Timeline'
           },
-          categories: historyData.map( cat => cat.name),
+          categories: historyData.map(cat => cat.name),
         },
         yAxis: {
           title: {
@@ -100,7 +102,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  addWebSite() {
+  addResource() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.data = { data: '' };
@@ -110,6 +112,31 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       this.getResources();
+    });
+  }
+
+  editResource(resource: IResource) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { data: resource };
+    dialogConfig.disableClose = true;
+    dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
+    const dialogRef = this.dialog.open(ResourceEditComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getResources();
+    });
+  }
+
+  deleteResource(resource: IResource) {
+
+    this.generalService.showYesNoModalMessage().subscribe(data => {
+      if (data === 'yes') {
+        this.resourceService.deleteResource(resource).subscribe(() => {
+          this.generalService.showActionConfirmation(`Resource: ${resource.url} successfully deleted`);
+          this.getResources();
+        });
+      }
     });
   }
 }

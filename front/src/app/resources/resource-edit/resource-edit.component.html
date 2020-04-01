@@ -1,0 +1,33 @@
+<mat-card class="mat-card-flat">
+    <form [formGroup]="siteFormGroup" name="siteFormGroup" role="form">
+        <mat-card-header>
+            <mat-card-title>Update site</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <mat-form-field>
+                <mat-label>Site URL</mat-label>
+                <input matInput placeholder="Ex. https://stackoverflow.com" formControlName="url" disabled>
+                <mat-error *ngIf="getUrl.invalid">Please enter a valid web site</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Monitor periodicity</mat-label>
+                <mat-select matSelect formControlName="periodicity" [(value)]="periodicityOptions[0]"
+                    [compareWith]="comparePeriodicity">
+                    <mat-option *ngFor="let period of periodicityOptions" [value]="period.key">
+                        {{ period.value }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="getPeriodicity.invalid">Please specify periodicity</mat-error>
+            </mat-form-field>
+            <mat-slide-toggle formControlName="isActivated">
+                Enable
+            </mat-slide-toggle>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-stroked-button class="btn-add-site" (click)="UpdateDialog()"
+                [disabled]="siteFormGroup.invalid">Update</button>
+            <button mat-stroked-button class="btn-add-site" (click)="closeDialog()">Close</button>
+        </mat-card-actions>
+    </form>
+</mat-card>

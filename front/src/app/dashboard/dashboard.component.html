@@ -28,7 +28,7 @@
                 <div class="resources-stats">
                     <div class="resources-stats-item-descriprion">Active Inactive</div>
                     <div class="resources-stats-item">{{activeResources.length}} | {{resources.length}}</div>
-                    <button mat-stroked-button class="btn-add-site" (click)="addWebSite()">Add Web Site</button>
+                    <button mat-stroked-button class="btn-add-site" (click)="addResource()">Add Web Site</button>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -57,7 +57,11 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="widget">
-                    <div [chart]="chartMap[resource.id]"></div>
+                    <div class="graph" [chart]="chartMap[resource.id]"></div>
+                    <div class="actions">
+                        <button class="mat-raised-button" (click)="editResource(resource)">Update</button>
+                        <button class="mat-raised-button" (click)="deleteResource(resource)">Delete</button>
+                    </div>
                 </div>
             </mat-expansion-panel>
         </mat-accordion>
@@ -90,7 +94,11 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="widget">
-                <div [chart]="chartMap[resource.id]"></div>
+                <div class="graph" [chart]="chartMap[resource.id]"></div>
+                <div class="actions">
+                    <button class="mat-raised-button" (click)="editResource(resource)">Update</button>
+                    <button class="mat-raised-button" (click)="deleteResource(resource)">Delete</button>
+                </div>
             </div>
         </mat-expansion-panel>
     </mat-accordion>

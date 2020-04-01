@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ModalDialogComponent } from '../components/modal-dialog/modal-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ModalYesNoDialogComponent } from '../components/yesno-modal-dialog/yesno-modal-dialog.component';
 
 @Injectable({
     providedIn: 'root'
@@ -18,11 +19,23 @@ export class GeneralService {
 
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.panelClass = 'logout-dialog';
+        // dialogConfig.panelClass = 'logout-dialog';
 
         dialogConfig.data = { data: {message: textMessage, caption: textCaption } };
 
         const dialogRef = this.dialog.open(ModalDialogComponent, dialogConfig);
+
+        return dialogRef.afterClosed();
+    }
+
+    public showYesNoModalMessage(): Observable<any> {
+        const dialogConfig = new MatDialogConfig();
+
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        // dialogConfig.panelClass = 'logout-dialog';
+
+        const dialogRef = this.dialog.open(ModalYesNoDialogComponent, dialogConfig);
 
         return dialogRef.afterClosed();
     }
