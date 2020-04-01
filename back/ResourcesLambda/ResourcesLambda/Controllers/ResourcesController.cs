@@ -57,7 +57,7 @@ namespace ResourcesLambda.Controllers
         {
             var result = await _resourceService.Update(viewModel);
             if (!result.Success)
-                return BadRequest(new ErrorViewModel { Message = $"Error to update resource: ${viewModel.Url}" });
+                return BadRequest(new ErrorViewModel { Message = $"Error to update resource: {viewModel.Url}" });
 
             return Ok();
         }

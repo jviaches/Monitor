@@ -72,6 +72,7 @@ export class ResourceEditComponent implements OnInit {
           };
 
         const resource = {
+            id: this.resourceToEdit.id,
             url: this.getUrl.value + '',
             userId: '1',
             monitorPeriod: this.getPeriodicity.value,
