@@ -7,7 +7,7 @@
 
             <mat-form-field>
                 <mat-label>Site URL</mat-label>
-                <input matInput placeholder="Ex. https://stackoverflow.com" formControlName="url" disabled>
+                <input matInput placeholder="Ex. https://stackoverflow.com" formControlName="url" readonly>
                 <mat-error *ngIf="getUrl.invalid">Please enter a valid web site</mat-error>
             </mat-form-field>
 
