@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
@@ -14,6 +16,8 @@ using Amazon.Lambda;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Model;
 using Amazon.Runtime;
+using Amazon.SimpleEmail;
+using Amazon.SimpleEmail.Model;
 using Monitor.Core.Models;
 using Monitor.StepperLogic.StateModels;
 using Newtonsoft.Json;
@@ -79,19 +83,27 @@ namespace Monitor.StepperLogic
                 var lamdaRequest = new InvokeRequest
                 {
                     FunctionName = "MonitorStepperLogic-GetResourceStatusTask-P53XRWMQLD3Z",
-                    InvocationType = InvocationType.RequestResponse,
+                    InvocationType = Amazon.Lambda.InvocationType.RequestResponse,
                     Payload = JsonConvert.SerializeObject(item.Url)
                 };
 
-                var lamdaResponse = await lambdaClient.InvokeAsync(lamdaRequest);
-                var stReader = new StreamReader(lamdaResponse.Payload);
-                
-                var jReader = new JsonTextReader(stReader);
-                
-                var jSerializer = new JsonSerializer();
-                var statusCode = jSerializer.Deserialize(jReader);
+                try
+                {
+                    var lamdaResponse = await lambdaClient.InvokeAsync(lamdaRequest);
+                    var stReader = new StreamReader(lamdaResponse.Payload);
 
-                resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, statusCode.ToString()));
+                    var jReader = new JsonTextReader(stReader);
+
+                    var jSerializer = new JsonSerializer();
+                    var statusCode = jSerializer.Deserialize(jReader);
+
+                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, statusCode.ToString()));
+                }
+                catch (Exception e)
+                {
+                    context.Logger.LogLine($"Exception Occured: {e}");
+                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, "ERR"));
+                }
             }
 
             context.Logger.LogLine($"---------- End MonitorRecords ----------");
@@ -103,9 +115,8 @@ namespace Monitor.StepperLogic
         {
             context.Logger.LogLine($"---------- Start ProcessRecords ----------");
 
-            //TODO: how to make 1 DB write operation instead of many ?
+            //TODO: make 1 DB batch operation
             //TODO: handle exception
-            //TODO: on exception => send email to customer email
 
             foreach (var item in model.ResourcesStatuses)
             {
@@ -132,11 +143,91 @@ namespace Monitor.StepperLogic
         public async Task<string> GetResourceStatus(string url, ILambdaContext context)
         {
             //TODO: improve by checking existing URL + Status code
+            //TODO: on exception => send email to customer email
 
             context.Logger.LogLine($"---------- GetResourceStatus Invocation: [{url}] ----------");
-            var client = new HttpClient();
-            var result = await client.GetAsync(url);
-            return ((int)result.StatusCode).ToString();
+
+            try
+            {
+                var client = new HttpClient();
+                var result = await client.GetAsync(url);
+                context.Logger.LogLine($"Status code for URL: [{url}] = [{(int)result.StatusCode}]");
+
+                return ((int)result.StatusCode).ToString();
+            }
+            catch (Exception e)
+            {
+                context.Logger.LogLine($"Exception occured: [{e}] ");
+                await sendEmail(url, context);
+                return string.Empty;
+            }
+        }
+
+        private async Task sendEmail(string URL, ILambdaContext context)
+        {
+            const string senderAddress = "support@projscope.com";
+
+            // Replace recipient@example.com with a "To" address. If your account
+            // is still in the sandbox, this address must be verified.
+            const string receiverAddress = "jviaches@gmail.com";
+
+            const string subject = "Critical Alert";
+            const string textBody = "Amazon SES Test (.NET)\r\n"
+                                            + "This email was sent through Amazon SES "
+                                            + "using the AWS SDK for .NET.";
+
+            // The HTML body of the email.
+            const string htmlBody = @"<html>
+            <head></head>
+            <body>
+              <h1>Amazon SES Test (AWS SDK for .NET)</h1>
+              <p>This email was sent with
+                <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
+                <a href='https://aws.amazon.com/sdk-for-net/'>
+                  AWS SDK for .NET</a>.</p>
+            </body>
+            </html>";
+
+            using (var client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1))
+            {
+                var sendRequest = new SendEmailRequest
+                {
+                    Source = senderAddress,
+                    Destination = new Destination
+                    {
+                        ToAddresses =
+                        new List<string> { receiverAddress }
+                    },
+                    Message = new Message
+                    {
+                        Subject = new Content(subject),
+                        Body = new Body
+                        {
+                            Html = new Content
+                            {
+                                Charset = "UTF-8",
+                                Data = htmlBody
+                            },
+                            Text = new Content
+                            {
+                                Charset = "UTF-8",
+                                Data = textBody
+                            }
+                        }
+                    },
+                };
+                try
+                {
+                    context.Logger.LogLine($"Sending email using Amazon SES...");
+                    var response = await client.SendEmailAsync(sendRequest);
+                    context.Logger.LogLine($"The email was sent successfully.");
+                }
+                catch (Exception ex)
+                {
+                    context.Logger.LogLine($"The email was not sent ");
+                    context.Logger.LogLine($"Exception occured: [{ex.Message}] ");
+                }
+            }
         }
     }
 }
