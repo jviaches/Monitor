@@ -13,8 +13,7 @@
 
             <mat-form-field>
                 <mat-label>Monitor periodicity</mat-label>
-                <mat-select matSelect formControlName="periodicity" [(value)]="periodicityOptions[0]"
-                    [compareWith]="comparePeriodicity">
+                <mat-select matSelect formControlName="periodicity" [compareWith]="comparePeriodicity">
                     <mat-option *ngFor="let period of periodicityOptions" [value]="period.key">
                         {{ period.value }}</mat-option>
                 </mat-select>

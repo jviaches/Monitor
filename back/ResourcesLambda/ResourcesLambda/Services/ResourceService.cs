@@ -65,7 +65,7 @@ namespace ResourcesLambda.Services
         {
             try
             {
-                var periodTimeInSeconds = resourceHistoryVM.MonitorPeriod * 1000;
+                var periodTimeInSeconds = resourceHistoryVM.MonitorPeriod;
                 var putItemRequest = new PutItemRequest()
                 {
                     TableName = "Resources",
@@ -93,7 +93,7 @@ namespace ResourcesLambda.Services
         {
             try
             {
-                var periodTimeInSeconds = resourceVM.MonitorPeriod * 1000;
+                var periodTimeInSeconds = resourceVM.MonitorPeriod;
                 var updateItemRequest = new UpdateItemRequest()
                 {
                     TableName = "Resources",

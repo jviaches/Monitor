@@ -30,16 +30,13 @@ export class ResourceEditComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.selectedPeriodicity = this.periodicityOptions.find( item => item.key === this.resourceToEdit.monitorPeriod / 1000);
-        // console.log(this.selectedPeriodicity);
+        this.selectedPeriodicity = this.periodicityOptions.find( item => item.key === this.resourceToEdit.monitorPeriod);
 
         this.siteFormGroup = this.formBuilder.group({
             url: [this.resourceToEdit.url, [Validators.required, Validators.pattern(this.urlRegex)]],
-            periodicity: [this.selectedPeriodicity, Validators.required],
+            periodicity: [this.selectedPeriodicity.key, Validators.required],
             isActivated: [this.resourceToEdit.isMonitorActivated]
         });
-
-        console.log(this.siteFormGroup.get('periodicity').value);
       }
 
     get getUrl() {
@@ -55,11 +52,10 @@ export class ResourceEditComponent implements OnInit {
     }
 
     comparePeriodicity(object1: SelectionOption, object2: SelectionOption) {
-        return object1 && object2 && object1.key === object2.key;
+        return object1 && object2 && object1 === object2;
     }
 
     closeDialog() {
-        console.log(this.getActivationState.value);
         this.dialog.closeAll();
     }
 
