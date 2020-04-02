@@ -51,13 +51,11 @@ namespace Monitor.StepperLogic
         /// <returns></returns>
         public async Task<ResourceScanResultModel> RetrieveRecords(RetrieveRecordModel model, ILambdaContext context)
         {
-            context.Logger.LogLine($"---------- RetrieveRecords  from DB with Periodicity [{(model.Periodicity * 1000)} milisec] ----------");
-
-            //TODO: retrieve monitor activate only (i.e. isMonitorActivated=true)
+            context.Logger.LogLine($"---------- RetrieveRecords  from DB with Periodicity [{(model.Periodicity)} milisec] ----------");
 
             var resourceConditions = new List<ScanCondition>
             {
-               new ScanCondition("MonitorPeriod", ScanOperator.Equal, (model.Periodicity * 1000)),
+               new ScanCondition("MonitorPeriod", ScanOperator.Equal, model.Periodicity),
                new ScanCondition("IsMonitorActivated", ScanOperator.Equal, 1)
             };
 
@@ -78,7 +76,6 @@ namespace Monitor.StepperLogic
 
             foreach (var item in model.ResourcesStatuses)
             {
-                //TODO: set limit to monitor under 1k sites + paging
                 var lamdaRequest = new InvokeRequest
                 {
                     FunctionName = "MonitorStepperLogic-GetResourceStatusTask-P53XRWMQLD3Z",

@@ -41,7 +41,6 @@ export class ResourceAddComponent {
     }
 
     closeDialog() {
-        console.log(this.getActivationState.value);
         this.dialog.closeAll();
     }
 
