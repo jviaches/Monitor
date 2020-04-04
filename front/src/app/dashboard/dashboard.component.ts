@@ -140,7 +140,11 @@ export class DashboardComponent implements OnInit {
   }
 
   logOff() {
-    this.authService.logOut();
-    window.location.reload();
+    this.generalService.showYesNoModalMessage().subscribe( data => {
+      if (data === 'yes') {
+        this.authService.logOut();
+        window.location.reload();
+      }
+    });
   }
 }

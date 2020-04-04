@@ -102,7 +102,7 @@ namespace Monitor.StepperLogic
                 catch (Exception e)
                 {
                     context.Logger.LogLine($"Exception Occured: {e}");
-                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, "ERR"));
+                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, "000"));
                 }
             }
 
@@ -143,8 +143,6 @@ namespace Monitor.StepperLogic
         public async Task<string> GetResourceStatus(string url, ILambdaContext context)
         {
             //TODO: improve by checking existing URL + Status code
-            //TODO: on exception => send email to customer email
-
             context.Logger.LogLine($"---------- GetResourceStatus Invocation: [{url}] ----------");
 
             try
