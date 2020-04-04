@@ -42,13 +42,14 @@
             <mat-expansion-panel *ngFor="let resource of activeResources">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        <div class="resource-name-list-item">
+                        <div>
                             {{resource.url}}
                         </div>
                     </mat-panel-title>
                     <mat-panel-description class="resource-wrapper">
                         <div class="resource-date-list-item">
-                            <span class="material-icons" matTooltip="Last activation date" matTooltipPosition="before">watch_later</span>{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}
+                            <span class="material-icons baseline" matTooltip="Last activation date" matTooltipPosition="before">watch_later</span>
+                            <span class="activation-date">{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}</span>
                         </div>
                         <div class="resource-type-list-item">
                             {{resource.monitorPeriod | periodicy}}
@@ -89,18 +90,19 @@
         <mat-expansion-panel *ngFor="let resource of inActiveResources">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <div class="resource-name-list-item">
+                    <div>
                         {{resource.url}}
                     </div>
                 </mat-panel-title>
                 <mat-panel-description class="resource-wrapper">
                     <div class="resource-date-list-item">
-                        {{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}
+                        <span class="material-icons" matTooltip="Last activation date" matTooltipPosition="before">watch_later</span>
+                        <span class="activation-date">{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}</span>
                     </div>
                     <div class="resource-type-list-item">
                         {{resource.monitorPeriod | periodicy}}
                     </div>
-                    <div>
+                    <div lass="resource-status-item">
                         <container-element [ngSwitch]="resource.status">
                             <div *ngSwitchCase="200">
                                 <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>

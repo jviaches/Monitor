@@ -25,21 +25,22 @@
 
 .resource-wrapper {
   display: flex;
-  justify-content: flex-end;
-}
-
-.resource-name-list-item {
-  flex: 10 0 0;
-  flex-grow: 10;
-  //  margin-left: auto;
+  //justify-content: flex-end;
 }
 
 .resource-date-list-item {
-  flex: 0.4 0 0;
+  //flex: 0.4 0 0;
+  width: 50%;
 }
 
 .resource-type-list-item {
-  flex: 0.2 0 0;
+  //flex: 0.2 0 0;
+  width: 50%;
+}
+
+.resource-status-item {
+  //flex: 0.4 0 0;
+  width: 45%;
 }
 
 .widget {
@@ -63,4 +64,17 @@
       margin: 5px;
     }
   }
+}
+
+.mat-expansion-panel-header-title{
+  width: 50%;
+  flex-grow: 0;
+}
+
+.activation-date {
+  margin-left: 5px;
+}
+
+.baseline {
+  vertical-align: middle;
 }
