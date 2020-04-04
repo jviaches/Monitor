@@ -7,20 +7,20 @@
                     <div class="logo-box">
                         <a href="index.html"><img src="assets/img/landing/logo.png" alt="" height="80" title=""></a>
                     </div>
-                    <!-- <div *ngIf="customer">
+                    <div *ngIf="authService.isLoggedIn()">
                         <a href="/dashboard" class="theme-btn btn-style-one">Dashboard</a>
                         &nbsp;
                         &nbsp;
                         &nbsp;
                         <a [routerLink]="" (click)="logOut()" class="theme-btn btn-style-one">Log out</a>
                     </div>
-                    <div *ngIf="!customer"> -->
-                        <!-- <a href="/login" class="theme-btn btn-style-one">Log In</a>
+                    <div *ngIf="!authService.isLoggedIn()">
+                        <a href="/login" class="theme-btn btn-style-one">Log In</a>
                         &nbsp;
                         &nbsp;
                         &nbsp;
-                        <a href="/register" class="theme-btn btn-style-one">Register</a> -->
-                    <!-- </div> -->
+                        <a href="/register" class="theme-btn btn-style-one">Register</a>
+                    </div>
                 </div>
             </div>
         </div>

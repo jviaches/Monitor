@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AuthorizationService } from '../core/services/authentication.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,13 +11,14 @@ export class LandingPageComponent implements OnInit {
   @ViewChild('submitBtn', { read: ElementRef, static: false }) submitButton: ElementRef;
   @ViewChild('mainHeader', { read: ElementRef, static: false }) mainHeader: ElementRef;
 
-  constructor() {
+  constructor(public authService: AuthorizationService) {
   }
 
   ngOnInit() {
   }
 
   logOut() {
+    this.authService.logOut();
     window.location.reload();
   }
 

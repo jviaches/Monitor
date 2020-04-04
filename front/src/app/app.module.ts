@@ -8,7 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { LandingPageComponent } from './landing/landing.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PeriodicyPipe } from './core/pipes/periodicy.pipe';
 import { ChartModule } from 'angular-highcharts';
 import { ModalDialogComponent } from './core/components/modal-dialog/modal-dialog.component';
@@ -18,6 +18,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorInterceptor } from './core/interceptors/error-interceptor';
 import { ResourceEditComponent } from './resources/resource-edit/resource-edit.component';
 import { ModalYesNoDialogComponent } from './core/components/yesno-modal-dialog/yesno-modal-dialog.component';
+import { AuthorizationService } from './core/services/authentication.service';
+import { LoginComponent } from './user/user-login/user-login.component';
+import { JwtInterceptor } from './core/interceptors/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { ModalYesNoDialogComponent } from './core/components/yesno-modal-dialog/
     ModalDialogComponent,
     ModalYesNoDialogComponent,
     ResourceAddComponent,
-    ResourceEditComponent
+    ResourceEditComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
@@ -36,11 +40,12 @@ import { ModalYesNoDialogComponent } from './core/components/yesno-modal-dialog/
     BrowserAnimationsModule,
     MaterialModule,
     ChartModule,
-    HttpClientModule,
+    HttpClientModule, HttpClientJsonpModule,
     FormsModule, ReactiveFormsModule
   ],
-  providers: [ ResourceService, GeneralService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }],
+  providers: [ ResourceService, GeneralService, AuthorizationService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent],
   entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent]
 })

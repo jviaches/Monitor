@@ -11,6 +11,8 @@ import { ModalYesNoDialogComponent } from '../components/yesno-modal-dialog/yesn
 
 export class GeneralService {
 
+    URL = 'https://localhost:44356/api/';
+
     constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
     }
 

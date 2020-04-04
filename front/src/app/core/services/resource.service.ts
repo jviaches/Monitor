@@ -2,27 +2,28 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IResource } from '../models/resource.model';
+import { GeneralService } from './general.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ResourceService {
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, private generalService: GeneralService) { }
 
     getResources(userId: number): Observable<IResource[]> {
-        return this.httpClient.get<IResource[]>(`https://localhost:44356/api/Resources/GetByUserId/${userId}`);
+        return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${userId}`);
     }
 
     addResource(resource: any): Observable<any> {
-        return this.httpClient.post<any>('https://localhost:44356/api/Resources', resource);
+        return this.httpClient.post<any>(this.generalService.URL + 'Resources', resource);
     }
 
     updateResource(resource: any): Observable<any> {
-        return this.httpClient.post<any>('https://localhost:44356/api/Resources/Update', resource);
+        return this.httpClient.post<any>(this.generalService.URL + 'Resources/Update', resource);
     }
 
     deleteResource(resource: any): Observable<any> {
-        return this.httpClient.request('delete', 'https://localhost:44356/api/Resources', { body: resource });
+        return this.httpClient.request('delete', this.generalService.URL + 'Resources', { body: resource });
     }
 }

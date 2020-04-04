@@ -1,0 +1,26 @@
+<div class="wrapper" style="background-image: url('assets/img/background/shape-11.png'); background-size: cover;">
+    <div id="formContent">
+        <br>
+        <h3>Account Login</h3>
+        <br>
+
+        <form [formGroup]="loginForm" role="form" name="loginForm">
+            <mat-form-field class="login-input">
+                <input matInput placeholder="User name" type="text" formControlName="userName" autofocus>
+                <mat-error *ngIf="getUserName.invalid">Please enter a valid user name</mat-error>
+            </mat-form-field>
+            <mat-form-field class="login-input">
+                <input matInput placeholder="Password" type="password" formControlName="password" autofocus>
+                <mat-error *ngIf="getPassword.invalid">Please enter a valid password</mat-error>
+            </mat-form-field>
+            <input type="submit" class="widget spacer-10" value="Log In" (click)="doLogin()" [disabled]="isInValid()">
+        </form>
+
+        <div id="formFooter">
+            <div class="row">
+                <a href="/register">Registration</a>
+                <a href="/password-recovery">Forgot password</a>
+            </div>
+        </div>
+    </div>
+</div>

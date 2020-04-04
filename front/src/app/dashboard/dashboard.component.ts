@@ -1,14 +1,13 @@
 import { ResourceService } from './../core/services/resource.service';
 import { Component, OnInit } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
 import { IResource } from '../core/models/resource.model';
 import { Chart } from 'angular-highcharts';
 import { Options, PointOptionsObject, Point } from 'highcharts';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ResourceAddComponent } from '../resources/resource-add/resource-add.component';
 import { ResourceEditComponent } from '../resources/resource-edit/resource-edit.component';
 import { GeneralService } from '../core/services/general.service';
+import { AuthorizationService } from '../core/services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,12 +19,12 @@ export class DashboardComponent implements OnInit {
   resources: IResource[] = [];
   activeResources: IResource[] = [];
   inActiveResources: IResource[] = [];
-
   chartMap: Map<number, Chart>;
 
   panelOpenState = false;
 
-  constructor(private resourceService: ResourceService, public dialog: MatDialog, private generalService: GeneralService) {
+  constructor(private resourceService: ResourceService, public dialog: MatDialog,
+              private generalService: GeneralService, public authService: AuthorizationService) {
   }
 
   ngOnInit(): void {
@@ -138,5 +137,10 @@ export class DashboardComponent implements OnInit {
         });
       }
     });
+  }
+
+  logOff() {
+    this.authService.logOut();
+    window.location.reload();
   }
 }
