@@ -48,13 +48,23 @@
                     </mat-panel-title>
                     <mat-panel-description class="resource-wrapper">
                         <div class="resource-date-list-item">
-                            {{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}
+                            <span class="material-icons" matTooltip="Last activation date" matTooltipPosition="before">watch_later</span>{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}
                         </div>
                         <div class="resource-type-list-item">
-                            {{resource.monitorActivationType | periodicy}}
+                            {{resource.monitorPeriod | periodicy}}
                         </div>
                         <div>
-                            {{ resource.status }}
+                            <container-element [ngSwitch]="resource.status">
+                                <div *ngSwitchCase="200">
+                                    <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
+                                </div>
+                                <div *ngSwitchCase="000">
+                                    <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
+                                </div> 
+                                <div *ngSwitchDefault>
+                                    <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
+                                </div>
+                            </container-element>
                         </div>
                     </mat-panel-description>
                 </mat-expansion-panel-header>
@@ -88,10 +98,20 @@
                         {{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}
                     </div>
                     <div class="resource-type-list-item">
-                        {{resource.monitorActivationType | periodicy}}
+                        {{resource.monitorPeriod | periodicy}}
                     </div>
                     <div>
-                        {{ resource.status }}
+                        <container-element [ngSwitch]="resource.status">
+                            <div *ngSwitchCase="200">
+                                <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
+                            </div>
+                            <div *ngSwitchCase="000">
+                                <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
+                            </div> 
+                            <div *ngSwitchDefault>
+                                <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
+                            </div>
+                        </container-element>
                     </div>
                 </mat-panel-description>
             </mat-expansion-panel-header>

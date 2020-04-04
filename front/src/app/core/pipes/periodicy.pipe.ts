@@ -1,22 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Periodicy } from '../enums/periodicy';
+import { SelectionOptions } from '../shared/selection-options';
 
 @Pipe({name: 'periodicy'})
 export class PeriodicyPipe implements PipeTransform {
-  transform(periodicy: string): string {
+  transform(periodicy: number): string {
 
-    const num = Number(periodicy);
-    switch (num) {
-        case Periodicy.OnceInHour:
-            return 'Houry';
-        case 2: // TODO: Periodicy.OnceInDay
-            return 'Daily';
-        case 3: // TODO: Periodicy.OnceInWeek
-            return 'Weekly';
-        case 4: // TODO: Periodicy.OnceInMonth
-            return 'Monthly';
-        default:
-            return '-';
+    const periodicity = SelectionOptions.periodicityOptions().find( item => item.key === periodicy);
+    if (periodicity) {
+        return periodicity.value;
     }
+    return '-';
   }
 }
