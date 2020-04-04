@@ -21,6 +21,8 @@ import { ModalYesNoDialogComponent } from './core/components/yesno-modal-dialog/
 import { AuthorizationService } from './core/services/authentication.service';
 import { LoginComponent } from './user/user-login/user-login.component';
 import { JwtInterceptor } from './core/interceptors/jwt-interceptor.service';
+import { RegisterComponent } from './user/user-register/user-register.component';
+import { UserConfirmationComponent } from './user/user-confirmation/user-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { JwtInterceptor } from './core/interceptors/jwt-interceptor.service';
     ModalYesNoDialogComponent,
     ResourceAddComponent,
     ResourceEditComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    UserConfirmationComponent
   ],
   imports: [
     AppRoutingModule,
