@@ -2,7 +2,6 @@ import { ResourceService } from './../core/services/resource.service';
 import { Component, OnInit } from '@angular/core';
 import { IResource } from '../core/models/resource.model';
 import { Chart } from 'angular-highcharts';
-import { Options, PointOptionsObject, Point } from 'highcharts';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ResourceAddComponent } from '../resources/resource-add/resource-add.component';
 import { ResourceEditComponent } from '../resources/resource-edit/resource-edit.component';
