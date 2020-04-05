@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getResources() {
-    this.resourceService.getResources(1).subscribe(resource => {
+    this.resourceService.getResources().subscribe(resource => {
       this.resources = resource;
       this.setResourceStatus(resource);
       this.buildHistoryStatusChart(resource);
