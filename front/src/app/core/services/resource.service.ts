@@ -3,16 +3,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IResource } from '../models/resource.model';
 import { GeneralService } from './general.service';
+import { AuthorizationService } from './authentication.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ResourceService {
 
-    constructor(private httpClient: HttpClient, private generalService: GeneralService) { }
+    constructor(private httpClient: HttpClient, private generalService: GeneralService, private authService: AuthorizationService) { }
 
-    getResources(userId: number): Observable<IResource[]> {
-        return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${userId}`);
+    getResources(): Observable<IResource[]> {
+        // tslint:disable-next-line:max-line-length
+        return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${this.authService.getAuthenticatedUser().getUsername()}`);
     }
 
     addResource(resource: any): Observable<any> {

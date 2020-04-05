@@ -5,6 +5,7 @@ import { ResourceService } from 'src/app/core/services/resource.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SelectionOptions } from 'src/app/core/shared/selection-options';
 import { GeneralService } from 'src/app/core/services/general.service';
+import { AuthorizationService } from 'src/app/core/services/authentication.service';
 
 @Component({
     selector: 'app-root',
@@ -19,7 +20,7 @@ export class ResourceAddComponent {
 
     constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) { data }: DialogData,
                 private resourceService: ResourceService, private formBuilder: FormBuilder,
-                private generalService: GeneralService) {
+                private generalService: GeneralService, private authService: AuthorizationService) {
 
         this.siteFormGroup = this.formBuilder.group({
             url: ['', [Validators.required, Validators.pattern(this.urlRegex)]],
@@ -54,7 +55,7 @@ export class ResourceAddComponent {
 
         const resource = {
             url: this.getUrl.value + '',
-            userId: '1',
+            userId: this.authService.getAuthenticatedUser().getUsername(),
             monitorPeriod: this.getPeriodicity.value,
             isMonitorActivated: this.getActivationState.value === true ? '1' : '0',
             monitorActivationDate: new Intl.DateTimeFormat('en-US', timeOptions).format(new Date()).toString()

@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SelectionOptions, SelectionOption } from 'src/app/core/shared/selection-options';
 import { GeneralService } from 'src/app/core/services/general.service';
 import { IResource } from 'src/app/core/models/resource.model';
+import { AuthorizationService } from 'src/app/core/services/authentication.service';
 
 @Component({
     selector: 'app-root',
@@ -23,7 +24,7 @@ export class ResourceEditComponent implements OnInit {
 
     constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) { data }: DialogData,
                 private resourceService: ResourceService, private formBuilder: FormBuilder,
-                private generalService: GeneralService) {
+                private generalService: GeneralService, private authService: AuthorizationService) {
 
         this.resourceToEdit = data;
     }
@@ -70,7 +71,7 @@ export class ResourceEditComponent implements OnInit {
         const resource = {
             id: this.resourceToEdit.id,
             url: this.getUrl.value + '',
-            userId: '1',
+            userId: this.authService.getAuthenticatedUser().getUsername(),
             monitorPeriod: this.getPeriodicity.value,
             isMonitorActivated: this.getActivationState.value === true ? '1' : '0',
             monitorActivationDate: new Intl.DateTimeFormat('en-US', timeOptions).format(new Date()).toString()
