@@ -11,9 +11,9 @@
             </mat-form-field>
             <mat-form-field class="login-input">
                 <input matInput placeholder="Password" type="password" formControlName="password" autofocus>
-                <mat-error *ngIf="getPassword.invalid">Please enter a valid password</mat-error>
+                <mat-error *ngIf="getPassword.invalid">Please enter a valid password with minimal length of 8 characters</mat-error>
             </mat-form-field>
-            <input type="submit" class="widget spacer-10" value="Log In" (click)="doLogin()" [disabled]="isInValid()">
+            <input type="submit" class="widget spacer-20" value="Log In" (click)="doLogin()" [disabled]="isInValid()">
         </form>
 
         <div id="formFooter">
