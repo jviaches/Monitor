@@ -6,10 +6,6 @@
 
         <form [formGroup]="loginForm" role="form" name="loginForm">
             <mat-form-field class="login-input">
-                <input matInput placeholder="User name" type="text" formControlName="userName" autofocus>
-                <mat-error *ngIf="getUserName.invalid">Please enter a valid user name</mat-error>
-            </mat-form-field>
-            <mat-form-field class="login-input">
                 <input matInput placeholder="Email" type="text" formControlName="email">
                 <mat-error *ngIf="getEmail.invalid">Please enter a valid email</mat-error>
             </mat-form-field>
@@ -21,7 +17,7 @@
                 <input matInput placeholder="Confirm Password" type="password" formControlName="passwordConfirm">
                 <mat-error *ngIf="getPasswordConfirm.hasError('NoPassswordMatch')">Passwords should be identical</mat-error>
             </mat-form-field>
-            <input type="submit" class="widget spacer-20" value="Registration" (click)="doRegister()" [disabled]="isInValid()">
+            <input type="submit" class="widget spacer-20" value="Registration" (click)="doRegister()">
         </form>
 
         <div id="formFooter">

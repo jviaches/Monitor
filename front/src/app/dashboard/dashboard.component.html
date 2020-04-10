@@ -48,7 +48,7 @@
                             {{resource.monitorPeriod | periodicy}}
                         </div>
                         <div>
-                            <container-element [ngSwitch]="resource.status">
+                            <!-- <container-element [ngSwitch]="resource.status">
                                 <div *ngSwitchCase="200">
                                     <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
                                 </div>
@@ -58,12 +58,12 @@
                                 <div *ngSwitchDefault>
                                     <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
                                 </div>
-                            </container-element>
+                            </container-element> -->
                         </div>
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="widget">
-                    <div class="graph" [chart]="chartMap[resource.id]"></div>
+                    <!-- <div class="graph" [chart]="chartMap[resource.id]"></div> -->
                     <div class="actions">
                         <button class="mat-raised-button" (click)="editResource(resource)">Update</button>
                         <button class="mat-raised-button" (click)="deleteResource(resource)">Delete</button>
@@ -92,7 +92,7 @@
                     <div class="resource-type-list-item">
                         {{resource.monitorPeriod | periodicy}}
                     </div>
-                    <div lass="resource-status-item">
+                    <!-- <div lass="resource-status-item">
                         <container-element [ngSwitch]="resource.status">
                             <div *ngSwitchCase="200">
                                 <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
@@ -104,11 +104,11 @@
                                 <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
                             </div>
                         </container-element>
-                    </div>
+                    </div> -->
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="widget">
-                <div class="graph" [chart]="chartMap[resource.id]"></div>
+                <!-- <div class="graph" [chart]="chartMap[resource.id]"></div> -->
                 <div class="actions">
                     <button class="mat-raised-button" (click)="editResource(resource)">Update</button>
                     <button class="mat-raised-button" (click)="deleteResource(resource)">Delete</button>

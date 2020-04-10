@@ -13,8 +13,7 @@ export class ResourceService {
     constructor(private httpClient: HttpClient, private generalService: GeneralService, private authService: AuthorizationService) { }
 
     getResources(): Observable<IResource[]> {
-        // tslint:disable-next-line:max-line-length
-        return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${this.authService.getAuthenticatedUser().getUsername()}`);
+        return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${this.authService.getUserName()}`);
     }
 
     addResource(resource: any): Observable<any> {

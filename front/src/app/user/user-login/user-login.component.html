@@ -1,19 +1,19 @@
 <div class="wrapper" style="background-image: url('assets/img/background/shape-11.png'); background-size: cover;">
-    <div id="formContent">
+        <div id="formContent">
         <br>
         <h3>Account Login</h3>
         <br>
 
         <form [formGroup]="loginForm" role="form" name="loginForm">
             <mat-form-field class="login-input">
-                <input matInput placeholder="User name" type="text" formControlName="userName" autofocus>
-                <mat-error *ngIf="getUserName.invalid">Please enter a valid user name</mat-error>
+                <input matInput placeholder="Email" type="text" formControlName="email" autofocus>
+                <mat-error *ngIf="getEmil.invalid">Please enter a valid user name</mat-error>
             </mat-form-field>
             <mat-form-field class="login-input">
                 <input matInput placeholder="Password" type="password" formControlName="password" autofocus>
                 <mat-error *ngIf="getPassword.invalid">Please enter a valid password with minimal length of 8 characters</mat-error>
             </mat-form-field>
-            <input type="submit" class="widget spacer-20" value="Log In" (click)="doLogin()" [disabled]="isInValid()">
+            <input type="submit" class="widget spacer-20" value="Log In" (click)="doLogin()">
         </form>
 
         <div id="formFooter">

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AmplifyService } from 'aws-amplify-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'front';
+
+  constructor(private router: Router, public amplifyService: AmplifyService) {
+  }
 }

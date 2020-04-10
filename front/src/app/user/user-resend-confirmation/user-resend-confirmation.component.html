@@ -1,0 +1,15 @@
+<div class="wrapper" style="background-image: url('assets/img/background/shape-11.png'); background-size: cover;">
+    <div id="formContent">
+        <br>
+        <h3>Send verification code</h3>
+        <br>
+
+        <form [formGroup]="codeForm" role="form" name="codeForm">
+            <mat-form-field class="login-input">
+                <input matInput placeholder="Email" type="text" formControlName="email" autofocus>
+                <mat-error *ngIf="getEmail.invalid">Please enter a valid email</mat-error>
+            </mat-form-field>          
+            <input type="submit" class="widget spacer-20" value="Resend code" (click)="resendCode()" [disabled]="isInValid()">
+        </form>
+    </div>
+</div>

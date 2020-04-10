@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralService } from 'src/app/core/services/general.service';
+import { UserResendConfirmationComponent } from '../user-resend-confirmation/user-resend-confirmation.component';
+import { AuthFlow } from 'src/app/core/enums/enums';
+import { AuthorizationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-user-confirmation',
@@ -12,30 +14,37 @@ import { GeneralService } from 'src/app/core/services/general.service';
 export class UserConfirmationComponent implements OnInit {
 
   codeForm: FormGroup;
+  authFlow: AuthFlow;
 
-  constructor(private fb: FormBuilder, private authService: AuthorizationService,
-              private router: Router, private generalService: GeneralService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private generalService: GeneralService,
+              private authService: AuthorizationService, private router: Router) {
     this.codeForm = this.fb.group({
-      userName: ['', [Validators.required, Validators.maxLength(20)]],
+      email: ['', [Validators.required, Validators.email]],
       code: ['', [Validators.required, Validators.maxLength(20)]],
     });
+
+    this.authFlow = (AuthFlow)[this.route.snapshot.paramMap.get('id')];
+    console.log(this.authFlow);
   }
 
   ngOnInit() {
   }
 
   doValidate() {
-    this.authService.confirmAuthCode(this.getCode.value, this.getUserName.value).subscribe(data => {
-      if (data === 'SUCCESS') {
-        this.router.navigateByUrl('/login');
-      }
-    },
-      err => this.generalService.showActionConfirmation('Combination of user name and validation code is invalid.')
-    );
+    if (this.authFlow.toString() === AuthFlow[AuthFlow.Register]) {
+      this.authService.confirmSignUp(this.getEmail.value, this.getCode.value);
+    } else if (this.authFlow.toString() === AuthFlow[AuthFlow.ForgetPassword]) {
+      this.router.navigateByUrl('/new-password');
+    }
   }
 
-  get getUserName() {
-    return this.codeForm.get('userName');
+  resendCode() {
+    // this.generalService.showModalComponent(UserResendConfirmationComponent, 'Send confirmation code');
+    this.router.navigateByUrl('/resend-code');
+  }
+
+  get getEmail() {
+    return this.codeForm.get('email');
   }
 
   get getCode() {

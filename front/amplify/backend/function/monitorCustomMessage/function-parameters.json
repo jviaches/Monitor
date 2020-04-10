@@ -1,0 +1,24 @@
+{
+    "trigger": true,
+    "modules": [
+        "verification-link"
+    ],
+    "parentResource": "monitor",
+    "functionName": "monitorCustomMessage",
+    "resourceName": "monitorCustomMessage",
+    "parentStack": "auth",
+    "triggerEnvs": [
+        {
+            "key": "RESOURCENAME",
+            "value": "resourceName"
+        }
+    ],
+    "triggerDir": "C:\\Users\\HP\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\amplify-category-auth\\provider-utils\\awscloudformation\\utils/../triggers/CustomMessage",
+    "triggerTemplate": "CustomMessage.json.ejs",
+    "roleName": "monitorCustomMessage",
+    "skipEdit": true,
+    "REDIRECTURL": "http://localhost:4200/dashboard",
+    "EMAILSUBJECT": "",
+    "EMAILMESSAGE": "",
+    "RESOURCENAME": "resourceName"
+}

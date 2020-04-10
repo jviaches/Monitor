@@ -1,0 +1,16 @@
+{
+    "trigger": true,
+    "modules": [
+        "add-to-group"
+    ],
+    "parentResource": "monitor",
+    "functionName": "monitorPostConfirmation",
+    "resourceName": "monitorPostConfirmation",
+    "parentStack": "auth",
+    "triggerEnvs": [],
+    "triggerDir": "C:\\Users\\HP\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\amplify-category-auth\\provider-utils\\awscloudformation\\utils/../triggers/PostConfirmation",
+    "triggerTemplate": "PostConfirmation.json.ejs",
+    "roleName": "monitorPostConfirmation",
+    "skipEdit": true,
+    "GROUP": "user"
+}

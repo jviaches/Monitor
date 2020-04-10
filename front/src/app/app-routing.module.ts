@@ -6,12 +6,18 @@ import { LoginComponent } from './user/user-login/user-login.component';
 import { AuthGuard } from './core/guards/auth-guard';
 import { RegisterComponent } from './user/user-register/user-register.component';
 import { UserConfirmationComponent } from './user/user-confirmation/user-confirmation.component';
+import { UserForgetPasswordComponent } from './user/user-forget-password/user-forget-passwordcomponent';
+import { UserNewPasswordComponent } from './user/user-new-password/user-new-password.component';
+import { UserResendConfirmationComponent } from './user/user-resend-confirmation/user-resend-confirmation.component';
 
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'user-confirmation', component: UserConfirmationComponent },
+  { path: 'user-confirmation/:id', component: UserConfirmationComponent },
+  { path: 'password-recovery', component: UserForgetPasswordComponent },
+  { path: 'new-password', component: UserNewPasswordComponent },
+  { path: 'resend-code', component: UserResendConfirmationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 ];

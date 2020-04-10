@@ -71,7 +71,7 @@ export class ResourceEditComponent implements OnInit {
         const resource = {
             id: this.resourceToEdit.id,
             url: this.getUrl.value + '',
-            userId: this.authService.getAuthenticatedUser().getUsername(),
+            userId: this.authService.getUserName(),
             monitorPeriod: this.getPeriodicity.value,
             isMonitorActivated: this.getActivationState.value === true ? '1' : '0',
             monitorActivationDate: new Intl.DateTimeFormat('en-US', timeOptions).format(new Date()).toString()

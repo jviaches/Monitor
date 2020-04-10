@@ -6,8 +6,8 @@
 
         <form [formGroup]="codeForm" role="form" name="codeForm">
             <mat-form-field class="login-input">
-                <input matInput placeholder="User name" type="text" formControlName="userName" autofocus>
-                <mat-error *ngIf="getUserName.invalid">Please enter a valid user name</mat-error>
+                <input matInput placeholder="Email" type="text" formControlName="email" autofocus>
+                <mat-error *ngIf="getEmail.invalid">Please enter a valid email</mat-error>
             </mat-form-field>          
             <mat-form-field class="login-input">
                 <input matInput placeholder="Validation code" type="text" formControlName="code" autofocus>
@@ -19,6 +19,7 @@
         <div id="formFooter">
             <div class="row">
                 <span>Hint: we sent you verification code by email.</span>
+                <a [routerLink]="" (click)="resendCode()">Resend code</a>
             </div>
         </div>
     </div>
