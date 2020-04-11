@@ -47,18 +47,16 @@
                         <div class="resource-type-list-item">
                             {{resource.monitorPeriod | periodicy}}
                         </div>
-                        <div>
-                            <!-- <container-element [ngSwitch]="resource.status">
-                                <div *ngSwitchCase="200">
-                                    <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
-                                </div>
-                                <div *ngSwitchCase="000">
-                                    <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
-                                </div> 
-                                <div *ngSwitchDefault>
-                                    <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
-                                </div>
-                            </container-element> -->
+                        <div [ngSwitch]="resource.status">
+                            <div *ngSwitchCase="200">
+                                <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
+                            </div>
+                            <div *ngSwitchCase="000">
+                                <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
+                            </div> 
+                            <div *ngSwitchDefault>
+                                <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
+                            </div>
                         </div>
                     </mat-panel-description>
                 </mat-expansion-panel-header>
@@ -92,19 +90,17 @@
                     <div class="resource-type-list-item">
                         {{resource.monitorPeriod | periodicy}}
                     </div>
-                    <!-- <div lass="resource-status-item">
-                        <container-element [ngSwitch]="resource.status">
-                            <div *ngSwitchCase="200">
-                                <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
-                            </div>
-                            <div *ngSwitchCase="000">
-                                <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
-                            </div> 
-                            <div *ngSwitchDefault>
-                                <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
-                            </div>
-                        </container-element>
-                    </div> -->
+                    <div [ngSwitch]="resource.status">
+                        <div *ngSwitchCase="200">
+                            <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
+                        </div>
+                        <div *ngSwitchCase="000">
+                            <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
+                        </div> 
+                        <div *ngSwitchDefault>
+                            <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
+                        </div>
+                    </div>
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="widget">
