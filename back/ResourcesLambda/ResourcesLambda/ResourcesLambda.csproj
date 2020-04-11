@@ -6,6 +6,8 @@
     <UserSecretsId>0245f94c-1cb4-46a4-95bd-71628d472ce9</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Amazon.AspNetCore.Identity.Cognito" Version="1.0.4" />
+    <PackageReference Include="AWSSDK.CognitoIdentityProvider" Version="3.3.109.12" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.105.14" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="AWSSDK.S3" Version="3.3.110.38" />

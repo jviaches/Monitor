@@ -24,7 +24,6 @@ export class UserConfirmationComponent implements OnInit {
     });
 
     this.authFlow = (AuthFlow)[this.route.snapshot.paramMap.get('id')];
-    console.log(this.authFlow);
   }
 
   ngOnInit() {

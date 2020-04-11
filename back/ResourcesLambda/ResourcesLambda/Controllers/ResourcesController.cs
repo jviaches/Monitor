@@ -1,7 +1,8 @@
-﻿using System;
+﻿  using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monitor.Core.Interfaces;
 using Monitor.Core.Validations;
@@ -9,6 +10,7 @@ using Monitor.Core.ViewModels;
 
 namespace ResourcesLambda.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ResourcesController : ControllerBase
@@ -29,6 +31,7 @@ namespace ResourcesLambda.Controllers
         }
 
         // GET: api/Resources/5
+        //[Authorize(Policy = "Admin")]
         [Route("[action]/{id}")]
         [HttpGet]
         public async Task<IEnumerable<ResourceResultViewModel>> GetByUserId(string id)
@@ -62,6 +65,7 @@ namespace ResourcesLambda.Controllers
             return Ok();
         }
 
+        //[Authorize(Policy = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody] UpdateResourceViewModel viewModel)
         {

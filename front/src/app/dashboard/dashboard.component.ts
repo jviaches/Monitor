@@ -56,7 +56,6 @@ export class DashboardComponent implements OnInit {
   }
 
   onSelect(event) {
-    console.log(event);
   }
 
   // private buildHistoryStatusChart(resources: IResource[]) {

@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Amazon.Runtime;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Monitor.Core.Interfaces;
 using Monitor.Core.Settings;
+using Newtonsoft.Json;
 using ResourcesLambda.Services;
 
 namespace ResourcesLambda
@@ -49,6 +49,40 @@ namespace ResourcesLambda
             services.Configure<Credentials>(awsCredential, binderOptions => binderOptions.BindNonPublicProperties = true);
             services.AddSingleton(provider => provider.GetService<IOptions<Credentials>>().Value);
             services.AddScoped<IResourceService, ResourceService>();
+
+            //services.AddCognitoIdentity();
+            var Region = Configuration["AWSCognito:Region"];
+            var PoolId = Configuration["AWSCognito:PoolId"];
+            var AppClientId = Configuration["AWSCognito:AppClientId"];
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            IssuerSigningKeyResolver = (s, securityToken, identifier, parameters) =>
+                            {
+                                // get JsonWebKeySet from AWS
+                                var json = new WebClient().DownloadString(parameters.ValidIssuer + "/.well-known/jwks.json");
+                                // serialize the result
+                                var keys = JsonConvert.DeserializeObject<JsonWebKeySet>(json).Keys;
+                                // cast the result to be the type expected by IssuerSigningKeyResolver
+                                return (IEnumerable<SecurityKey>)keys;
+                            },
+
+                            ValidIssuer = $"https://cognito-idp.{Region}.amazonaws.com/{PoolId}",
+                            ValidateIssuerSigningKey = true,
+                            ValidateIssuer = true,
+                            ValidateLifetime = true,
+                            ValidAudience = AppClientId,
+                            ValidateAudience = true
+                        };
+                    });
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("Admin", policy => policy.RequireClaim("custom:groupId", new List<string> { "0" }));
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -61,6 +95,7 @@ namespace ResourcesLambda
             else
                 app.UseHsts();
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

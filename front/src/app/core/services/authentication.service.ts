@@ -97,6 +97,10 @@ export class AuthorizationService {
     return localStorage.getItem('user') !== null;
   }
 
+  getUserToken(): string {
+    return JSON.parse(localStorage.getItem('user')).signInUserSession.idToken.jwtToken;
+  }
+
   logOut() {
     Auth.signOut({ global: true }).finally(() => {
       localStorage.removeItem('user');

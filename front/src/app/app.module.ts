@@ -29,6 +29,7 @@ import Storage from '@aws-amplify/storage';
 import { UserResendConfirmationComponent } from './user/user-resend-confirmation/user-resend-confirmation.component';
 import { UserForgetPasswordComponent } from './user/user-forget-password/user-forget-passwordcomponent';
 import { UserNewPasswordComponent } from './user/user-new-password/user-new-password.component';
+import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { UserNewPasswordComponent } from './user/user-new-password/user-new-pass
   ],
   providers: [ ResourceService, GeneralService, AuthorizationService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: AmplifyService, useFactory:  () => {
         return AmplifyModules({
           Auth,
