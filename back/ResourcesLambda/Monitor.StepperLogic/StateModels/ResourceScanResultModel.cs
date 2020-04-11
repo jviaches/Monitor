@@ -19,15 +19,17 @@ namespace Monitor.StepperLogic.StateModels
 
     public class ResourceModel
     {
-        public ResourceModel(string resourceId, string url, string statusCode)
+        public ResourceModel(string resourceId, string url, string statusCode, string ownerId)
         {
             ResourceId = resourceId;
             Url = url;
             StatusCode = statusCode;
+            OwnerId = ownerId;
         }
 
         public string ResourceId { get; set; }
         public string Url { get; set; }
         public string StatusCode { get; set; }
+        public string OwnerId { get; set; }
     }
 }

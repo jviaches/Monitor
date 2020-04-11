@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Amazon;
+using Amazon.CognitoIdentityProvider;
+using Amazon.CognitoIdentityProvider.Model;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
@@ -64,7 +66,7 @@ namespace Monitor.StepperLogic
             };
 
             var resources = await dbContext.ScanAsync<Resource>(resourceConditions).GetRemainingAsync();
-            var urlList = resources.Select(record => new ResourceModel(record.Id, record.Url, string.Empty)).ToList();
+            var urlList = resources.Select(record => new ResourceModel(record.Id, record.Url, string.Empty, record.UserId)).ToList();
 
             var resourceToScanModel = new ResourceScanResultModel() { ResourcesStatuses = urlList };
 
@@ -84,7 +86,7 @@ namespace Monitor.StepperLogic
                 {
                     FunctionName = "MonitorStepperLogic-GetResourceStatusTask-P53XRWMQLD3Z",
                     InvocationType = Amazon.Lambda.InvocationType.RequestResponse,
-                    Payload = JsonConvert.SerializeObject(item.Url)
+                    Payload = JsonConvert.SerializeObject(item)
                 };
 
                 try
@@ -97,12 +99,12 @@ namespace Monitor.StepperLogic
                     var jSerializer = new JsonSerializer();
                     var statusCode = jSerializer.Deserialize(jReader);
 
-                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, statusCode.ToString()));
+                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, statusCode.ToString(), item.OwnerId));
                 }
                 catch (Exception e)
                 {
                     context.Logger.LogLine($"Exception Occured: {e}");
-                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, "000"));
+                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, "000", item.OwnerId));
                 }
             }
 
@@ -128,7 +130,7 @@ namespace Monitor.StepperLogic
                         {"Id", new AttributeValue {S = Guid.NewGuid().ToString()}},
                         {"ResourceId", new AttributeValue {S = item.ResourceId}},
                         {"RequestDate", new AttributeValue {S = DateTime.UtcNow.ToString()}},
-                        {"Result", new AttributeValue {S = item.StatusCode}}
+                        {"Result", new AttributeValue {S = string.IsNullOrEmpty(item.StatusCode) ? "000" : item.StatusCode }}
                     }
                 };
 
@@ -140,34 +142,43 @@ namespace Monitor.StepperLogic
             return model;
         }
 
-        public async Task<string> GetResourceStatus(string url, ILambdaContext context)
+        public async Task<string> GetResourceStatus(ResourceModel resource, ILambdaContext context)
         {
             //TODO: improve by checking existing URL + Status code
-            context.Logger.LogLine($"---------- GetResourceStatus Invocation: [{url}] ----------");
+            context.Logger.LogLine($"---------- GetResourceStatus Invocation: [{resource.Url}] ----------");
 
             try
             {
                 var client = new HttpClient();
-                var result = await client.GetAsync(url);
-                context.Logger.LogLine($"Status code for URL: [{url}] = [{(int)result.StatusCode}]");
+                var result = await client.GetAsync(resource.Url);
+                context.Logger.LogLine($"Status code for URL: [{resource.Url}] = [{(int)result.StatusCode}]");
 
                 return ((int)result.StatusCode).ToString();
             }
             catch (Exception e)
             {
                 context.Logger.LogLine($"Exception occured: [{e}] ");
-                await sendEmail(url, context);
+                await sendEmail(resource, context);
                 return string.Empty;
             }
         }
 
-        private async Task sendEmail(string URL, ILambdaContext context)
+        private async Task sendEmail(ResourceModel resource, ILambdaContext context)
         {
+            context.Logger.LogLine($"---------- Recieved input: {resource} ----------");
+
+            var cognitoidentityserviceprovider = new AmazonCognitoIdentityProviderClient();
+            var resourceOwner = await cognitoidentityserviceprovider.AdminGetUserAsync(
+                                new AdminGetUserRequest() { Username = resource.OwnerId, UserPoolId = "us-east-2_AzTuf9Pg2" });
+
+            var ownerEmail = resourceOwner.UserAttributes[2].Value;
+            context.Logger.LogLine($"resource owner found: {ownerEmail}");
+
             const string senderAddress = "support@projscope.com";
 
             // Replace recipient@example.com with a "To" address. If your account
             // is still in the sandbox, this address must be verified.
-            const string receiverAddress = "jviaches@gmail.com";
+            string receiverAddress = ownerEmail; //"jviaches@gmail.com";
 
             const string subject = "Critical Alert";
             const string textBody = "Amazon SES Test (.NET)\r\n"
@@ -175,15 +186,16 @@ namespace Monitor.StepperLogic
                                             + "using the AWS SDK for .NET.";
 
             // The HTML body of the email.
-            const string htmlBody = @"<html>
+            string htmlBody = @"<html>
             <head></head>
             <body>
               <h1>Amazon SES Test (AWS SDK for .NET)</h1>
               <p>This email was sent with
                 <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
                 <a href='https://aws.amazon.com/sdk-for-net/'>
-                  AWS SDK for .NET</a>.</p>
-            </body>
+                  AWS SDK for .NET</a>.</p>" +
+                  "<p>" + resourceOwner + "</p>" +
+            @"</body>
             </html>";
 
             using (var client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1))
