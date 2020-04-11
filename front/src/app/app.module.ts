@@ -10,7 +10,7 @@ import { MaterialModule } from './material.module';
 import { LandingPageComponent } from './landing/landing.component';
 import { HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PeriodicyPipe } from './core/pipes/periodicy.pipe';
-// import { ChartModule } from 'angular-highcharts';
+import { ChartModule } from 'angular-highcharts';
 import { ModalDialogComponent } from './core/components/modal-dialog/modal-dialog.component';
 import { GeneralService } from './core/services/general.service';
 import { ResourceAddComponent } from './resources/resource-add/resource-add.component';
@@ -53,7 +53,7 @@ import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    // ChartModule,
+    ChartModule,
     HttpClientModule, HttpClientJsonpModule,
     FormsModule, ReactiveFormsModule,
     AmplifyAngularModule

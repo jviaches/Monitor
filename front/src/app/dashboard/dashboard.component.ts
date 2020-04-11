@@ -1,7 +1,7 @@
 import { ResourceService } from './../core/services/resource.service';
 import { Component, OnInit } from '@angular/core';
 import { IResource } from '../core/models/resource.model';
-// import { Chart } from 'angular-highcharts';
+import { Chart } from 'angular-highcharts';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ResourceAddComponent } from '../resources/resource-add/resource-add.component';
 import { ResourceEditComponent } from '../resources/resource-edit/resource-edit.component';
@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   resources: IResource[] = [];
   activeResources: IResource[] = [];
   inActiveResources: IResource[] = [];
-  // chartMap: Map<number, Chart>;
+  chartMap: Map<number, Chart>;
 
   panelOpenState = false;
 
@@ -28,14 +28,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getResources();
-    // this.authService.changePassword('Vulcan400x66!', 'Vulcan400x67!');
   }
 
   getResources() {
     this.resourceService.getResources().subscribe(resource => {
       this.resources = resource;
       this.setResourceStatus(resource);
-      // this.buildHistoryStatusChart(resource);
+      this.buildHistoryStatusChart(resource);
       this.activeResources = this.resources.filter(res => res.isMonitorActivated);
       this.inActiveResources = this.resources.filter(res => !res.isMonitorActivated);
     });
@@ -58,47 +57,47 @@ export class DashboardComponent implements OnInit {
   onSelect(event) {
   }
 
-  // private buildHistoryStatusChart(resources: IResource[]) {
-  //   this.chartMap = new Map<number, Chart>();
+  private buildHistoryStatusChart(resources: IResource[]) {
+    this.chartMap = new Map<number, Chart>();
 
-  //   resources.forEach(element => {
+    resources.forEach(element => {
 
-  //     const historyData: any[] = [];
-  //     element.history.map(record => historyData.push(({ name: record.requestDate, y: Number(record.result) })));
+      const historyData: any[] = [];
+      element.history.map(record => historyData.push(({ name: record.requestDate, y: Number(record.result) })));
 
-  //     this.chartMap[element.id] = new Chart({
-  //       chart: {
-  //         type: 'line',
-  //       },
-  //       title: {
-  //         text: 'Monitoring History'
-  //       },
-  //       // subtitle: {
-  //       //   text: 'Period: Jan 2019 - Dec 2019'
-  //       // },
-  //       credits: {
-  //         enabled: false
-  //       },
-  //       series: [{
-  //         type: 'line',
-  //         name: element.url,
-  //         data: historyData,
-  //         color: '#FF0000'
-  //       }],
-  //       xAxis: {
-  //         title: {
-  //           text: 'Timeline'
-  //         },
-  //         categories: historyData.map(cat => cat.name),
-  //       },
-  //       yAxis: {
-  //         title: {
-  //           text: 'Status Code'
-  //         },
-  //       },
-  //     });
-  //   });
-  // }
+      this.chartMap[element.id] = new Chart({
+        chart: {
+          type: 'line',
+        },
+        title: {
+          text: 'Monitoring History'
+        },
+        // subtitle: {
+        //   text: 'Period: Jan 2019 - Dec 2019'
+        // },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          type: 'line',
+          name: element.url,
+          data: historyData,
+          color: '#FF0000'
+        }],
+        xAxis: {
+          title: {
+            text: 'Timeline'
+          },
+          categories: historyData.map(cat => cat.name),
+        },
+        yAxis: {
+          title: {
+            text: 'Status Code'
+          },
+        },
+      });
+    });
+  }
 
   addResource() {
     const dialogConfig = new MatDialogConfig();

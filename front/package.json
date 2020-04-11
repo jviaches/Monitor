@@ -24,8 +24,10 @@
     "@auth0/angular-jwt": "^4.0.0",
     "@aws-amplify/ui-angular": "^0.2.2",
     "amazon-cognito-identity-js": "^4.2.0",
+    "angular-highcharts": "^9.0.2",
     "aws-amplify": "^3.0.5",
     "aws-amplify-angular": "^5.0.5",
+    "highcharts": "^8.0.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
