@@ -7,7 +7,7 @@ export interface IResource {
   isMonitorActivated: number;
   monitorActivationDate: Date;
   history: IResourceHistory[];
-  status: string;
+  lastStatus: string;
 }
 
 export interface IResourceHistory {

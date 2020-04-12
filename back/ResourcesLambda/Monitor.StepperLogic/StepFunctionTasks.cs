@@ -171,7 +171,7 @@ namespace Monitor.StepperLogic
             var resourceOwner = await cognitoidentityserviceprovider.AdminGetUserAsync(
                                 new AdminGetUserRequest() { Username = resource.OwnerId, UserPoolId = "us-east-2_AzTuf9Pg2" });
 
-            var ownerEmail = resourceOwner.UserAttributes[2].Value;
+            var ownerEmail = resourceOwner.UserAttributes[2].Value; // email
             context.Logger.LogLine($"resource owner found: {ownerEmail}");
 
             const string senderAddress = "support@projscope.com";

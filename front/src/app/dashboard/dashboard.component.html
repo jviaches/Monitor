@@ -47,13 +47,16 @@
                         <div class="resource-type-list-item">
                             {{resource.monitorPeriod | periodicy}}
                         </div>
-                        <div [ngSwitch]="resource.status">
+                        <div [ngSwitch]="resource.lastStatus">
                             <div *ngSwitchCase="200">
                                 <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
                             </div>
                             <div *ngSwitchCase="000">
                                 <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
-                            </div> 
+                            </div>
+                            <div *ngSwitchCase="XXX">
+                                <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
+                            </div>                         
                             <div *ngSwitchDefault>
                                 <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
                             </div>
@@ -84,19 +87,22 @@
                 </mat-panel-title>
                 <mat-panel-description class="resource-wrapper">
                     <div class="resource-date-list-item">
-                        <span class="material-icons" matTooltip="Last activation date" matTooltipPosition="before">watch_later</span>
+                        <span class="material-icons baseline" matTooltip="Last activation date" matTooltipPosition="before">watch_later</span>
                         <span class="activation-date">{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}</span>
                     </div>
                     <div class="resource-type-list-item">
                         {{resource.monitorPeriod | periodicy}}
                     </div>
-                    <div [ngSwitch]="resource.status">
+                    <div [ngSwitch]="resource.lastStatus">
                         <div *ngSwitchCase="200">
                             <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
                         </div>
                         <div *ngSwitchCase="000">
                             <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
-                        </div> 
+                        </div>
+                        <div *ngSwitchCase="XXX">
+                            <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
+                        </div>                         
                         <div *ngSwitchDefault>
                             <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
                         </div>
