@@ -70,6 +70,6 @@ import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
       }
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ResourceAddComponent]
+  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ResourceAddComponent, ResourceEditComponent]
 })
 export class AppModule { }
