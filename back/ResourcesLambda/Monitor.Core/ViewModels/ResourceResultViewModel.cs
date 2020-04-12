@@ -13,7 +13,7 @@ namespace Monitor.Core.ViewModels
         public ResourceResultViewModel(Resource resource)
         {
             _resource = resource;
-            History = resource.History.Select(item => new ResourceHistoryResultViewModel(item));
+            History = resource.History.OrderBy(item => item.RequestDate).Select(item => new ResourceHistoryResultViewModel(item));
             LastStatus = setLastStatus(resource);
         }
 
