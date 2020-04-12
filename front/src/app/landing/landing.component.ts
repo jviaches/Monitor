@@ -19,7 +19,6 @@ export class LandingPageComponent implements OnInit {
 
   logOut() {
     this.authService.logOut();
-    window.location.reload();
   }
 
   @HostListener('window:scroll', ['$event']) // for window scroll events

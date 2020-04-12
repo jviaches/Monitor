@@ -126,7 +126,6 @@ export class DashboardComponent implements OnInit {
     this.generalService.showYesNoModalMessage().subscribe( data => {
       if (data === 'yes') {
         this.authService.logOut();
-        window.location.reload();
       }
     });
   }

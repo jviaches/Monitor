@@ -105,6 +105,7 @@ export class AuthorizationService {
     Auth.signOut({ global: true }).finally(() => {
       localStorage.removeItem('user');
       this.user = null;
+      window.location.reload();
     });
   }
 }
