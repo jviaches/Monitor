@@ -49,6 +49,7 @@ namespace ResourcesLambda
             services.Configure<Credentials>(awsCredential, binderOptions => binderOptions.BindNonPublicProperties = true);
             services.AddSingleton(provider => provider.GetService<IOptions<Credentials>>().Value);
             services.AddScoped<IResourceService, ResourceService>();
+            services.AddScoped<IUserActionService, UserActionService>();
 
             //services.AddCognitoIdentity();
             var Region = Configuration["AWSCognito:Region"];

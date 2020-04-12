@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Monitor.Core.Enums;
 using Monitor.Core.Interfaces;
 using Monitor.Core.Validations;
 using Monitor.Core.ViewModels;
+using Monitor.Core.ViewModels.UserActions;
 
 namespace ResourcesLambda.Controllers
 {
@@ -16,10 +18,12 @@ namespace ResourcesLambda.Controllers
     public class ResourcesController : ControllerBase
     {
         private IResourceService _resourceService;
+        private IUserActionService _userActionService;
 
-        public ResourcesController(IResourceService resourceService)
+        public ResourcesController(IResourceService resourceService, IUserActionService userActionService)
         {
             _resourceService = resourceService;
+            _userActionService = userActionService;
         }
 
         // GET: api/Resources/5
@@ -49,7 +53,17 @@ namespace ResourcesLambda.Controllers
            var result = await _resourceService.Add(resourceHistoryVM);
             if (!result.Success)
                 return BadRequest(new ErrorViewModel { Message = "Unable to add new resource" });
-            
+
+            await _userActionService.Add(new UserActionViewModel() 
+            {
+                UserId = resourceHistoryVM.UserId, 
+                Date = DateTime.UtcNow.ToString(), 
+                Action = UserAction.ResourceAdded.ToString(), 
+                Data = $@"Url: [{resourceHistoryVM.Url}], 
+                        IsActivated: [{resourceHistoryVM.IsMonitorActivated}], 
+                        Activation Period: [{resourceHistoryVM.MonitorPeriod}]" 
+            });
+
             return Ok();
         }
 
@@ -58,10 +72,21 @@ namespace ResourcesLambda.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> Update([FromBody] UpdateResourceViewModel viewModel)
         {
+            var oldResource = await _resourceService.GetById(viewModel.Id);
+
             var result = await _resourceService.Update(viewModel);
             if (!result.Success)
                 return BadRequest(new ErrorViewModel { Message = $"Error to update resource: {viewModel.Url}" });
 
+            await _userActionService.Add(new UserActionViewModel()
+            {
+                UserId = viewModel.UserId,
+                Date = DateTime.UtcNow.ToString(),
+                Action = UserAction.ResourceUpdated.ToString(),
+                Data = $@"Url: [old: {oldResource.Url}, new: {viewModel.Url}], 
+                        IsActivated: [old: {oldResource.IsMonitorActivated}, new: {viewModel.IsMonitorActivated}], 
+                        Activation Period: [old: {oldResource.MonitorPeriod}, new: {viewModel.MonitorPeriod}]"
+            });
             return Ok();
         }
 
@@ -73,6 +98,15 @@ namespace ResourcesLambda.Controllers
             if (!result.Success)
                 return BadRequest(new ErrorViewModel { Message = $"Error deleting resource: {viewModel.Url}" });
 
+            await _userActionService.Add(new UserActionViewModel()
+            {
+                UserId = viewModel.UserId,
+                Date = DateTime.UtcNow.ToString(),
+                Action = UserAction.ResourceRemoved.ToString(),
+                Data = $@"Url: [{viewModel.Url}], 
+                        IsActivated: [{viewModel.IsMonitorActivated}], 
+                        Activation Period: [{viewModel.MonitorPeriod}]"
+            });
             return Ok();
         }
     }
