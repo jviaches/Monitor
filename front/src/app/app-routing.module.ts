@@ -9,6 +9,7 @@ import { UserConfirmationComponent } from './user/user-confirmation/user-confirm
 import { UserForgetPasswordComponent } from './user/user-forget-password/user-forget-passwordcomponent';
 import { UserNewPasswordComponent } from './user/user-new-password/user-new-password.component';
 import { UserResendConfirmationComponent } from './user/user-resend-confirmation/user-resend-confirmation.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'resend-code', component: UserResendConfirmationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

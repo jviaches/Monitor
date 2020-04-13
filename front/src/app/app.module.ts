@@ -30,6 +30,7 @@ import { UserResendConfirmationComponent } from './user/user-resend-confirmation
 import { UserForgetPasswordComponent } from './user/user-forget-password/user-forget-passwordcomponent';
 import { UserNewPasswordComponent } from './user/user-new-password/user-new-password.component';
 import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
     UserResendConfirmationComponent,
     UserForgetPasswordComponent,
     UserNewPasswordComponent
+    PageNotFoundComponent
   ],
   imports: [
     AppRoutingModule,
