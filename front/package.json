@@ -28,6 +28,8 @@
     "aws-amplify": "^3.0.5",
     "aws-amplify-angular": "^5.0.5",
     "highcharts": "^8.0.4",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.28",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

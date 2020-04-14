@@ -7,6 +7,8 @@ import { ResourceAddComponent } from '../resources/resource-add/resource-add.com
 import { ResourceEditComponent } from '../resources/resource-edit/resource-edit.component';
 import { GeneralService } from '../core/services/general.service';
 import { AuthorizationService } from '../core/services/authentication.service';
+import { Router } from '@angular/router';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,7 +50,7 @@ export class DashboardComponent implements OnInit {
     resources.forEach(element => {
 
       const historyData: any[] = [];
-      element.history.map(record => historyData.push(({ name: record.requestDate, y: Number(record.result) })));
+      element.history.map(record => historyData.push(({ name: moment(record.requestDate).format('LLL'), y: Number(record.result) })));
 
       this.chartMap[element.id] = new Chart({
         chart: {

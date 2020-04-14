@@ -90,7 +90,7 @@ export class AuthorizationService {
   }
 
   getUserEmail(): string {
-    return this.user.attributes.email;
+    return JSON.parse(localStorage.getItem('user')).attributes.email;
   }
 
   isLoggedIn() {
