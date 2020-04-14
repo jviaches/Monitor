@@ -20,7 +20,12 @@ const routes: Routes = [
   { path: 'new-password', component: UserNewPasswordComponent },
   { path: 'resend-code', component: UserResendConfirmationComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard',
+    canActivate: [AuthGuard, AuthGuard],
+    children: [
+      { path: '', component: DashboardComponent }
+    ]
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

@@ -2,9 +2,15 @@
 <div class="toolbar" role="banner">
     <img width="120" style="background: gray;" src="../../assets/img/landing/logo.png"/>
     <div class="spacer"></div>
-    <button mat-mini-fab color="primary" *ngIf="authService.isLoggedIn()" (click)="logOff()" class="logout-btn">
-        <mat-icon>power_settings_new</mat-icon>
+
+    <button [matMenuTriggerFor]="belowMenu" mat-flat-button color="primary" *ngIf="authService.isLoggedIn()" class="logout-btn">
+        <mat-icon>menu</mat-icon>
       </button>
+      <mat-menu #belowMenu="matMenu" yPosition="below">
+        <button mat-menu-item (click)="changePassword()"><mat-icon>vpn_key</mat-icon>Change Password</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logOff()" class="logout-btn"><mat-icon>power_settings_new</mat-icon>Log off</button>
+    </mat-menu>      
         <!-- <span class="material-icons">power_settings_new</span> -->
 </div>
 

@@ -85,6 +85,17 @@ export class AuthorizationService {
       .catch(err => console.log(err));
   }
 
+  async changePassword(oldPassword: string, newPassword: string): Promise<any> {
+    Auth.currentAuthenticatedUser()
+    .then(user => {
+        return Auth.changePassword(user, oldPassword, newPassword);
+    })
+    .then(data => {
+      return Promise.resolve(data === 'SUCCESS' ? true : false);
+    })
+    .catch(err => this.generalService.showActionConfirmation(err.message));
+  }
+
   getUserName(): string {
     return JSON.parse(localStorage.getItem('user')).username;
   }

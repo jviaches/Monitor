@@ -9,6 +9,7 @@ import { GeneralService } from '../core/services/general.service';
 import { AuthorizationService } from '../core/services/authentication.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment-timezone';
+import { UserChangePasswordComponent } from '../user/user-change-password/user-change-password.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   panelOpenState = false;
 
-  constructor(private resourceService: ResourceService, public dialog: MatDialog,
+  constructor(private resourceService: ResourceService, public dialog: MatDialog, private router: Router,
               private generalService: GeneralService, public authService: AuthorizationService) {
   }
 
@@ -129,6 +130,19 @@ export class DashboardComponent implements OnInit {
       if (data === 'yes') {
         this.authService.logOut();
       }
+    });
+  }
+
+  changePassword() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    // dialogConfig.data = { data: resource };
+    dialogConfig.disableClose = true;
+    dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
+    const dialogRef = this.dialog.open(UserChangePasswordComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getResources();
     });
   }
 }

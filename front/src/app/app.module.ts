@@ -31,6 +31,7 @@ import { UserForgetPasswordComponent } from './user/user-forget-password/user-fo
 import { UserNewPasswordComponent } from './user/user-new-password/user-new-password.component';
 import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     UserConfirmationComponent,
     UserResendConfirmationComponent,
     UserForgetPasswordComponent,
-    UserNewPasswordComponent
+    UserNewPasswordComponent,
+    UserChangePasswordComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -72,6 +74,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       }
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ResourceAddComponent, ResourceEditComponent]
+  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ResourceAddComponent,
+                    ResourceEditComponent, UserChangePasswordComponent]
 })
 export class AppModule { }
