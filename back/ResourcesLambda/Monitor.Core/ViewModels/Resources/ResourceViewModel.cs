@@ -15,6 +15,5 @@ namespace Monitor.Core.ViewModels
         /// </summary>
         public int MonitorPeriod { get; set; }
         public int IsMonitorActivated { get; set; }
-        public string MonitorActivationDate { get; set; }
     }
 }

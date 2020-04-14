@@ -76,7 +76,7 @@ namespace ResourcesLambda.Services
                         {"UserId", new AttributeValue {S = resourceHistoryVM.UserId}},
                         {"MonitorPeriod", new AttributeValue {N = periodTimeInSeconds.ToString()}},
                         {"IsMonitorActivated", new AttributeValue {N = resourceHistoryVM.IsMonitorActivated.ToString()}},
-                        {"MonitorActivationDate", new AttributeValue {S = resourceHistoryVM.MonitorActivationDate}},
+                        {"MonitorActivationDate", new AttributeValue {S = DateTime.UtcNow.ToString("u")}},
                     }
                 };
 

@@ -17,7 +17,8 @@ namespace Monitor.Core.ViewModels
 
         public string Id { get { return _resourcehistory.Id; } }
         public string ResourceId { get { return _resourcehistory.ResourceId; } }
-        public string RequestDate { get { return _resourcehistory.RequestDate; } }
+        public string RequestDate => _resourcehistory.RequestDate;
+
         public string Result { get { return _resourcehistory.Result; } }
     }
 }

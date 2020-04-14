@@ -58,7 +58,6 @@ export class ResourceAddComponent {
             userId: this.authService.getUserName(),
             monitorPeriod: this.getPeriodicity.value,
             isMonitorActivated: this.getActivationState.value === true ? '1' : '0',
-            monitorActivationDate: new Intl.DateTimeFormat('en-US', timeOptions).format(new Date()).toString()
         };
 
         this.resourceService.addResource(resource).subscribe( () => {
