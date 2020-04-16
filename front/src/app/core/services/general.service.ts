@@ -2,7 +2,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ModalDialogComponent } from '../components/modal-dialog/modal-dialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ModalYesNoDialogComponent } from '../components/yesno-modal-dialog/yesno-modal-dialog.component';
 import { Router } from '@angular/router';
 import { AuthFlow } from '../enums/enums';
@@ -58,11 +58,18 @@ export class GeneralService {
         return dialogRef.afterClosed();
     }
 
-    public showActionConfirmation(text: string) {
-        // const config = new MatSnackBarConfig();
-        // config.panelClass = ['background-red'];
-        // config.duration = 5000;
-        this.snackBar.open(text, null, { duration: 3000});
+    public showActionConfirmationSuccess(text: string) {
+        const config = new MatSnackBarConfig();
+        config.panelClass = ['snackBar-success'];
+        config.duration = 3000;
+        this.snackBar.open(text, null, config);
+    }
+
+    public showActionConfirmationFail(text: string) {
+        const config = new MatSnackBarConfig();
+        config.panelClass = ['snackBar-fail'];
+        config.duration = 3000;
+        this.snackBar.open(text, null, config);
     }
 
     public showActionRedirectConfirmation(text: string, url: string) {

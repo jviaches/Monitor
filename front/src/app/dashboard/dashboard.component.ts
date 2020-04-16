@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
     this.generalService.showYesNoModalMessage().subscribe(data => {
       if (data === 'yes') {
         this.resourceService.deleteResource(resource).subscribe(() => {
-          this.generalService.showActionConfirmation(`Resource: ${resource.url} successfully deleted`);
+          this.generalService.showActionConfirmationSuccess(`Resource: ${resource.url} successfully deleted`);
           this.getResources();
         });
       }

@@ -34,14 +34,14 @@ export class AuthorizationService {
         // The error happens when the password is reset in the Cognito console
         // In this case you need to call forgotPassword to reset the password
         // Please check the Forgot Password part.
-        this.generalService.showActionConfirmation('Password reset required.');
+        this.generalService.showActionConfirmationFail('Password reset required.');
         return err.code;
       } else if (err.code === 'NotAuthorizedException') {
-        this.generalService.showActionConfirmation('This user is not authorized.');
+        this.generalService.showActionConfirmationFail('This user is not authorized.');
       } else if (err.code === 'UserNotFoundException') {
-        this.generalService.showActionConfirmation('Invalid email or password');
+        this.generalService.showActionConfirmationFail('Invalid email or password');
       } else {
-        this.generalService.showActionConfirmation('Invalid email or password');
+        this.generalService.showActionConfirmationFail('Invalid email or password');
       }
     }
   }
@@ -58,25 +58,25 @@ export class AuthorizationService {
       validationData: []  // optional
     })
       .then(data => this.router.navigateByUrl(`/user-confirmation/${AuthFlow.Register}`))
-      .catch(err => this.generalService.showActionConfirmation(err.message));
+      .catch(err => this.generalService.showActionConfirmationFail(err.message));
   }
 
   async confirmSignUp(username: string, code: string): Promise<any> {
     Auth.confirmSignUp(username, code)
       .then(data => this.router.navigateByUrl('/login'))
-      .catch(err => this.generalService.showActionConfirmation(err.message));
+      .catch(err => this.generalService.showActionConfirmationFail(err.message));
   }
 
   resendSignUp(username: string) {
     Auth.resendSignUp(username)
       .then(data => this.router.navigateByUrl(`/user-confirmation/${AuthFlow.Register}`))
-      .catch(err => this.generalService.showActionConfirmation(err.message));
+      .catch(err => this.generalService.showActionConfirmationFail(err.message));
   }
 
   forgotPassword(username: string) {
     Auth.forgotPassword(username)
       .then(data => this.router.navigateByUrl(`/user-confirmation/${AuthFlow.ForgetPassword}`))
-      .catch(err => this.generalService.showActionConfirmation(err.message));
+      .catch(err => this.generalService.showActionConfirmationFail(err.message));
   }
 
   forgotPasswordSubmit(username: string, code, newPassword) {
@@ -85,15 +85,14 @@ export class AuthorizationService {
       .catch(err => console.log(err));
   }
 
-  async changePassword(oldPassword: string, newPassword: string): Promise<any> {
-    Auth.currentAuthenticatedUser()
-    .then(user => {
+  changePassword(oldPassword: string, newPassword: string): Promise<any> {
+    return Auth.currentAuthenticatedUser().then(user => {
         return Auth.changePassword(user, oldPassword, newPassword);
     })
-    .then(data => {
-      return Promise.resolve(data === 'SUCCESS' ? true : false);
-    })
-    .catch(err => this.generalService.showActionConfirmation(err.message));
+    .catch(err => {
+      this.generalService.showActionConfirmationFail(err.message);
+      return null;
+    });
   }
 
   getUserName(): string {

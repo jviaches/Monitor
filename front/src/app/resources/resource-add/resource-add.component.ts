@@ -61,7 +61,7 @@ export class ResourceAddComponent {
         };
 
         this.resourceService.addResource(resource).subscribe( () => {
-            this.generalService.showActionConfirmation('New resource succesfully created');
+            this.generalService.showActionConfirmationSuccess('New resource succesfully created');
         });
         this.closeDialog();
     }

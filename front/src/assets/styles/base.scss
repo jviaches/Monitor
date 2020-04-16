@@ -328,7 +328,6 @@ input {
   justify-content: space-evenly;
 }
 
-
 h1,
 h2,
 h3,
@@ -342,4 +341,20 @@ h6 {
   line-height: 1.6em;
   font-family: 'Poppins', sans-serif;
   color: #6e6d7a;
+}
+
+.snackBar-success {
+  background-color: #407AC5;
+
+  span {
+    color: white;
+  }
+  
+}
+
+.snackBar-fail {
+  background-color: #E8827D;
+  span {
+    color: white;
+  }
 }

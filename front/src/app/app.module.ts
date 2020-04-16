@@ -32,6 +32,7 @@ import { UserNewPasswordComponent } from './user/user-new-password/user-new-pass
 import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
+import { FooterComponent } from './core/components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { UserChangePasswordComponent } from './user/user-change-password/user-ch
     UserForgetPasswordComponent,
     UserNewPasswordComponent,
     UserChangePasswordComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    FooterComponent
   ],
   imports: [
     AppRoutingModule,

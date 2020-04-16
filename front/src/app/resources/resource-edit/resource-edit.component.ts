@@ -78,7 +78,7 @@ export class ResourceEditComponent implements OnInit {
         };
 
         this.resourceService.updateResource(resource).subscribe( () => {
-            this.generalService.showActionConfirmation(`Resource ${resource.url} succesfully updated`);
+            this.generalService.showActionConfirmationSuccess(`Resource ${resource.url} succesfully updated`);
         });
         this.closeDialog();
     }
