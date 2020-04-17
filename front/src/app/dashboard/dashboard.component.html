@@ -1,32 +1,57 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-    <img width="120" style="background: gray;" src="../../assets/img/landing/logo.png"/>
+    <img width="120" style="background: gray;" src="../../assets/img/landing/logo.png" />
     <div class="spacer"></div>
 
-    <button [matMenuTriggerFor]="belowMenu" mat-flat-button color="primary" *ngIf="authService.isLoggedIn()" class="logout-btn">
+    <button [matMenuTriggerFor]="belowMenu" mat-flat-button color="primary" *ngIf="authService.isLoggedIn()"
+        class="logout-btn">
         <mat-icon>menu</mat-icon>
-      </button>
-      <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item (click)="changePassword()"><mat-icon>vpn_key</mat-icon>Change Password</button>
+    </button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+        <button mat-menu-item (click)="changePassword()">
+            <mat-icon>vpn_key</mat-icon>Change Password
+        </button>
         <mat-divider></mat-divider>
-        <button mat-menu-item (click)="logOff()" class="logout-btn"><mat-icon>power_settings_new</mat-icon>Log off</button>
-    </mat-menu>      
-        <!-- <span class="material-icons">power_settings_new</span> -->
+        <button mat-menu-item (click)="logOff()" class="logout-btn">
+            <mat-icon>power_settings_new</mat-icon>Log off
+        </button>
+    </mat-menu>
+    <!-- <span class="material-icons">power_settings_new</span> -->
 </div>
 
 <div class="first-content">
     <div class="card-container">
-        <mat-card class="card-large">
-            <mat-card-title>Monitoring</mat-card-title>
-            <mat-card-content>
-            </mat-card-content>
-        </mat-card>
         <mat-card class="card">
-            <mat-card-title>Statistics</mat-card-title>
             <mat-card-content>
                 <div class="resources-stats">
-                    <div class="resources-stats-item-descriprion">Active Total</div>
-                    <div class="resources-stats-item">{{activeResources.length}} | {{resources.length}}</div>
+                    <h2 class="resources-stats-item-descriprion">Monitored</h2>
+                    <div class="resources-stats-item">{{activeResources.length}}</div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="card">
+            <mat-card-content>
+                <div class="resources-stats">
+                    <h2 class="resources-stats-item-descriprion">Non Monitored</h2>
+                    <div class="resources-stats-item">{{resources.length - activeResources.length}}</div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="card">
+            <mat-card-content>
+                <div class="resources-stats">
+                    <h2 class="resources-stats-item-descriprion">Total</h2>
+                    <div class="resources-stats-item">{{resources.length}}</div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="card">
+            <mat-card-content>
+                <div class="resources-stats">
+                    <h2 class="resources-stats-item-descriprion">Add new</h2>
                     <button mat-stroked-button class="btn-add-site" (click)="addResource()">Add Web Site</button>
                 </div>
             </mat-card-content>
@@ -34,7 +59,7 @@
     </div>
 
     <div>
-        <h2>Monitored Jobs</h2>
+        <h2>Monitored Resources</h2>
         <ng-template [ngIf]="activeResources.length > 0">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let resource of activeResources">
@@ -47,24 +72,30 @@
                         </mat-panel-title>
                         <mat-panel-description class="resource-wrapper">
                             <div class="resource-date-list-item">
-                                <span class="material-icons baseline" matTooltip="Last activation date" matTooltipPosition="before">watch_later</span>
-                                <span class="activation-date">{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}</span>
+                                <span class="material-icons baseline" matTooltip="Last activation date"
+                                    matTooltipPosition="before">watch_later</span>
+                                <span
+                                    class="activation-date">{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}</span>
                             </div>
                             <div class="resource-type-list-item">
                                 {{resource.monitorPeriod | periodicy}}
                             </div>
                             <div [ngSwitch]="resource.lastStatus">
                                 <div *ngSwitchCase="200">
-                                    <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
+                                    <span class="material-icons" matTooltip="Last status: OK"
+                                        matTooltipPosition="after">check_circle_outline</span>
                                 </div>
                                 <div *ngSwitchCase="000">
-                                    <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
+                                    <span class="material-icons" matTooltip="Last status: Error"
+                                        matTooltipPosition="after">error</span>
                                 </div>
                                 <div *ngSwitchCase="XXX">
-                                    <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
-                                </div>                         
+                                    <span class="material-icons" matTooltip="Last status: Not ran yet"
+                                        matTooltipPosition="after">remove_circle_outline</span>
+                                </div>
                                 <div *ngSwitchDefault>
-                                    <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
+                                    <span class="material-icons" matTooltip="Last status: Not ran yet"
+                                        matTooltipPosition="after">remove_circle_outline</span>
                                 </div>
                             </div>
                         </mat-panel-description>
@@ -86,48 +117,54 @@
 </div>
 
 <div class="content">
-    <h2>Inactive Jobs</h2>
+    <h2>Non Monitored Resources</h2>
     <mat-accordion>
         <ng-template [ngIf]="inActiveResources.length > 0">
             <mat-expansion-panel *ngFor="let resource of inActiveResources">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <div>
-                        <img src="https://www.google.com/s2/favicons?domain={{resource.url}}"><img>
-                        {{resource.url}}
-                    </div>
-                </mat-panel-title>
-                <mat-panel-description class="resource-wrapper">
-                    <div class="resource-date-list-item">
-                        <span class="material-icons baseline" matTooltip="Last activation date" matTooltipPosition="before">watch_later</span>
-                        <span class="activation-date">{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}</span>
-                    </div>
-                    <div class="resource-type-list-item">
-                        {{resource.monitorPeriod | periodicy}}
-                    </div>
-                    <div [ngSwitch]="resource.lastStatus">
-                        <div *ngSwitchCase="200">
-                            <span class="material-icons" matTooltip="Last status: OK" matTooltipPosition="after">check_circle_outline</span>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div>
+                            <img src="https://www.google.com/s2/favicons?domain={{resource.url}}"><img>
+                            {{resource.url}}
                         </div>
-                        <div *ngSwitchCase="000">
-                            <span class="material-icons" matTooltip="Last status: Error" matTooltipPosition="after">error</span>
+                    </mat-panel-title>
+                    <mat-panel-description class="resource-wrapper">
+                        <div class="resource-date-list-item">
+                            <span class="material-icons baseline" matTooltip="Last activation date"
+                                matTooltipPosition="before">watch_later</span>
+                            <span
+                                class="activation-date">{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}</span>
                         </div>
-                        <div *ngSwitchCase="XXX">
-                            <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
-                        </div>                         
-                        <div *ngSwitchDefault>
-                            <span class="material-icons" matTooltip="Last status: Not ran yet" matTooltipPosition="after">remove_circle_outline</span>
+                        <div class="resource-type-list-item">
+                            {{resource.monitorPeriod | periodicy}}
                         </div>
+                        <div [ngSwitch]="resource.lastStatus">
+                            <div *ngSwitchCase="200">
+                                <span class="material-icons" matTooltip="Last status: OK"
+                                    matTooltipPosition="after">check_circle_outline</span>
+                            </div>
+                            <div *ngSwitchCase="000">
+                                <span class="material-icons" matTooltip="Last status: Error"
+                                    matTooltipPosition="after">error</span>
+                            </div>
+                            <div *ngSwitchCase="XXX">
+                                <span class="material-icons" matTooltip="Last status: Not ran yet"
+                                    matTooltipPosition="after">remove_circle_outline</span>
+                            </div>
+                            <div *ngSwitchDefault>
+                                <span class="material-icons" matTooltip="Last status: Not ran yet"
+                                    matTooltipPosition="after">remove_circle_outline</span>
+                            </div>
+                        </div>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="widget">
+                    <div class="graph" [chart]="chartMap[resource.id]"></div>
+                    <div class="actions">
+                        <button class="mat-raised-button" (click)="editResource(resource)">Update</button>
+                        <button class="mat-raised-button" (click)="deleteResource(resource)">Delete</button>
                     </div>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div class="widget">
-                <div class="graph" [chart]="chartMap[resource.id]"></div>
-                <div class="actions">
-                    <button class="mat-raised-button" (click)="editResource(resource)">Update</button>
-                    <button class="mat-raised-button" (click)="deleteResource(resource)">Delete</button>
                 </div>
-            </div>
             </mat-expansion-panel>
         </ng-template>
         <ng-template [ngIf]="inActiveResources.length === 0">
