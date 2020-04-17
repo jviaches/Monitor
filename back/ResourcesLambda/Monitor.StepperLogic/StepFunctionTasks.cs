@@ -151,19 +151,23 @@ namespace Monitor.StepperLogic
             {
                 var client = new HttpClient();
                 var result = await client.GetAsync(resource.Url);
-                context.Logger.LogLine($"Status code for URL: [{resource.Url}] = [{(int)result.StatusCode}]");
+                var statusCodeResult = ((int)result.StatusCode).ToString();
+                context.Logger.LogLine($"Status code for URL: [{resource.Url}] = [{statusCodeResult}]");
 
-                return ((int)result.StatusCode).ToString();
+                if (statusCodeResult.StartsWith("3") || statusCodeResult.StartsWith("4") || statusCodeResult.StartsWith("5"))
+                    await sendEmail(resource, statusCodeResult, context);
+
+                return statusCodeResult;
             }
             catch (Exception e)
             {
                 context.Logger.LogLine($"Exception occured: [{e}] ");
-                await sendEmail(resource, context);
+                await sendEmail(resource, "ERROR", context);
                 return string.Empty;
             }
         }
 
-        private async Task sendEmail(ResourceModel resource, ILambdaContext context)
+        private async Task sendEmail(ResourceModel resource, string statusCodeResult, ILambdaContext context)
         {
             context.Logger.LogLine($"---------- Recieved input: {resource} ----------");
 
@@ -178,25 +182,23 @@ namespace Monitor.StepperLogic
 
             // Replace recipient@example.com with a "To" address. If your account
             // is still in the sandbox, this address must be verified.
-            string receiverAddress = ownerEmail; //"jviaches@gmail.com";
+            string receiverAddress = ownerEmail; 
 
-            const string subject = "Critical Alert";
-            const string textBody = "Amazon SES Test (.NET)\r\n"
-                                            + "This email was sent through Amazon SES "
-                                            + "using the AWS SDK for .NET.";
+            const string subject = "Projscope - Alert";
+            string textBody = "Abnormal resource status detected - " + statusCodeResult + "\r\n"
+                                            + "Monitored site: " + resource + ".";
 
             // The HTML body of the email.
-            string htmlBody = @"<html>
+            string htmlBody = string.Format(@"<html>
             <head></head>
             <body>
-              <h1>Amazon SES Test (AWS SDK for .NET)</h1>
-              <p>This email was sent with
-                <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
-                <a href='https://aws.amazon.com/sdk-for-net/'>
-                  AWS SDK for .NET</a>.</p>" +
-                  "<p>" + resourceOwner + "</p>" +
-            @"</body>
-            </html>";
+                <h1>Projscope - Alert</h1>
+                <div>Abnormal resource status detected: {0}</ div>
+                <div>Monitored site: {1}</ div>
+                <p>This email was sent by
+                    <a href='https://projscope.com/'>Proscope.com</a>.
+            </body>
+            </html>", resource.Url, statusCodeResult);
 
             using (var client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1))
             {
