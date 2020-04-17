@@ -75,7 +75,7 @@
                                 <span class="material-icons baseline" matTooltip="Last activation date"
                                     matTooltipPosition="before">watch_later</span>
                                 <span
-                                    class="activation-date">{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}</span>
+                                    class="activation-date">{{resource.history[resource.history.length-1].requestDate | date: 'MMM d, h:mm a'}}</span>
                             </div>
                             <div class="resource-type-list-item">
                                 {{resource.monitorPeriod | periodicy}}
@@ -133,7 +133,7 @@
                             <span class="material-icons baseline" matTooltip="Last activation date"
                                 matTooltipPosition="before">watch_later</span>
                             <span
-                                class="activation-date">{{resource.monitorActivationDate | date: 'MMM d, h:mm a'}}</span>
+                                class="activation-date">{{resource.history[resource.history.length-1].requestDate | date: 'MMM d, h:mm a'}}</span>
                         </div>
                         <div class="resource-type-list-item">
                             {{resource.monitorPeriod | periodicy}}
