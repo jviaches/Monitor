@@ -80,7 +80,7 @@
             </mat-accordion>
         </ng-template>
         <ng-template [ngIf]="activeResources.length === 0">
-            <mat-card>No records</mat-card>
+            <mat-card class="no-records">No records</mat-card>
         </ng-template>
     </div>
 </div>
@@ -131,7 +131,7 @@
             </mat-expansion-panel>
         </ng-template>
         <ng-template [ngIf]="inActiveResources.length === 0">
-            <mat-card>No records</mat-card>
+            <mat-card class="no-records">No records</mat-card>
         </ng-template>
     </mat-accordion>
 
