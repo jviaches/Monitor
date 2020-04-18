@@ -2,3 +2,11 @@
 @import 'assets/styles/base.scss';
 @import 'assets/styles/material.scss';
 @import '~aws-amplify-angular/theme.css';
+
+html, 
+body {
+  height: 100%;
+  margin: 0px;
+  background-color: #F4F5F6;
+  
+}
