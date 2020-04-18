@@ -51,7 +51,7 @@
         <mat-card class="card">
             <mat-card-content>
                 <div class="resources-stats">
-                    <h2 class="resources-stats-item-descriprion">Add new</h2>
+                    <h2 class="resources-stats-item-descriprion">Actions</h2>
                     <button mat-stroked-button class="btn-add-site" (click)="addResource()">Add Web Site</button>
                 </div>
             </mat-card-content>
@@ -75,7 +75,7 @@
                                 <span class="material-icons baseline" matTooltip="Last activation date"
                                     matTooltipPosition="before">watch_later</span>
                                 <span
-                                    class="activation-date">{{resource.history[resource.history.length-1].requestDate | date: 'MMM d, h:mm a'}}</span>
+                                    class="activation-date">{{lastMonitoredDate(resource) | date: 'MMM d, h:mm a'}}</span>
                             </div>
                             <div class="resource-type-list-item">
                                 {{resource.monitorPeriod | periodicy}}
@@ -133,7 +133,7 @@
                             <span class="material-icons baseline" matTooltip="Last activation date"
                                 matTooltipPosition="before">watch_later</span>
                             <span
-                                class="activation-date">{{resource.history[resource.history.length-1].requestDate | date: 'MMM d, h:mm a'}}</span>
+                            class="activation-date">{{lastMonitoredDate(resource) | date: 'MMM d, h:mm a'}}</span>
                         </div>
                         <div class="resource-type-list-item">
                             {{resource.monitorPeriod | periodicy}}

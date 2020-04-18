@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { UserChangePasswordComponent } from '../user/user-change-password/user-change-password.component';
 import { YAxisLabelsOptions, YAxisOptions } from 'highcharts';
+import { ImplicitReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-dashboard',
@@ -169,5 +170,13 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.getResources();
     });
+  }
+
+  lastMonitoredDate(resource: IResource): Date {
+    if (resource.history.length > 0) {
+      return resource.history[resource.history.length - 1].requestDate;
+    }
+
+    return resource.monitorActivationDate;
   }
 }
