@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   panelOpenState = false;
 
   constructor(private resourceService: ResourceService, public dialog: MatDialog, private router: Router,
-    private generalService: GeneralService, public authService: AuthorizationService) {
+              private generalService: GeneralService, public authService: AuthorizationService) {
   }
 
   ngOnInit(): void {
