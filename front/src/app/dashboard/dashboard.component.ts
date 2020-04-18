@@ -10,6 +10,7 @@ import { AuthorizationService } from '../core/services/authentication.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { UserChangePasswordComponent } from '../user/user-change-password/user-change-password.component';
+import { YAxisLabelsOptions, YAxisOptions } from 'highcharts';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +27,7 @@ export class DashboardComponent implements OnInit {
   panelOpenState = false;
 
   constructor(private resourceService: ResourceService, public dialog: MatDialog, private router: Router,
-              private generalService: GeneralService, public authService: AuthorizationService) {
+    private generalService: GeneralService, public authService: AuthorizationService) {
   }
 
   ngOnInit(): void {
@@ -66,11 +67,27 @@ export class DashboardComponent implements OnInit {
         credits: {
           enabled: false
         },
+        rangeSelector: {
+          enabled: false
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true,
+                    formatter() {
+                      if (this.y % 100 !== 0) { // show labels when not euals to 100s
+                        return this.y;
+                      }
+                    }
+                },
+                enableMouseTracking: false,
+            },
+        },
         series: [{
           type: 'line',
           name: element.url,
           data: historyData,
-          color: '#FF0000'
+          color: '#007bff'
         }],
         xAxis: {
           title: {
@@ -82,6 +99,14 @@ export class DashboardComponent implements OnInit {
           title: {
             text: 'Status Code'
           },
+          labels: {
+            formatter() {
+              if (historyData.map(cat => cat.y).includes(this.value)) {
+                return this.value;
+              }
+            }
+          } as unknown as YAxisLabelsOptions,
+          range: 500
         },
       });
     });
@@ -126,7 +151,7 @@ export class DashboardComponent implements OnInit {
   }
 
   logOff() {
-    this.generalService.showYesNoModalMessage().subscribe( data => {
+    this.generalService.showYesNoModalMessage().subscribe(data => {
       if (data === 'yes') {
         this.authService.logOut();
       }
