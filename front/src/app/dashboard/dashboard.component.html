@@ -1,6 +1,7 @@
+<!-- <app-header-main></app-header-main> -->
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-    <img width="120" style="background: gray;" src="../../assets/img/landing/logo.png" />
+    <img width="120" style="background: gray;" src="../../assets/img/brand-logo-color.png" />
     <div class="spacer"></div>
 
     <button [matMenuTriggerFor]="belowMenu" mat-flat-button color="primary" *ngIf="authService.isLoggedIn()"
@@ -24,7 +25,7 @@
         <mat-card class="card">
             <mat-card-content>
                 <div class="resources-stats">
-                    <h2 class="resources-stats-item-descriprion">Monitored</h2>
+                    <h4 class="resources-stats-item-descriprion">Monitored</h4>
                     <div class="resources-stats-item">{{activeResources.length}}</div>
                 </div>
             </mat-card-content>
@@ -33,7 +34,7 @@
         <mat-card class="card">
             <mat-card-content>
                 <div class="resources-stats">
-                    <h2 class="resources-stats-item-descriprion">Non Monitored</h2>
+                    <h4 class="resources-stats-item-descriprion">Non Monitored</h4>
                     <div class="resources-stats-item">{{resources.length - activeResources.length}}</div>
                 </div>
             </mat-card-content>
@@ -42,7 +43,7 @@
         <mat-card class="card">
             <mat-card-content>
                 <div class="resources-stats">
-                    <h2 class="resources-stats-item-descriprion">Total</h2>
+                    <h4 class="resources-stats-item-descriprion">Total</h4>
                     <div class="resources-stats-item">{{resources.length}}</div>
                 </div>
             </mat-card-content>
@@ -51,15 +52,15 @@
         <mat-card class="card">
             <mat-card-content>
                 <div class="resources-stats">
-                    <h2 class="resources-stats-item-descriprion">Actions</h2>
-                    <button mat-stroked-button class="btn-add-site" (click)="addResource()">Add Web Site</button>
+                    <h4 class="resources-stats-item-descriprion">Actions</h4>
+                    <button class="btn btn--outline-thick btn--color-primary btn--sm rounded-full btn-3d-hover btn-splash-hover" (click)="addResource()">Add Web Site</button>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
 
     <div>
-        <h2>Monitored Resources</h2>
+        <h4>Monitored Resources</h4>
         <ng-template [ngIf]="activeResources.length > 0">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let resource of activeResources">
@@ -103,8 +104,8 @@
                     <div class="widget">
                         <div class="graph" [chart]="chartMap[resource.id]"></div>
                         <div class="actions">
-                            <button class="mat-raised-button" (click)="editResource(resource)">Update</button>
-                            <button class="mat-raised-button" (click)="deleteResource(resource)">Delete</button>
+                            <button class="btn btn--outline-thick btn--color-primary btn--sm rounded-full btn-3d-hover btn-splash-hover" (click)="editResource(resource)">Update</button>
+                            <button class="btn btn--outline-thick btn--color-primary btn--sm rounded-full btn-3d-hover btn-splash-hover" (click)="deleteResource(resource)">Delete</button>
                         </div>
                     </div>
                 </mat-expansion-panel>
@@ -117,7 +118,7 @@
 </div>
 
 <div class="content">
-    <h2>Non Monitored Resources</h2>
+    <h4>Non Monitored Resources</h4>
     <mat-accordion>
         <ng-template [ngIf]="inActiveResources.length > 0">
             <mat-expansion-panel *ngFor="let resource of inActiveResources">
@@ -172,3 +173,5 @@
         </ng-template>
     </mat-accordion>
 </div>
+
+<app-footer></app-footer>

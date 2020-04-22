@@ -1,12 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'assets/styles/base.scss';
-@import 'assets/styles/material.scss';
-@import '~aws-amplify-angular/theme.css';
 
-html, 
-body {
-  height: 100%;
-  margin: 0px;
-  background-color: #F4F5F6;
-  
-}
+@import 'assets/fonts/aileron.css';
+@import 'assets/css/plugins.min.css';
+@import 'assets/css/app.css';
+@import 'assets/css/custom.css';
+//@import 'assets/styles/material.scss';
+@import 'assets/styles/base.scss';
+
+// @import '~aws-amplify-angular/theme.css'; -- needed for aplify build in components, but it ruins main page

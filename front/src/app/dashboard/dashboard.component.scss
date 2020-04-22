@@ -1,3 +1,25 @@
+.spacer {
+  flex: 1;
+}
+
+.toolbar {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: white;
+  font-weight: 600;
+  border: 1px solid #eee;
+  box-shadow: 0px 2px 1px #eee;
+}
+
+.toolbar img {
+  margin: 0 16px;
+}
+
 .resources-stats {
   display: flex;
   flex-direction: column;
@@ -5,8 +27,9 @@
 
 .resources-stats-item-descriprion {
   align-self: center;
-  font-size: 12px;
+  font-size: 16px;
   color: gray;
+  margin-bottom: 20%;
 }
 
 .resources-stats-item {

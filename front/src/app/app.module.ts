@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { LandingPageComponent } from './landing/landing.component';
 import { HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PeriodicyPipe } from './core/pipes/periodicy.pipe';
 import { ChartModule } from 'angular-highcharts';
@@ -30,14 +29,18 @@ import { UserResendConfirmationComponent } from './user/user-resend-confirmation
 import { UserForgetPasswordComponent } from './user/user-forget-password/user-forget-passwordcomponent';
 import { UserNewPasswordComponent } from './user/user-new-password/user-new-password.component';
 import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
-import { FooterComponent } from './core/components/footer/footer.component';
+import { FooterComponent } from './pages/footer/footer.component';
+import { MainPageComponent } from './pages/main/main.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { HeaderMainComponent } from './pages/header-main/header-main.component';
+import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingPageComponent,
+    MainPageComponent,
     DashboardComponent,
     PeriodicyPipe,
     ModalDialogComponent,
@@ -52,7 +55,10 @@ import { FooterComponent } from './core/components/footer/footer.component';
     UserNewPasswordComponent,
     UserChangePasswordComponent,
     PageNotFoundComponent,
-    FooterComponent
+    PrivacyPolicyComponent,
+    FooterComponent,
+    HeaderMainComponent,
+    TermsOfServiceComponent
   ],
   imports: [
     AppRoutingModule,

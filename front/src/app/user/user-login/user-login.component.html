@@ -1,26 +1,42 @@
-<div class="wrapper" style="background-image: url('assets/img/background/shape-11.png'); background-size: cover;">
-        <div id="formContent">
-        <br>
-        <h3>Account Login</h3>
-        <br>
+<section class="row no-gutters p-0 h-lg-100vh align-items-initial">
+    <div class="col-lg d-lg-flex bg-color-primary pt-100 pb-100 py-lg-0">
+        <div class="background-holder opacity-20 background-pattern"></div>
+    </div>
+    <div class="col-lg-8 p-0 d-flex bg-white align-items-lg-center">
+        <div class="row no-gutters flex-fill justify-content-center">
+            <div class="col-11 col-md-6 col-lg-7 col-xl-5 space">
+                <h1 class="h2 text-center mb-30 color-primary">Welcome back</h1>
+                <form class="form form--sm" [formGroup]="loginForm" role="form" name="loginForm">
+                    <label class="label-control mb-10" for="email">Email Address:</label>
+                    <mat-form-field class="form-group mb-20 display-block" appearance="outline">
+                        <input matInput placeholder="Email" type="text" formControlName="email">
+                        <mat-error *ngIf="getEmil.invalid">Please enter a valid user name</mat-error>
+                    </mat-form-field>
 
-        <form [formGroup]="loginForm" role="form" name="loginForm">
-            <mat-form-field class="login-input">
-                <input matInput placeholder="Email" type="text" formControlName="email" autofocus>
-                <mat-error *ngIf="getEmil.invalid">Please enter a valid user name</mat-error>
-            </mat-form-field>
-            <mat-form-field class="login-input">
-                <input matInput placeholder="Password" type="password" formControlName="password" autofocus>
-                <mat-error *ngIf="getPassword.invalid">Please enter a valid password with minimal length of 8 characters</mat-error>
-            </mat-form-field>
-            <input type="submit" class="widget spacer-20" value="Log In" (click)="doLogin()">
-        </form>
+                    <div class="form-group mb-20">
+                        <div class="d-flex align-items-center justify-content-between mb-10">
+                            <label class="label-control" for="password">Password:</label>
+                            <a class="small btn--color-primary btn-text-hover" href="/password-recovery">Forgot
+                                Password?</a>
+                        </div>
+                        <mat-form-field class="form-group mb-20 display-block" appearance="outline">
+                            <input matInput placeholder="Password" type="password" formControlName="password">
+                            <mat-error *ngIf="getPassword.invalid">Please enter a valid password with minimal length
+                                of 8 characters</mat-error>
+                        </mat-form-field>
+                    </div>
 
-        <div id="formFooter">
-            <div class="row">
-                <a href="/register">Registration</a>
-                <a href="/password-recovery">Forgot password</a>
+                    <div
+                        class="form-group custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                        <span>Don't have an account? <a href="/register" class="btn--color-primary btn-text-hover">Sign
+                                up here</a></span>
+                        <button type="submit" class="btn btn--bg-primary btn-splash-hover btn-3d-hover"
+                            (click)="doLogin()">
+                            <span class="btn__text">Sign In</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+</section>

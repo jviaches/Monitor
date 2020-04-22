@@ -1,59 +1,10 @@
-
-.wrapper {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  min-height: 100%;
-  padding: 20px;
-  height: 100vh;
+.display-block {
+    display: block;
 }
 
-#formContent {
-  -webkit-border-radius: 10px 10px 10px 10px;
-  border-radius: 10px 10px 10px 10px;
-  background: #fff;
-  padding: 30px;
-  width: 90%;
-  max-width: 450px;
-  position: relative;
-  padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
-  text-align: center;
+.background-pattern {
+    width: 90%;
+    opacity: 1;
+    background: url(../../../assets/img/patterns/curls.png);
+    background-repeat: repeat;    
 }
-
-#formFooter {
-  background-color: #f6f6f6;
-  border-top: 1px solid #dce8f1;
-  padding: 25px;
-  text-align: center;
-  -webkit-border-radius: 0 0 10px 10px;
-  border-radius: 0 0 10px 10px;
-}
-
-.login-input {
-  padding-left: 40px;
-  padding-right: 40px;
-  width: 80%;
-}
-
-
-// ::ng-deep.amplify-form-input {
-//   background-color: yellow;
-// }
-
-// ::ng-deep.amplify-input-label {
-//   background-color: yellow;
-//   font-family: 'Poppins', 'Roboto';
-// }
-
-
-// ::ng-deep.amplify-form-link {
-//   color: blueviolet;
-// }
-
-// ::ng-deep.amplify-form-button {
-//   color: blueviolet;
-// }

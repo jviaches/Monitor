@@ -1,26 +1,41 @@
-<div class="wrapper" style="background-image: url('assets/img/background/shape-11.png'); background-size: cover;">
-    <div id="formContent">
-        <br>
-        <h3>Account verification</h3>
-        <br>
+<section class="row no-gutters p-0 h-lg-100vh align-items-initial">
+    <div class="col-lg d-lg-flex bg-color-primary pt-100 pb-100 py-lg-0">
+        <div class="background-holder opacity-20 background-pattern"></div>
+    </div>
+    <div class="col-lg-8 p-0 d-flex bg-white align-items-lg-center">
+        <div class="row no-gutters flex-fill justify-content-center">
+            <div class="col-11 col-md-6 col-lg-7 col-xl-5 space">
+                <h1 class="h2 text-center mb-30 color-primary">Code confirmation</h1>
+                <form class="form form--sm" [formGroup]="codeForm" role="form" name="codeForm">
+                    <label class="label-control mb-10" for="email">Email Address:</label>
+                    <mat-form-field class="form-group mb-20 display-block" appearance="outline">
+                        <input matInput placeholder="Email" type="text" formControlName="email">
+                        <mat-error *ngIf="getEmail.invalid">Please enter a valid email</mat-error>
+                    </mat-form-field>
 
-        <form [formGroup]="codeForm" role="form" name="codeForm">
-            <mat-form-field class="login-input">
-                <input matInput placeholder="Email" type="text" formControlName="email" autofocus>
-                <mat-error *ngIf="getEmail.invalid">Please enter a valid email</mat-error>
-            </mat-form-field>          
-            <mat-form-field class="login-input">
-                <input matInput placeholder="Validation code" type="text" formControlName="code" autofocus>
-                <mat-error *ngIf="getCode.invalid">Please enter a valid verification code</mat-error>
-            </mat-form-field>
-            <input type="submit" class="widget spacer-20" value="Verify" (click)="doValidate()" [disabled]="isInValid()">
-        </form>
+                    <div class="form-group mb-20">
+                        <div class="d-flex align-items-center justify-content-between mb-10">
+                            <label class="label-control" for="password">verification code</label>
+                            <a class="small btn--color-primary btn-text-hover" [routerLink]=""
+                                (click)="resendCode()">Resend code</a>
+                        </div>
+                        <mat-form-field class="form-group mb-20 display-block" appearance="outline">
+                            <input matInput placeholder="Validation code" type="text" formControlName="code">
+                            <mat-error *ngIf="getCode.invalid">Please enter a valid verification code</mat-error>
+                        </mat-form-field>
+                    </div>
 
-        <div id="formFooter">
-            <div class="row">
-                <span>Hint: we sent you verification code by email.</span>
-                <a [routerLink]="" (click)="resendCode()">Resend code</a>
+                    <div
+                        class="form-group custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                        <span>Don't have an account? <a href="/register" class="btn--color-primary btn-text-hover">Sign
+                                up here</a></span>
+                        <button type="submit" class="btn btn--bg-primary btn-splash-hover btn-3d-hover"
+                            (click)="doValidate()" [disabled]="isInValid()">
+                            <span class="btn__text">Verify</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+</section>

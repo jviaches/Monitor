@@ -37,15 +37,6 @@
 //   color: gray;
 // }
 
-// .mat-form-field {
-//   font-size: 14px;
-//   width: 100%;
-// }
-
-// .mat-form-field {
-//   color: #00d318;
-// }
-
 // .mat-table {
 //   background: var(--panel-color);
 // }
@@ -226,15 +217,14 @@ mat-card-title {
   color: #6e6d7a;
 }
 
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
+// .mat-form-field {
+//   font-size: 14px;
+//   width: 100%;
+// }
 
 .mat-form-field {
-  color: #00d318;
+  display: block;
 }
-
 .mat-table {
   background: var(--panel-color);
 }
