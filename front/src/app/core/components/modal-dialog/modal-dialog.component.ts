@@ -11,7 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ModalDialogComponent {
 
   public caption: 'Notification';
-  public message: '';
+  public message = '';
 
   constructor(private dialogRef: MatDialogRef<ModalDialogComponent>, @Inject(MAT_DIALOG_DATA) { data }: DialogData) {
     this.caption = data.caption;
@@ -19,6 +19,6 @@ export class ModalDialogComponent {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close('close');
   }
 }

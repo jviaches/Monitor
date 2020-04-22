@@ -53,14 +53,14 @@
             <mat-card-content>
                 <div class="resources-stats">
                     <h4 class="resources-stats-item-descriprion">Actions</h4>
-                    <button class="btn btn--outline-thick btn--color-primary btn--sm rounded-full btn-3d-hover btn-splash-hover" (click)="addResource()">Add Web Site</button>
+                    <button mat-stroked-button (click)="addResource()">Add Web Site</button>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
 
-    <div>
-        <h4>Monitored Resources</h4>
+    <div >
+        <h5 class="marging-10">Monitored Resources</h5>
         <ng-template [ngIf]="activeResources.length > 0">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let resource of activeResources">
@@ -83,11 +83,11 @@
                             </div>
                             <div [ngSwitch]="resource.lastStatus">
                                 <div *ngSwitchCase="200">
-                                    <span class="material-icons" matTooltip="Last status: OK"
+                                    <span class="material-icons valid" matTooltip="Last status: OK"
                                         matTooltipPosition="after">check_circle_outline</span>
                                 </div>
                                 <div *ngSwitchCase="000">
-                                    <span class="material-icons" matTooltip="Last status: Error"
+                                    <span class="material-icons invalid" matTooltip="Last status: Error"
                                         matTooltipPosition="after">error</span>
                                 </div>
                                 <div *ngSwitchCase="XXX">
@@ -104,8 +104,8 @@
                     <div class="widget">
                         <div class="graph" [chart]="chartMap[resource.id]"></div>
                         <div class="actions">
-                            <button class="btn btn--outline-thick btn--color-primary btn--sm rounded-full btn-3d-hover btn-splash-hover" (click)="editResource(resource)">Update</button>
-                            <button class="btn btn--outline-thick btn--color-primary btn--sm rounded-full btn-3d-hover btn-splash-hover" (click)="deleteResource(resource)">Delete</button>
+                            <button mat-stroked-button (click)="editResource(resource)">Update</button>
+                            <button mat-stroked-button (click)="deleteResource(resource)">Delete</button>
                         </div>
                     </div>
                 </mat-expansion-panel>
@@ -118,7 +118,7 @@
 </div>
 
 <div class="content">
-    <h4>Non Monitored Resources</h4>
+    <h5 class="marging-10">Non Monitored Resources</h5>
     <mat-accordion>
         <ng-template [ngIf]="inActiveResources.length > 0">
             <mat-expansion-panel *ngFor="let resource of inActiveResources">
@@ -141,11 +141,11 @@
                         </div>
                         <div [ngSwitch]="resource.lastStatus">
                             <div *ngSwitchCase="200">
-                                <span class="material-icons" matTooltip="Last status: OK"
+                                <span class="material-icons valid" matTooltip="Last status: OK"
                                     matTooltipPosition="after">check_circle_outline</span>
                             </div>
                             <div *ngSwitchCase="000">
-                                <span class="material-icons" matTooltip="Last status: Error"
+                                <span class="material-icons invalid" matTooltip="Last status: Error"
                                     matTooltipPosition="after">error</span>
                             </div>
                             <div *ngSwitchCase="XXX">
@@ -162,8 +162,8 @@
                 <div class="widget">
                     <div class="graph" [chart]="chartMap[resource.id]"></div>
                     <div class="actions">
-                        <button class="mat-raised-button" (click)="editResource(resource)">Update</button>
-                        <button class="mat-raised-button" (click)="deleteResource(resource)">Delete</button>
+                        <button mat-stroked-button (click)="editResource(resource)">Update</button>
+                        <button mat-stroked-button (click)="deleteResource(resource)">Delete</button>
                     </div>
                 </div>
             </mat-expansion-panel>
