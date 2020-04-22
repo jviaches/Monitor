@@ -133,10 +133,6 @@ export class DashboardComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
     const dialogRef = this.dialog.open(ResourceEditComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.getResources();
-    });
   }
 
   deleteResource(resource: IResource) {
