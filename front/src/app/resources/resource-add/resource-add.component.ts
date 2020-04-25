@@ -57,7 +57,7 @@ export class ResourceAddComponent {
             url: this.getUrl.value + '',
             userId: this.authService.getUserName(),
             monitorPeriod: this.getPeriodicity.value,
-            isMonitorActivated: this.getActivationState.value === true ? '1' : '0',
+            isMonitorActivated: Number(this.getActivationState.value),
         };
 
         this.resourceService.addResource(resource).subscribe( () => {
