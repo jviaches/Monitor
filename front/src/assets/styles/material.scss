@@ -183,9 +183,9 @@
   font-size: 12px;
 }
 
-.mat-tab-label .mat-tab-label-content {
-  color: var(--text-secondary-color);
-}
+// .mat-tab-label .mat-tab-label-content {
+//   color: var(--text-secondary-color);
+// }
 
 // .mat-form-field-infix .mat-input-element {
 //   caret-color:  var(--selected-color);
@@ -225,33 +225,33 @@ mat-card-title {
 .mat-form-field {
   display: block;
 }
-.mat-table {
-  background: var(--panel-color);
-}
+// .mat-table {
+//   background: var(--panel-color);
+// }
 
-.mat-paginator-container {
-  background: var(--panel-color);
-}
+// .mat-paginator-container {
+//   background: var(--panel-color);
+// }
 
-.mat-paginator-range-label {
-  color: var(--text-secondary-color);
-}
+// .mat-paginator-range-label {
+//   color: var(--text-secondary-color);
+// }
 
-.mat-paginator-page-size-label {
-  color: var(--text-secondary-color);
-}
+// .mat-paginator-page-size-label {
+//   color: var(--text-secondary-color);
+// }
 
-.mat-paginator-icon {
-  color: var(--text-secondary-color);
-}
+// .mat-paginator-icon {
+//   color: var(--text-secondary-color);
+// }
 
-.ng-star-inserted {
-  color: var(--text-secondary-color);
-}
+// .ng-star-inserted {
+//   color: var(--text-secondary-color);
+// }
 
-.mat-paginator-icon path {
-  color: var(--text-secondary-color);
-}
+// .mat-paginator-icon path {
+//   color: var(--text-secondary-color);
+// }
 
 .mat-error {
   color: red;
@@ -262,32 +262,22 @@ mat-card-title {
   height: 200px;
   width: 400px;
   border-radius: 10px;
-  color: var(--selected-color);
+  //color: var(--selected-color);
 }
 
-.invoice-dialog-large .mat-dialog-container {
+.mat-dialog-container {
   text-align: center;
   border-radius: 10px;
-  color: var(--selected-color);
-}
+  // color: var(--selected-color);
 
-.invoice-dialog-medium {
-  .mat-dialog-content {
-    text-align: center;
-    height: 380px;
-    color: var(--selected-color);
-  }
-
-  .mat-dialog-container {
-    text-align: center;
-    border-radius: 10px;
-    color: var(--selected-color);
+  mat-dialog-content{
+    margin-bottom: 20px;
   }
 }
 
-.mat-dialog-title {
-  color: var(--selected-color);
-}
+// .mat-dialog-title {
+//   color: var(--selected-color);
+// }
 
 .mat-dialog-actions {
   justify-content: center;
@@ -309,7 +299,6 @@ mat-card-actions {
   .mat-slide-toggle-thumb {
     background-color: white;
   }
-
 }
 
 .mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
