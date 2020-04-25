@@ -20,6 +20,7 @@ export class ResourceEditComponent implements OnInit {
 
     siteFormGroup: FormGroup;
     periodicityOptions = SelectionOptions.periodicityOptions();
+    urlRegex = '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
 
     constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) { data }: DialogData,
                 private resourceService: ResourceService, private formBuilder: FormBuilder,
@@ -33,7 +34,7 @@ export class ResourceEditComponent implements OnInit {
         this.selectedPeriodicity = this.periodicityOptions.find( item => item.key === this.resourceToEdit.monitorPeriod);
 
         this.siteFormGroup = this.formBuilder.group({
-            url: [this.resourceToEdit.url, [Validators.required]],
+            url: [this.resourceToEdit.url, [Validators.required, Validators.pattern(this.urlRegex)]],
             periodicity: [this.selectedPeriodicity.key, Validators.required],
             isActivated: [this.resourceToEdit.isMonitorActivated]
         });
@@ -67,12 +68,14 @@ export class ResourceEditComponent implements OnInit {
             hour12: false
           };
 
+        console.log(Number(this.getActivationState.value));
+
         const resource = {
             id: this.resourceToEdit.id,
             url: this.getUrl.value + '',
             userId: this.authService.getUserName(),
             monitorPeriod: this.getPeriodicity.value,
-            isMonitorActivated: this.getActivationState.value === true ? '1' : '0',
+            isMonitorActivated: Number(this.getActivationState.value),
             monitorActivationDate: new Intl.DateTimeFormat('en-US', timeOptions).format(new Date()).toString()
         };
 
