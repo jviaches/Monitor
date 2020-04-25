@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthorizationService } from 'src/app/core/services/authentication.service';
 import { CustomValidators } from 'src/app/core/validators/validators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-new-password',
@@ -11,11 +12,16 @@ import { CustomValidators } from 'src/app/core/validators/validators';
 export class UserNewPasswordComponent {
 
   loginForm: FormGroup;
+  email = '';
+  verifCode = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthorizationService) {
+  constructor(private fb: FormBuilder, private authService: AuthorizationService, private router: Router) {
+    this.email = this.router.getCurrentNavigation().extras.state.email;
+    this.verifCode = this.router.getCurrentNavigation().extras.state.code;
+    console.log(this.email);
+    console.log(this.verifCode);
+
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      code: ['', [Validators.required, Validators.minLength(1)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
     },
@@ -23,15 +29,7 @@ export class UserNewPasswordComponent {
   }
 
   doSubmit() {
-    this.authService.forgotPasswordSubmit(this.loginForm.value.email, this.loginForm.value.code, this.loginForm.value.password);
-  }
-
-  get getEmail() {
-    return this.loginForm.get('email');
-  }
-
-  get getCode() {
-    return this.loginForm.get('code');
+    this.authService.forgotPasswordSubmit(this.email, this.verifCode, this.loginForm.value.password);
   }
 
   get getPassword() {

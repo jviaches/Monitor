@@ -33,7 +33,7 @@ export class UserConfirmationComponent implements OnInit {
     if (this.authFlow.toString() === AuthFlow[AuthFlow.Register]) {
       this.authService.confirmSignUp(this.getEmail.value, this.getCode.value);
     } else if (this.authFlow.toString() === AuthFlow[AuthFlow.ForgetPassword]) {
-      this.router.navigateByUrl('/new-password');
+      this.router.navigate(['/new-password'], { state: { email: this.getEmail.value, code: this.getCode.value}});
     }
   }
 
