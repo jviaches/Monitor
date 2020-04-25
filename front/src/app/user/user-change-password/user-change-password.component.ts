@@ -1,11 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthorizationService } from 'src/app/core/services/authentication.service';
 import { GeneralService } from 'src/app/core/services/general.service';
-import { get } from 'http';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from 'src/app/core/components/modal-dialog/dialog-data';
-import { log } from 'util';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-change-password',
@@ -25,7 +22,6 @@ export class UserChangePasswordComponent {
   }
 
   async doSubmit() {
-    // this.test1().then(result => console.log(result));
     await this.authService.changePassword(this.form.value.oldPassword, this.form.value.newPassword)
      .then( response => {
       console.log(response);
@@ -36,21 +32,6 @@ export class UserChangePasswordComponent {
       }
     });
   }
-
-  //  test1(): Promise<string> {
-  //    return new Promise( (resolve, reject) => {
-  //     resolve(this.test2()),
-  //     reject('rejected1');
-  //    });
-  //  }
-
-  //  test2(): Promise<string> {
-  //   return new Promise( (resolve, reject) => {
-  //    resolve('resolved2'),
-  //    reject('rejected2');
-  //   });
-  // }
-
   doCancel() {
     this.dialog.closeAll();
   }
