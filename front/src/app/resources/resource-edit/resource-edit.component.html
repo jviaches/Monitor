@@ -4,8 +4,7 @@
         <mat-card-content>
             <label class="label-control mb-10" for="email">Site URL</label>
             <mat-form-field class="form-group mb-20 display-block" appearance="outline">
-                <input matInput placeholder="Ex. https://stackoverflow.com" formControlName="url" autofocus>
-                <mat-error *ngIf="getUrl.invalid">Please enter a valid web site</mat-error>
+                <input matInput placeholder="Ex. https://stackoverflow.com" formControlName="url" readonly >
             </mat-form-field>
 
             <mat-form-field class="form-group mb-20 display-block" appearance="outline">

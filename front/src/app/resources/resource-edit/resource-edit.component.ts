@@ -20,7 +20,6 @@ export class ResourceEditComponent implements OnInit {
 
     siteFormGroup: FormGroup;
     periodicityOptions = SelectionOptions.periodicityOptions();
-    urlRegex = '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
 
     constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) { data }: DialogData,
                 private resourceService: ResourceService, private formBuilder: FormBuilder,
@@ -34,7 +33,7 @@ export class ResourceEditComponent implements OnInit {
         this.selectedPeriodicity = this.periodicityOptions.find( item => item.key === this.resourceToEdit.monitorPeriod);
 
         this.siteFormGroup = this.formBuilder.group({
-            url: [this.resourceToEdit.url, [Validators.required, Validators.pattern(this.urlRegex)]],
+            url: [this.resourceToEdit.url, [Validators.required]],
             periodicity: [this.selectedPeriodicity.key, Validators.required],
             isActivated: [this.resourceToEdit.isMonitorActivated]
         });
