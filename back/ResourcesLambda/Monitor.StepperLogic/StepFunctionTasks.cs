@@ -186,7 +186,7 @@ namespace Monitor.StepperLogic
 
             const string subject = "Projscope - Alert";
             string textBody = "Abnormal resource status detected - " + statusCodeResult + "\r\n"
-                                            + "Monitored site: " + resource + ".";
+                                            + "Status code: " + resource + ".";
 
             // The HTML body of the email.
             string htmlBody = string.Format(@"<html>
@@ -194,7 +194,7 @@ namespace Monitor.StepperLogic
             <body>
                 <h1>Projscope - Alert</h1>
                 <div>Abnormal resource status detected: {0}</ div>
-                <div>Monitored site: {1}</ div>
+                <div>Site status code: {1}</ div>
                 <p>This email was sent by
                     <a href='https://projscope.com/'>Proscope.com</a>.
             </body>

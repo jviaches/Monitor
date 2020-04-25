@@ -10,8 +10,7 @@ import { AuthorizationService } from '../core/services/authentication.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { UserChangePasswordComponent } from '../user/user-change-password/user-change-password.component';
-import { YAxisLabelsOptions, YAxisOptions } from 'highcharts';
-import { ImplicitReceiver } from '@angular/compiler';
+import { YAxisLabelsOptions } from 'highcharts';
 
 @Component({
   selector: 'app-dashboard',
@@ -126,13 +125,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  editResource(resource: IResource) {
+  editResource(resource: IResource, event: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.data = { data: resource };
     dialogConfig.disableClose = true;
     dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
     const dialogRef = this.dialog.open(ResourceEditComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getResources();
+    });
   }
 
   deleteResource(resource: IResource) {

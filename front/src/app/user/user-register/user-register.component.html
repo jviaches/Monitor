@@ -33,7 +33,9 @@
                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                         <!-- <label class="custom-control-label" for="customCheck1">I agree to the <a href="/terms-of-service" target="_blank" class="btn--color-primary btn-text-hover">Terms and Conditions</a></label> -->
                         <span>Allready have an account? <a href="/login" class="btn--color-primary btn-text-hover">Login here</a></span>
-                        <button type="submit" class="btn btn--bg-primary btn-splash-hover btn-3d-hover"><span class="btn__text">Sign Up</span></button>
+                        <button type="submit" class="btn btn--bg-primary btn-splash-hover btn-3d-hover" (click)="doRegister()">
+                            <span class="btn__text">Sign Up</span>
+                        </button>
                     </div>
                 </form>
                 <!-- <div class="text-left mt-30">

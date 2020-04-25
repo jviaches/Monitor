@@ -37,7 +37,7 @@ export class AuthorizationService {
         this.generalService.showActionConfirmationFail('Password reset required.');
         return err.code;
       } else if (err.code === 'NotAuthorizedException') {
-        this.generalService.showActionConfirmationFail('This user is not authorized.');
+        this.generalService.showActionConfirmationFail('Invalid email or password');
       } else if (err.code === 'UserNotFoundException') {
         this.generalService.showActionConfirmationFail('Invalid email or password');
       } else {
