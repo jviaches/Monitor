@@ -9,9 +9,9 @@ frontend:
       commands: 
         - npm run build  
   artifacts:
-    # IMPORTANT - Please verify your build output directory
     baseDirectory: /dist/front
     files:
       - '**/*'
   cache:
-    paths: []
+    paths:
+    - node_modules/**/*
