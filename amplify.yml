@@ -9,9 +9,11 @@ frontend:
       commands: 
         - npm run build --output-path=dist/front
         - ls
-        - dir
+        - cd dist
+        - ls
+        - cd front
   artifacts:
-    baseDirectory: /dist/front/
+    baseDirectory: dist/front/
     files:
       - '**/*'
   cache:
