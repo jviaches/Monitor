@@ -4,7 +4,9 @@ frontend:
     preBuild:
       commands:
         - cd front
-        - npm ci    
+        - npm ci
+        - '# Execute Amplify CLI with the helper script'
+        - amplifyPush --simple
     build:
       commands: 
         - npm run build  
