@@ -13,7 +13,7 @@ frontend:
         - ls
         - cd front
   artifacts:
-    baseDirectory: dist/front/
+    baseDirectory: /front/dist/front/
     files:
       - '**/*'
   cache:
