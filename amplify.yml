@@ -4,9 +4,9 @@ backend:
     preBuild:
       commands:
         - cd back/ResourcesLambda/ResourcesLambda
-        - ls
     build:
       commands:
+        - amplifyPush --simple
         - dotnet tool install -g Amazon.Lambda.Tools
         - dotnet lambda deploy-serverless
 frontend:
