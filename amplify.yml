@@ -4,8 +4,10 @@ backend:
     preBuild:
       commands:
         - cd back/ResourcesLambda/ResourcesLambda
+        - ls
     build:
       commands:
+        - dotnet tool install -g Amazon.Lambda.Tools
         - dotnet lambda deploy-serverless
 frontend:
   phases:
