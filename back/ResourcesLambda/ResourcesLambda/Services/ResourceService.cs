@@ -68,7 +68,7 @@ namespace ResourcesLambda.Services
                 var periodTimeInSeconds = resourceHistoryVM.MonitorPeriod;
                 var putItemRequest = new PutItemRequest()
                 {
-                    TableName = "Resources",
+                    TableName = "Resources-prod",
                     Item = new Dictionary<string, AttributeValue>
                     {
                         {"Id", new AttributeValue {S = Guid.NewGuid().ToString()}},
@@ -96,7 +96,7 @@ namespace ResourcesLambda.Services
                 var periodTimeInSeconds = resourceVM.MonitorPeriod;
                 var updateItemRequest = new UpdateItemRequest()
                 {
-                    TableName = "Resources",
+                    TableName = "Resources-prod",
                     Key = new Dictionary<string, AttributeValue> { { "Id", new AttributeValue { S = resourceVM.Id } } },
                     ExpressionAttributeNames = new Dictionary<string, string>()
                     {

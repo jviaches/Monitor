@@ -3,10 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  api: 'https://localhost:44356/api/',
   production: false,
   UserPoolId: 'us-east-2_7h0jWCb5E',      // Cognito
   ClientId: '48hha9tmu8pctjga5gofrikqej'  // Cognito
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

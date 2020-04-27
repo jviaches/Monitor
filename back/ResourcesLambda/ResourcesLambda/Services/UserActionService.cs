@@ -23,7 +23,7 @@ namespace ResourcesLambda.Services
         private static AmazonDynamoDBClient client;
         private static DynamoDBContext context;
         
-        private const string TABLE_NAME = "UserActions";
+        private const string TABLE_NAME = "UserActions-prod";
 
         public UserActionService(Credentials credentials)
         {

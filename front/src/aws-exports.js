@@ -18,7 +18,22 @@ const awsmobile = {
         "redirectSignOut": "http://localhost:4200/login/",
         "responseType": "code"
     },
-    "federationTarget": "COGNITO_USER_POOLS"
+    "federationTarget": "COGNITO_USER_POOLS",
+    "aws_dynamodb_all_tables_region": "us-east-2",
+    "aws_dynamodb_table_schemas": [
+        {
+            "tableName": "Resources-prod",
+            "region": "us-east-2"
+        },
+        {
+            "tableName": "ResourcesHistory-prod",
+            "region": "us-east-2"
+        },
+        {
+            "tableName": "UserActions-prod",
+            "region": "us-east-2"
+        }
+    ]
 };
 
 
