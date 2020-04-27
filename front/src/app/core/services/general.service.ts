@@ -5,7 +5,6 @@ import { ModalDialogComponent } from '../components/modal-dialog/modal-dialog.co
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ModalYesNoDialogComponent } from '../components/yesno-modal-dialog/yesno-modal-dialog.component';
 import { Router } from '@angular/router';
-import { AuthFlow } from '../enums/enums';
 
 @Injectable({
     providedIn: 'root'
