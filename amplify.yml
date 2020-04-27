@@ -7,9 +7,6 @@ backend:
     build:
       commands:
         - dotnet lambda deploy-serverless
-    postBuild:
-        commands:
-        - *enter command*
 frontend:
   phases:
     preBuild:
