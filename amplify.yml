@@ -1,4 +1,13 @@
 version: 0.1
+backend:
+  phases:
+    preBuild:
+      commands:
+        - cd back/ResourcesLambda/ResourcesLambda
+        - npm ci
+    build:
+      commands:
+        - dotnet lambda deploy-serverless
 frontend:
   phases:
     preBuild:
@@ -6,10 +15,7 @@ frontend:
         - cd front
         - npm ci
     build:
-      commands:
-        - cd back/ResourcesLambda/ResourcesLambda
-        - dotnet lambda  deploy-serverless
-        - cd front
+      commands: 
         - npm run build:$ENV --output-path=dist/front
         - ls
         - cd dist
