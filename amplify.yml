@@ -1,14 +1,4 @@
 version: 0.1
-backend:
-  phases:
-    preBuild:
-      commands:
-        - cd back/ResourcesLambda/ResourcesLambda
-    build:
-      commands:
-        - amplifyPush --simple
-        - dotnet tool install -g Amazon.Lambda.Tools
-        - dotnet lambda deploy-serverless
 frontend:
   phases:
     preBuild:
@@ -18,10 +8,8 @@ frontend:
     build:
       commands: 
         - npm run build:$ENV --output-path=dist/front
-        - ls
-        - cd dist
-        - ls
-        - cd front
+        - cd back/ResourcesLambda/ResourcesLambda
+        - dotnet lambda  deploy-serverless
   artifacts:
     baseDirectory: /front/dist/front/
     files:
