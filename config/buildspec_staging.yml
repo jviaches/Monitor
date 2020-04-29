@@ -9,13 +9,14 @@ env:
 phases:
     install:
         commands:
+        - echo Installing Angular...
         - cd front
-
+        - npm install -g @angular/cli
 build:
         commands:
         # Builds Angular application. You can also build using custom environment here like mock or staging
         - echo Build started on `date`
-        - ng build --configuration=${BUILD_ENV}
+        - ng build --configuration=staging
         - ls
 
 post_build:
@@ -31,4 +32,4 @@ artifacts:
     files:
         - '/'
     discard-paths: yes
-    base-directory: 'front/dist/front*'
+    base-directory: 'dist/front*'
