@@ -19,7 +19,7 @@ phases:
   post_build:
      commands:
       - aws s3 cp dist/front s3://monitor-stage --recursive
-        aws cloudfront create-invalidation --distribution-id E13GE1GMAJKUBE \ --paths /index.html /error.html
+      - aws cloudfront create-invalidation --distribution-id E13GE1GMAJKUBE \ --paths /index.html /error.html
       - echo Build completed on `date`
 artifacts:
   files:
