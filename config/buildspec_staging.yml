@@ -8,12 +8,12 @@ phases:
       nodejs: 10
   pre_build:
     commands:
+      - cd front
       - echo Installing source NPM dependencies...
       - npm install
       - npm install -g @angular/cli
   build:
     commands:
-      - cd front
       - echo Build started on `date`
       - ng build --prod --aot
   post_build:
