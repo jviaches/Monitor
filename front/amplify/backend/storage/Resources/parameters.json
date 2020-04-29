@@ -1,0 +1,7 @@
+{
+    "tableName": "Resources",
+    "partitionKeyName": "Id",
+    "partitionKeyType": "S",
+    "sortKeyName": "UserId",
+    "sortKeyType": "S"
+}

@@ -28,5 +28,41 @@
                 }
             }
         }
+    },
+    "staging": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-monitor-staging-83548-authRole",
+            "UnauthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-83548-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-83548-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-monitor-staging-83548-deployment",
+            "UnauthRoleName": "amplify-monitor-staging-83548-unauthRole",
+            "StackName": "amplify-monitor-staging-83548",
+            "StackId": "arn:aws:cloudformation:us-east-2:210851079002:stack/amplify-monitor-staging-83548/e1d4db50-87c2-11ea-af8f-02582149edd0",
+            "AmplifyAppId": "d2pn6gsqng21i7"
+        },
+        "categories": {
+            "auth": {
+                "monitor": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"1015041586570-jge3bqgkeegpa9m0ets1euvjvpqpk4tn.apps.googleusercontent.com\",\"client_secret\":\"xk2oStesG5Am_Y6nzwT5sKS-\"}]"
+                }
+            },
+            "function": {
+                "monitorCustomMessage": {
+                    "REDIRECTURL": "",
+                    "EMAILSUBJECT": "",
+                    "EMAILMESSAGE": ""
+                },
+                "monitorPostConfirmation": {
+                    "GROUP": "user"
+                }
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d2pn6gsqng21i7",
+                    "type": "cicd"
+                }
+            }
+        }
     }
 }

@@ -4,14 +4,21 @@ frontend:
     preBuild:
       commands:
         - cd front
-        - npm ci    
+        - npm ci
     build:
       commands: 
-        - npm run build  
+        - cd ../back/ResourcesLambda/ResourcesLambda
+        - dotnet lambda deploy-serverless
+        - ../../../cd front
+        - npm run build:$ENV --output-path=dist/front
+        - ls
+        - cd dist
+        - ls
+        - cd front
   artifacts:
-    # IMPORTANT - Please verify your build output directory
-    baseDirectory: /
+    baseDirectory: /front/dist/front/
     files:
       - '**/*'
   cache:
-    paths: []
+    paths:
+    - node_modules/**/*
