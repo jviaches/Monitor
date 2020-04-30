@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+    install:
+      commands:
+        - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+        - sudo apt-get install -y nodejs
+    pre_build:
+        commands:
+    build:
+        commands:
+        - dotnet publish Api/Api.csproj -o bin/Release/netcoreapp2.1/publish
+        - ls
+        - cd Api
+        
+artifacts:
+  files:
+    - outputSamTemplate.yml
+  discard-paths: yes
+  base-directory: Api
