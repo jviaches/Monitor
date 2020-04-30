@@ -6,10 +6,11 @@ phases:
   pre_build:
     commands:
       - cd back/ResourcesLambda/ResourcesLambda
-      - dotnet build
+      - dotnet tool install --global Amazon.Lambda.Tools
   build:
     commands:
       - echo Build started on `date`
+      - dotnet build
       - dotnet publish ResourcesLambda.csproj -o bin/Release/netcoreapp2.1/publish
       - dotnet lamda deploy-serverless
 
