@@ -2,8 +2,8 @@ version: 0.2
 phases:
     install:
       commands:
-        - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-        - sudo apt-get install -y nodejs
+        runtime-versions:
+          nodejs: 10
     pre_build:
         commands:
     build:
