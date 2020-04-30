@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+  pre_build:
+    commands:
+      - cd back/ResourcesLambda/ResourcesLambda
+      - dotnet tool install --global Amazon.Lambda.Tools
+  build:
+    commands:
+      - echo Build started on `date`
+      - dotnet build
+      - dotnet publish ResourcesLambda.csproj -o bin/Release/netcoreapp2.1/publish
+      - ~/.dotnet/tools/dotnet-lambda deploy-serverless
+
