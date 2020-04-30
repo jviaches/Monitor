@@ -11,11 +11,4 @@ phases:
     commands:
       - echo Build started on `date`
       - dotnet publish ResourcesLambda.csproj -o bin/Release/netcoreapp2.1/publish
-      - ls
-      - cd Api
 
-artifacts:
-  files:
-    - outputSamTemplate.yml
-  discard-paths: yes
-  base-directory: Api
