@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monitor.Core.Models
 {
-    [DynamoDBTable("Resources-prod")]
+    [DynamoDBTable("Resources-staging")]
     public class Resource
     {
         [DynamoDBHashKey]
