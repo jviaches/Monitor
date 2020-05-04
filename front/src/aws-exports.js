@@ -2,12 +2,23 @@
 
 const awsmobile = {
     "aws_project_region": "us-east-2",
-    "aws_cognito_identity_pool_id": "us-east-2:86c0ec5d-a7d0-4a0e-8c92-307863f4b280",
+    "aws_cognito_identity_pool_id": "us-east-2:0976865c-00f9-4218-aeea-2a80ec6a93a0",
     "aws_cognito_region": "us-east-2",
-    "aws_user_pools_id": "us-east-2_NwDySt6wd",
-    "aws_user_pools_web_client_id": "1uq198peafb90bg68iqfdcp7lg",
+    "aws_user_pools_id": "us-east-2_OoOivDwjA",
+    "aws_user_pools_web_client_id": "17ll1achpiig7nmtbl7s94tem9",
     "oauth": {},
-    "federationTarget": "COGNITO_USER_POOLS"
+    "federationTarget": "COGNITO_USER_POOLS",
+    "aws_dynamodb_all_tables_region": "us-east-2",
+    "aws_dynamodb_table_schemas": [
+        {
+            "tableName": "ResourcesHistory-staging",
+            "region": "us-east-2"
+        },
+        {
+            "tableName": "UserActions-staging",
+            "region": "us-east-2"
+        }
+    ]
 };
 
 

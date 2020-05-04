@@ -12,6 +12,9 @@ phases:
       - echo Installing source NPM dependencies...
       - npm install
       - npm install -g @angular/cli
+      - npm install -g @aws-amplify/cli
+      - amplify pull
+      - amplify env checkout prod
   build:
     commands:
       - echo Build started on `date`
@@ -19,5 +22,4 @@ phases:
   post_build:
      commands:
       - aws s3 cp dist/front s3://monitor-prod --recursive
-      - aws cloudfront create-invalidation --distribution-id E13GE1GMAJKUBE \ --paths /index.html /error.html
       - echo Build completed on `date`
