@@ -13,7 +13,7 @@ phases:
       - npm install
       - npm install -g @angular/cli
       - npm install -g @aws-amplify/cli
-      - amplify update project
+      - amplify configure
   build:
     commands:
       - echo Build started on `date`
