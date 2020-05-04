@@ -1,0 +1,52 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-monitor-prod-152515-authRole",
+            "UnauthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-prod-152515-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-prod-152515-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-monitor-prod-152515-deployment",
+            "UnauthRoleName": "amplify-monitor-prod-152515-unauthRole",
+            "StackName": "amplify-monitor-prod-152515",
+            "StackId": "arn:aws:cloudformation:us-east-2:210851079002:stack/amplify-monitor-prod-152515/df349ef0-8be9-11ea-986b-0a569e9f7d94",
+            "AmplifyAppId": "dvrh49q4f3y39"
+        },
+        "categories": {
+            "auth": {
+                "monitor9020fb28": {}
+            }
+        }
+    },
+    "auth": {
+        "monitor9020fb28": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [],
+            "customAuth": false,
+            "output": {
+                "AppClientSecret": "1jh2nopb9pdvoupuopo14pc84k7drq0rnq7r5npve0d510s9cvt9",
+                "UserPoolId": "us-east-2_NwDySt6wd",
+                "AppClientIDWeb": "1uq198peafb90bg68iqfdcp7lg",
+                "AppClientID": "716vdo5dokr6c4bck9s2uqkd4m",
+                "IdentityPoolId": "us-east-2:86c0ec5d-a7d0-4a0e-8c92-307863f4b280",
+                "IdentityPoolName": "monitor9020fb28_identitypool_9020fb28__prod",
+                "UserPoolName": "monitor9020fb28_userpool_9020fb28"
+            },
+            "lastPushTimeStamp": "2020-05-04T20:36:40.288Z",
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/amplify-monitor-prod-152515-deployment/amplify-cfn-templates/auth/monitor9020fb28-cloudformation-template.yml",
+                "logicalId": "authmonitor9020fb28"
+            }
+        }
+    },
+    "storage": {
+        "ResourcesHistory": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        },
+        "UserActions": {
+            "service": "DynamoDB",
+            "providerPlugin": "awscloudformation"
+        }
+    }
+}

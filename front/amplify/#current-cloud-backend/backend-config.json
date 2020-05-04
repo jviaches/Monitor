@@ -1,0 +1,10 @@
+{
+	"auth": {
+		"monitor9020fb28": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}
