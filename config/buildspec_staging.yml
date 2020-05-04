@@ -12,7 +12,9 @@ phases:
       - echo Installing source NPM dependencies...
       - npm install
       - npm install -g @angular/cli
+      - amplify init
       - amplify update project
+      - amplify dev checkout prod
   build:
     commands:
       - echo Build started on `date`
