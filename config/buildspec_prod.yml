@@ -13,6 +13,7 @@ phases:
       - npm install
       - npm install -g @angular/cli
       - npm install -g @aws-amplify/cli
+      - amplify pull
       - amplify env checkout prod
   build:
     commands:
