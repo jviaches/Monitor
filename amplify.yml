@@ -5,10 +5,10 @@ frontend:
       commands:
         - cd front
         - npm ci
+        - npm install -g @angular/cli
     build:
       commands: 
-        - cd ../front
-        - npm run build:$ENV --output-path=dist/front
+        - ng build --configuration=staging --aot
   artifacts:
     baseDirectory: /front/dist/front/
     files:
