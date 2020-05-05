@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Monitor.Core.Models
 {
-    [DynamoDBTable("ResourcesHistory")]
+    [DynamoDBTable("ResourcesHistory-staging")]
     public class ResourcesHistory
     {
         [DynamoDBHashKey]

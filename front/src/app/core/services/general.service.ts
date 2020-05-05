@@ -5,7 +5,7 @@ import { ModalDialogComponent } from '../components/modal-dialog/modal-dialog.co
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ModalYesNoDialogComponent } from '../components/yesno-modal-dialog/yesno-modal-dialog.component';
 import { Router } from '@angular/router';
-import { AuthFlow } from '../enums/enums';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +13,7 @@ import { AuthFlow } from '../enums/enums';
 
 export class GeneralService {
 
-    URL = 'https://localhost:44356/api/';
+    URL = 'https://localhost:44356/api/'; // environment.api;
 
     constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private router: Router) {
     }

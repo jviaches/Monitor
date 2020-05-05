@@ -52,9 +52,13 @@ namespace ResourcesLambda
             services.AddScoped<IUserActionService, UserActionService>();
 
             //services.AddCognitoIdentity();
-            var Region = Configuration["AWSCognito:Region"];
-            var PoolId = Configuration["AWSCognito:PoolId"];
-            var AppClientId = Configuration["AWSCognito:AppClientId"];
+            var RegionStaging = Configuration["AWSCognito-staging:Region"];
+            var PoolIdStaging = Configuration["AWSCognito-production:PoolId"];
+            var AppClientIdStaging = Configuration["AWSCognito-staging:AppClientId"];
+
+            var RegionProduction = Configuration["AWSCognito-production:Region"];
+            var PoolIdProduction = Configuration["AWSCognito-production:PoolId"];
+            var AppClientIdProduction = Configuration["AWSCognito-production:AppClientId"];
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -71,11 +75,19 @@ namespace ResourcesLambda
                                 return (IEnumerable<SecurityKey>)keys;
                             },
 
-                            ValidIssuer = $"https://cognito-idp.{Region}.amazonaws.com/{PoolId}",
+                            ValidIssuers = new List<string>
+                            {
+                                $"https://cognito-idp.{RegionStaging}.amazonaws.com/{PoolIdStaging}",
+                                $"https://cognito-idp.{RegionProduction}.amazonaws.com/{PoolIdProduction}",
+                            },
                             ValidateIssuerSigningKey = true,
                             ValidateIssuer = true,
                             ValidateLifetime = true,
-                            ValidAudience = AppClientId,
+                            ValidAudiences = new List<string>
+                            {
+                                AppClientIdStaging,
+                                AppClientIdProduction
+                            },
                             ValidateAudience = true
                         };
                     });

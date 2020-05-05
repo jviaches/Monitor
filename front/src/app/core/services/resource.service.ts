@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { IResource } from '../models/resource.model';
 import { GeneralService } from './general.service';
 import { AuthorizationService } from './authentication.service';

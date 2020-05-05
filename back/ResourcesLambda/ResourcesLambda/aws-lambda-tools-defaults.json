@@ -13,6 +13,6 @@
     "s3-prefix"     : "ResourcesLambda/",
     "template"      : "serverless.template",
     "template-parameters" : "\"ShouldCreateBucket\"=\"false\";\"BucketName\"=\"\"",
-    "s3-bucket"           : "monitor-backet",
+    "s3-bucket"           : "monitor-lamda",
     "stack-name"          : "ResourcesLambda"
 }
