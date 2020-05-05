@@ -351,3 +351,5 @@ MigrationBackup/
 back/ResourcesLambda/ResourcesLambda/appsettings.json
 front/src/environments/environment.ts
 front/src/environments/environment.prod.ts
+
+front/amplify/

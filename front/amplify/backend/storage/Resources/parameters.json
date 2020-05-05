@@ -1,7 +1,7 @@
 {
-    "tableName": "Resources",
-    "partitionKeyName": "Id",
+    "tableName": "resources",
+    "partitionKeyName": "id",
     "partitionKeyType": "S",
-    "sortKeyName": "IsMonitorActivated",
+    "sortKeyName": "isMonitorActivated",
     "sortKeyType": "N"
 }

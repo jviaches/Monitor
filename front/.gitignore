@@ -46,7 +46,7 @@ testem.log
 Thumbs.db
 
 #amplify
-
+amplify/
 build/
 dist/
 node_modules/

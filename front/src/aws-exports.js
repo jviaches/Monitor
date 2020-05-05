@@ -11,11 +11,14 @@ const awsmobile = {
     "aws_dynamodb_all_tables_region": "us-east-2",
     "aws_dynamodb_table_schemas": [
         {
-            "tableName": "ResourcesHistory-staging",
+            "tableName": "resources-staging",
             "region": "us-east-2"
-        },
+        }
+    ],
+    "aws_cloud_logic_custom": [
         {
-            "tableName": "UserActions-staging",
+            "name": "resources",
+            "endpoint": "https://bxzqq9jo95.execute-api.us-east-2.amazonaws.com/staging",
             "region": "us-east-2"
         }
     ]
