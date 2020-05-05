@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment';
 
 export class GeneralService {
 
-    URL = 'https://localhost:44356/api/'; // environment.api;
+    URL = 'https://bxzqq9jo95.execute-api.us-east-2.amazonaws.com/staging/'; // environment.api;
 
     constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private router: Router) {
     }

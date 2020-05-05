@@ -40,12 +40,12 @@
                 "AttributeDefinitions": [
                   
                   {
-                      "AttributeName": "Id",
+                      "AttributeName": "id",
                       "AttributeType": "S"
                   }  , 
                   
                   {
-                      "AttributeName": "IsMonitorActivated",
+                      "AttributeName": "isMonitorActivated",
                       "AttributeType": "N"
                   } 
                   
@@ -53,12 +53,12 @@
                 "KeySchema": [
                   
                   {
-                    "AttributeName": "Id",
+                    "AttributeName": "id",
                     "KeyType": "HASH"
                   }  , 
                   
                   {
-                    "AttributeName": "IsMonitorActivated",
+                    "AttributeName": "isMonitorActivated",
                     "KeyType": "RANGE"
                   } 
                   

@@ -1,7 +1,0 @@
-{
-    "tableName": "ResourcesHistory",
-    "partitionKeyName": "Id",
-    "partitionKeyType": "S",
-    "sortKeyName": "ResourceId",
-    "sortKeyType": "S"
-}
