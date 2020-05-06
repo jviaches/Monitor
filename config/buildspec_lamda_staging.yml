@@ -12,5 +12,5 @@ phases:
       - echo Build started on `date`
       - dotnet build
       - dotnet publish ResourcesLambda.csproj -o bin/Release/netcoreapp3.1/publish
-      - ~/.dotnet/tools/dotnet-lambda deploy-serverless
+      - ~/.dotnet/tools/dotnet-lambda deploy-serverless --stackname ResourceManagementStaging --s3-bucket ResourceManagementStaging
 
