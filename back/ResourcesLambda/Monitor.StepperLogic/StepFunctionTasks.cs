@@ -66,7 +66,7 @@ namespace Monitor.StepperLogic
             };
 
             var resources = await dbContext.ScanAsync<Resource>(resourceConditions).GetRemainingAsync();
-            var urlList = resources.Select(record => new ResourceModel(record.Id, record.Url, string.Empty, record.UserId)).ToList();
+            var urlList = resources.Select(record => new ResourceModel(record.Id, record.Url, string.Empty, record.UserId.ToString())).ToList();
 
             var resourceToScanModel = new ResourceScanResultModel() { ResourcesStatuses = urlList };
 
@@ -128,7 +128,7 @@ namespace Monitor.StepperLogic
                     Item = new Dictionary<string, AttributeValue>
                     {
                         {"Id", new AttributeValue {S = Guid.NewGuid().ToString()}},
-                        {"ResourceId", new AttributeValue {S = item.ResourceId}},
+                        {"ResourceId", new AttributeValue {S = item.ResourceId.ToString()}},
                         {"RequestDate", new AttributeValue {S = DateTime.UtcNow.ToString("u")}}, // yyyy'-'MM'-'dd HH':'mm':'ss'Z'
                         {"Result", new AttributeValue {S = string.IsNullOrEmpty(item.StatusCode) ? "000" : item.StatusCode }}
                     }

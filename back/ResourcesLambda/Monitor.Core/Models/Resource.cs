@@ -6,18 +6,14 @@ using System.Threading.Tasks;
 
 namespace Monitor.Core.Models
 {
-    [DynamoDBTable("Resources-staging")]
-    public class Resource
+    public class Resource: BaseEntity
     {
-        [DynamoDBHashKey]
-        public string Id { get; set; }
         public string Url { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public int MonitorPeriod { get; set; }
-        public int IsMonitorActivated { get; set; }
-        public string MonitorActivationDate { get; set; }
+        public bool IsMonitorActivated { get; set; }
+        public DateTime MonitorActivationDate { get; set; }
 
-        [DynamoDBIgnore]
         public List<ResourcesHistory> History { get; set; }
     }
 }

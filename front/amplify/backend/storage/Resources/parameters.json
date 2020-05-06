@@ -1,7 +1,0 @@
-{
-    "tableName": "resources",
-    "partitionKeyName": "id",
-    "partitionKeyType": "S",
-    "sortKeyName": "isMonitorActivated",
-    "sortKeyType": "N"
-}

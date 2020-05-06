@@ -11,6 +11,6 @@ namespace Monitor.Core.Interfaces
 {
     public interface IUserActionService
     {
-        Task<Result> Add(UserActionViewModel resourceVM);
+        //Task<Result> Add(UserActionViewModel resourceVM);
     }
 }

@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Monitor.Core.Models
 {
-    [DynamoDBTable("ResourcesHistory-staging")]
-    public class ResourcesHistory
+    public class ResourcesHistory: BaseEntity
     {
-        [DynamoDBHashKey]
-        public string Id { get; set; }
         public string ResourceId { get; set; }
         public string RequestDate { get; set; }
         public string Result { get; set; }

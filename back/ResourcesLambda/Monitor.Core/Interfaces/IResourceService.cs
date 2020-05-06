@@ -10,11 +10,11 @@ namespace Monitor.Core.Interfaces
 {
     public interface IResourceService
     {
-        Task<Resource> GetById(string id);
-        Task<IEnumerable<Resource>> GetByUserId(string id);
-        Task<Result> Add(ResourceViewModel resourceVM);
-        Task<Result> Update(UpdateResourceViewModel resourceVM);
-        Task<Result> Delete(UpdateResourceViewModel resourceVM);
-        Task<IEnumerable<ResourcesHistory>> GetHistoryByResourceId(string resourceId);
+        Task<Resource> GetById(int id);
+        Task<IEnumerable<Resource>> GetByUserId(int userId);
+        Resource Add(ResourceViewModel resourceVM);
+        //Task<Result> Update(UpdateResourceViewModel resourceVM);
+        //Task<Result> Delete(UpdateResourceViewModel resourceVM);
+        //Task<IEnumerable<ResourcesHistory>> GetHistoryByResourceId(string resourceId);
     }
 }

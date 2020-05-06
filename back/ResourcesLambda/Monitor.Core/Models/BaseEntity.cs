@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Monitor.Core.ViewModels
+namespace Monitor.Core.Models
 {
-    public class UpdateResourceViewModel : ResourceViewModel
+    public abstract class BaseEntity
     {
         public int Id { get; set; }
     }

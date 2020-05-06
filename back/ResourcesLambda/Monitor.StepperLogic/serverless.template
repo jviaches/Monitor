@@ -10,7 +10,7 @@
         "Properties" : {
             "Handler" : "Monitor.StepperLogic::Monitor.StepperLogic.StepFunctionTasks::RetrieveRecords",
             "Role"    : {"Fn::GetAtt" : [ "LambdaRole", "Arn"]},
-            "Runtime" : "dotnetcore2.1",
+            "Runtime" : "dotnetcore3.1",
             "MemorySize" : 128,
             "Timeout" : 30,
             "Code" : {
@@ -25,7 +25,7 @@
         "Properties" : {
             "Handler" : "Monitor.StepperLogic::Monitor.StepperLogic.StepFunctionTasks::MonitorRecords",
             "Role"    : {"Fn::GetAtt" : [ "SendEmailLambdaRole", "Arn"]},
-            "Runtime" : "dotnetcore2.1",
+            "Runtime" : "dotnetcore3.1",
             "MemorySize" : 128,
             "Timeout" : 30,
             "Code" : {
@@ -40,7 +40,7 @@
         "Properties" : {
             "Handler" : "Monitor.StepperLogic::Monitor.StepperLogic.StepFunctionTasks::ProcessRecords",
             "Role"    : {"Fn::GetAtt" : [ "LambdaRole", "Arn"]},
-            "Runtime" : "dotnetcore2.1",
+            "Runtime" : "dotnetcore3.1",
             "MemorySize" : 128,
             "Timeout" : 30,
             "Code" : {
@@ -55,7 +55,7 @@
         "Properties" : {
             "Handler" : "Monitor.StepperLogic::Monitor.StepperLogic.StepFunctionTasks::GetResourceStatus",
             "Role"    : {"Fn::GetAtt" : [ "LambdaRole", "Arn"]},
-            "Runtime" : "dotnetcore2.1",
+            "Runtime" : "dotnetcore3.1",
             "MemorySize" : 128,
             "Timeout" : 30,
             "Code" : {

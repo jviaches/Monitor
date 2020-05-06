@@ -37,30 +37,30 @@ namespace ResourcesLambda.Services
             context = new DynamoDBContext(client);
         }
 
-        public async Task<Result> Add(UserActionViewModel userActionVM)
-        {
-            try
-            {
-                var putItemRequest = new PutItemRequest()
-                {
-                    TableName = TABLE_NAME,
-                    Item = new Dictionary<string, AttributeValue>
-                    {
-                        {"Id", new AttributeValue {S = Guid.NewGuid().ToString()}},
-                        {"UserId", new AttributeValue {S = userActionVM.UserId}},
-                        {"Date", new AttributeValue {S = userActionVM.Date}},
-                        {"Action", new AttributeValue {S = userActionVM.Action}},
-                        {"Data", new AttributeValue {S = userActionVM.Data}},
-                    }
-                };
+        //public async Task<Result> Add(UserActionViewModel userActionVM)
+        //{
+        //    try
+        //    {
+        //        var putItemRequest = new PutItemRequest()
+        //        {
+        //            TableName = TABLE_NAME,
+        //            Item = new Dictionary<string, AttributeValue>
+        //            {
+        //                {"Id", new AttributeValue {S = Guid.NewGuid().ToString()}},
+        //                {"UserId", new AttributeValue {S = userActionVM.UserId}},
+        //                {"Date", new AttributeValue {S = userActionVM.Date}},
+        //                {"Action", new AttributeValue {S = userActionVM.Action}},
+        //                {"Data", new AttributeValue {S = userActionVM.Data}},
+        //            }
+        //        };
 
-                await client.PutItemAsync(putItemRequest);
-                return Result.Ok();
-            }
-            catch (Exception e)
-            {
-                return Result.Fail(e);
-            }
-        }
+        //        await client.PutItemAsync(putItemRequest);
+        //        return Result.Ok();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Result.Fail(e);
+        //    }
+        //}
     }
 }

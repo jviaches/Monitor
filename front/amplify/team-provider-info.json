@@ -1,38 +1,15 @@
 {
-    "prod": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-monitor-prod-152515-authRole",
-            "UnauthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-prod-152515-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-prod-152515-authRole",
-            "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-monitor-prod-152515-deployment",
-            "UnauthRoleName": "amplify-monitor-prod-152515-unauthRole",
-            "StackName": "amplify-monitor-prod-152515",
-            "StackId": "arn:aws:cloudformation:us-east-2:210851079002:stack/amplify-monitor-prod-152515/df349ef0-8be9-11ea-986b-0a569e9f7d94",
-            "AmplifyAppId": "dvrh49q4f3y39"
-        },
-        "categories": {
-            "auth": {
-                "monitor9020fb28": {}
-            }
-        }
-    },
     "staging": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-monitor-staging-100305-authRole",
-            "UnauthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-100305-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-100305-authRole",
+            "AuthRoleName": "amplify-monitor-staging-163224-authRole",
+            "UnauthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-163224-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-163224-authRole",
             "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-monitor-staging-100305-deployment",
-            "UnauthRoleName": "amplify-monitor-staging-100305-unauthRole",
-            "StackName": "amplify-monitor-staging-100305",
-            "StackId": "arn:aws:cloudformation:us-east-2:210851079002:stack/amplify-monitor-staging-100305/0765f490-8c86-11ea-beb1-0653eeca5e60",
-            "AmplifyAppId": "dvrh49q4f3y39"
-        },
-        "categories": {
-            "auth": {
-                "monitor9020fb28": {}
-            }
+            "DeploymentBucketName": "amplify-monitor-staging-163224-deployment",
+            "UnauthRoleName": "amplify-monitor-staging-163224-unauthRole",
+            "StackName": "amplify-monitor-staging-163224",
+            "StackId": "arn:aws:cloudformation:us-east-2:210851079002:stack/amplify-monitor-staging-163224/e9c0d510-8f17-11ea-9b32-0a7adbd72fc8",
+            "AmplifyAppId": "d39gxnun1rzger"
         }
     }
 }
