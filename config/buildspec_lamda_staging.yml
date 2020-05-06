@@ -11,6 +11,6 @@ phases:
     commands:
       - echo Build started on `date`
       - dotnet build
-      - dotnet publish ResourcesLambda.csproj -o bin/Release/netcoreapp2.1/publish
+      - dotnet publish ResourcesLambda.csproj -o bin/Release/netcoreapp3.1/publish
       - ~/.dotnet/tools/dotnet-lambda deploy-serverless
 
