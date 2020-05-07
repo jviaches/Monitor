@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Monitor.Core.ViewModels.UserActions
+namespace ResourcesLambda.Services.UserActions
 {
     public class UserActionViewModel
     {

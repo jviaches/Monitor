@@ -1,14 +1,15 @@
-﻿  using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Monitor.Core.Dto;
 using Monitor.Core.Enums;
-using Monitor.Core.Interfaces;
 using Monitor.Core.Validations;
 using Monitor.Core.ViewModels;
-using Monitor.Core.ViewModels.UserActions;
+using Monitor.Infra.Entities;
+using ResourcesLambda.Services.Resources;
 
 namespace ResourcesLambda.Controllers
 {
@@ -49,19 +50,25 @@ namespace ResourcesLambda.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ErrorViewModel), 400)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> Add([FromBody] ResourceViewModel resourceHistoryVM)
+        public IActionResult Add([FromBody] ResourceViewModel resourceHistoryVM)
         {
-           var result = _resourceService.Add(resourceHistoryVM);
+            _resourceService.Add(new AddResourceDto()
+            {
+                Url = resourceHistoryVM.Url,
+                UserId = resourceHistoryVM.UserId,
+                MonitorPeriod = resourceHistoryVM.MonitorPeriod,
+                IsMonitorActivated = resourceHistoryVM.IsMonitorActivated
+            });
 
-            //await _userActionService.Add(new UserActionViewModel() 
-            //{
-            //    UserId = resourceHistoryVM.UserId, 
-            //    Date = DateTime.UtcNow, 
-            //    Action = UserAction.ResourceAdded.ToString(), 
-            //    Data = $@"Url: [{resourceHistoryVM.Url}], 
-            //            IsActivated: [{resourceHistoryVM.IsMonitorActivated}], 
-            //            Activation Period: [{resourceHistoryVM.MonitorPeriod}]" 
-            //});
+            _userActionService.Add(new UserActionDto()
+            {
+                UserId = resourceHistoryVM.UserId,
+                Date = DateTime.UtcNow,
+                Action = UserActiontype.ResourceAdded,
+                Data = $@"Url: [{resourceHistoryVM.Url}], 
+                       IsActivated: [{resourceHistoryVM.IsMonitorActivated}], 
+                       Activation Period: [{resourceHistoryVM.MonitorPeriod}]"
+            });
 
             return Ok();
         }

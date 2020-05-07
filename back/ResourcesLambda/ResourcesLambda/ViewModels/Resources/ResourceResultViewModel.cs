@@ -1,10 +1,10 @@
-﻿using Monitor.Core.Models;
+﻿using Monitor.Infra.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Monitor.Core.ViewModels
+namespace ResourcesLambda.Services.Resources
 {
     public class ResourceResultViewModel
     {

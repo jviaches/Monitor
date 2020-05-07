@@ -20,7 +20,12 @@ using Amazon.Lambda.Model;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
-using Monitor.Core.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Monitor.Core.Dto;
+using Monitor.Infra.Entities;
+using Monitor.Infra.Interfaces.Repository;
+using Monitor.Infra.Repositories;
+using Monitor.Infra.Services;
 using Monitor.StepperLogic.StateModels;
 using Newtonsoft.Json;
 
@@ -32,9 +37,9 @@ namespace Monitor.StepperLogic
 {
     public class StepFunctionTasks
     {
-        private static AmazonDynamoDBClient dbClient;
-        private static DynamoDBContext dbContext;
         private static AmazonLambdaClient lambdaClient;
+        private ResourceService _resourceService;
+        private ResourceHistoryService _resourceHistoryService;
 
         public StepFunctionTasks()
         {
@@ -45,8 +50,18 @@ namespace Monitor.StepperLogic
             };
 
             lambdaClient = new AmazonLambdaClient(awsOptions.Credentials, awsOptions.Region);
-            dbClient = new AmazonDynamoDBClient(awsOptions.Credentials, awsOptions.Region);
-            dbContext = new DynamoDBContext(dbClient);
+
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddScoped<IResourceRepository, ResourceRepository>();
+            serviceCollection.AddScoped<IResourceHistoryRepository, ResourceHistoryRepository>();
+
+            serviceCollection.AddScoped<IResourceService, ResourceService>();
+            serviceCollection.AddScoped<IResourceHistoryService, ResourceHistoryService>();
+            serviceCollection.AddScoped<IUserActionService, UserActionService>();
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            _resourceService = ActivatorUtilities.CreateInstance<ResourceService>(serviceProvider);
+            _resourceHistoryService = ActivatorUtilities.CreateInstance<ResourceHistoryService>(serviceProvider);
         }
 
         /// <summary>
@@ -59,13 +74,8 @@ namespace Monitor.StepperLogic
         {
             context.Logger.LogLine($"---------- RetrieveRecords  from DB with Periodicity [{(model.Periodicity)} milisec] ----------");
 
-            var resourceConditions = new List<ScanCondition>
-            {
-               new ScanCondition("MonitorPeriod", ScanOperator.Equal, model.Periodicity),
-               new ScanCondition("IsMonitorActivated", ScanOperator.Equal, 1)
-            };
+            var resources = await _resourceService.GetByPeriodicityAndMonitor(model.Periodicity, true);
 
-            var resources = await dbContext.ScanAsync<Resource>(resourceConditions).GetRemainingAsync();
             var urlList = resources.Select(record => new ResourceModel(record.Id, record.Url, string.Empty, record.UserId.ToString())).ToList();
 
             var resourceToScanModel = new ResourceScanResultModel() { ResourcesStatuses = urlList };
@@ -122,19 +132,14 @@ namespace Monitor.StepperLogic
 
             foreach (var item in model.ResourcesStatuses)
             {
-                var putItemRequest = new PutItemRequest()
+                var addResourceHistoryDto = new AddResourceHistoryDto()
                 {
-                    TableName = "ResourcesHistory",
-                    Item = new Dictionary<string, AttributeValue>
-                    {
-                        {"Id", new AttributeValue {S = Guid.NewGuid().ToString()}},
-                        {"ResourceId", new AttributeValue {S = item.ResourceId.ToString()}},
-                        {"RequestDate", new AttributeValue {S = DateTime.UtcNow.ToString("u")}}, // yyyy'-'MM'-'dd HH':'mm':'ss'Z'
-                        {"Result", new AttributeValue {S = string.IsNullOrEmpty(item.StatusCode) ? "000" : item.StatusCode }}
-                    }
+                    ResourceId = item.ResourceId,
+                    RequestDate = DateTime.UtcNow,
+                    Result = string.IsNullOrEmpty(item.StatusCode) ? "000" : item.StatusCode
                 };
 
-                await dbClient.PutItemAsync(putItemRequest);
+                _resourceHistoryService.Add(addResourceHistoryDto);
             }
 
             context.Logger.LogLine($"---------- End ProcessRecords ----------");

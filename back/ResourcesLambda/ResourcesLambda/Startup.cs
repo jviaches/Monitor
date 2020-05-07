@@ -10,9 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Monitor.Core.Interfaces;
 using Monitor.Core.Settings;
 using Monitor.Infra;
+using Monitor.Infra.Entities;
+using Monitor.Infra.Interfaces.Repository;
+using Monitor.Infra.Repositories;
+using Monitor.Infra.Services;
 using Newtonsoft.Json;
 using ResourcesLambda.Services;
 
@@ -66,7 +69,13 @@ namespace ResourcesLambda
             var awsCredential = Configuration.GetSection("AWSCredentials");
             services.Configure<Credentials>(awsCredential, binderOptions => binderOptions.BindNonPublicProperties = true);
             services.AddSingleton(provider => provider.GetService<IOptions<Credentials>>().Value);
+
+            services.AddScoped<IResourceRepository, ResourceRepository>();
+            services.AddScoped<IResourceHistoryRepository, ResourceHistoryRepository>();
+            services.AddScoped<IUserActionRepository, UserActionRepository>();
+
             services.AddScoped<IResourceService, ResourceService>();
+            services.AddScoped<IResourceHistoryService, ResourceHistoryService>();
             services.AddScoped<IUserActionService, UserActionService>();
 
             //services.AddCognitoIdentity();

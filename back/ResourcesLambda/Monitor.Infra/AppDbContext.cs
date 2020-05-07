@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Monitor.Infra.Entities;
 using System.Reflection;
-using Monitor.Core.Models;
 
 namespace Monitor.Infra
 {

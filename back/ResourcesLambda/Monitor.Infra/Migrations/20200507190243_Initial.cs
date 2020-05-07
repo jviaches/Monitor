@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Monitor.Infra.Migrations
 {
-    public partial class Initials : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,9 +31,9 @@ namespace Monitor.Infra.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<string>(nullable: true),
-                    Date = table.Column<string>(nullable: true),
-                    Action = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Action = table.Column<int>(nullable: false),
                     Data = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -47,26 +47,25 @@ namespace Monitor.Infra.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ResourceId = table.Column<string>(nullable: true),
-                    RequestDate = table.Column<string>(nullable: true),
-                    Result = table.Column<string>(nullable: true),
-                    ResourceId1 = table.Column<int>(nullable: true)
+                    ResourceId = table.Column<int>(nullable: false),
+                    RequestDate = table.Column<DateTime>(nullable: false),
+                    Result = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ResourcesHistory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ResourcesHistory_Resources_ResourceId1",
-                        column: x => x.ResourceId1,
+                        name: "FK_ResourcesHistory_Resources_ResourceId",
+                        column: x => x.ResourceId,
                         principalTable: "Resources",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResourcesHistory_ResourceId1",
+                name: "IX_ResourcesHistory_ResourceId",
                 table: "ResourcesHistory",
-                column: "ResourceId1");
+                column: "ResourceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

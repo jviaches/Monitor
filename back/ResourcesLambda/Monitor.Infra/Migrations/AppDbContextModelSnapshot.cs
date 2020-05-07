@@ -19,7 +19,7 @@ namespace Monitor.Infra.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("Monitor.Core.Models.Resource", b =>
+            modelBuilder.Entity("Monitor.Infra.Entities.Resource", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,20 +46,17 @@ namespace Monitor.Infra.Migrations
                     b.ToTable("Resources");
                 });
 
-            modelBuilder.Entity("Monitor.Core.Models.ResourcesHistory", b =>
+            modelBuilder.Entity("Monitor.Infra.Entities.ResourcesHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("RequestDate")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("ResourceId")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("ResourceId1")
+                    b.Property<int>("ResourceId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Result")
@@ -67,40 +64,42 @@ namespace Monitor.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResourceId1");
+                    b.HasIndex("ResourceId");
 
                     b.ToTable("ResourcesHistory");
                 });
 
-            modelBuilder.Entity("Monitor.Core.Models.UserAction", b =>
+            modelBuilder.Entity("Monitor.Infra.Entities.UserAction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Action")
-                        .HasColumnType("text");
+                    b.Property<int>("Action")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Data")
                         .HasColumnType("text");
 
-                    b.Property<string>("Date")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.ToTable("UserAction");
                 });
 
-            modelBuilder.Entity("Monitor.Core.Models.ResourcesHistory", b =>
+            modelBuilder.Entity("Monitor.Infra.Entities.ResourcesHistory", b =>
                 {
-                    b.HasOne("Monitor.Core.Models.Resource", null)
+                    b.HasOne("Monitor.Infra.Entities.Resource", null)
                         .WithMany("History")
-                        .HasForeignKey("ResourceId1");
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

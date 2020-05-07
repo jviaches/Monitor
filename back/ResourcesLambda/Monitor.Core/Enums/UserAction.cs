@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Monitor.Core.Enums
 {
-    public enum UserAction
+    public enum UserActiontype
     {
         ResourceAdded,
         ResourceUpdated,

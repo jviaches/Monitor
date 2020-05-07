@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Monitor.Core.ViewModels
+namespace Monitor.Core.Dto
 {
-    public class ResourceViewModel
+    public class AddResourceDto
     {
         public string Url { get; set; }
         public int UserId { get; set; }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Monitor.Core.Models
+namespace Monitor.Infra.Entities
 {
     public abstract class BaseEntity
     {

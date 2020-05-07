@@ -1,66 +1,49 @@
-﻿using Amazon;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.Model;
-using Amazon.Runtime;
-using Microsoft.EntityFrameworkCore;
-using Monitor.Core;
-using Monitor.Core.Interfaces;
-using Monitor.Core.Models;
+﻿using Monitor.Core.Dto;
 using Monitor.Core.Settings;
-using Monitor.Core.Validations;
-using Monitor.Core.ViewModels;
-using Monitor.Infra;
+using Monitor.Infra.Entities;
+using Monitor.Infra.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ResourcesLambda.Services
+namespace Monitor.Infra.Services
 {
     public class ResourceService : IResourceService
     {
-        private AppDbContext _dbContext;
+        private IResourceRepository _resourceRepository;
 
-        public ResourceService(Credentials credentials, AppDbContext dbContext)
+        public ResourceService(IResourceRepository resourceRepository)
         {
-            this._dbContext = dbContext;
+            _resourceRepository = resourceRepository;
         }
         public async Task<Resource> GetById(int id)
         {
-            var resource = _dbContext.Resources
-                   .Include(res => res.History)
-                   .SingleOrDefaultAsync(res => res.Id == id);
-
-            return await resource;
+            return await _resourceRepository.GetById(id);
         }
 
         public async Task<IEnumerable<Resource>> GetByUserId(int userId)
         {
-            var resources = _dbContext.Resources
-                   .Include(res => res.History)
-                   .Where(res => res.UserId == userId);
-
-            return await resources.ToListAsync();
+            return await _resourceRepository.GetByUserId(userId);
         }
 
-        public Resource Add(ResourceViewModel resourceHistoryVM)
+        public Resource Add(AddResourceDto resourcedto)
         {
-            Resource res = new Resource()
+            Resource resource = new Resource()
             {
-                IsMonitorActivated = resourceHistoryVM.IsMonitorActivated,
-                MonitorPeriod = resourceHistoryVM.MonitorPeriod,
-                Url = resourceHistoryVM.Url,
-                UserId = resourceHistoryVM.UserId,
+                IsMonitorActivated = resourcedto.IsMonitorActivated,
+                MonitorPeriod = resourcedto.MonitorPeriod,
+                Url = resourcedto.Url,
+                UserId = resourcedto.UserId,
                 MonitorActivationDate = DateTime.UtcNow
             };
 
-            _dbContext.Set<Resource>().Add(res);
-            _dbContext.SaveChanges();
+            return _resourceRepository.Add(resource);
+        }
 
-            return res;
-            }
+        public async Task<IEnumerable<Resource>> GetByPeriodicityAndMonitor(int periodicity, bool isMonitored)
+        {
+            return await _resourceRepository.GetByPeriodicityAndMonitor(periodicity, isMonitored);
         }
 
         //public async Task<Result> Update(UpdateResourceViewModel resourceVM)
@@ -135,5 +118,5 @@ namespace ResourcesLambda.Services
         //    var resourcesHistory = await context.ScanAsync<ResourcesHistory>(resourceHistoryConditions).GetRemainingAsync();
         //    return resourcesHistory;
         //}
-    //}
+    }
 }
