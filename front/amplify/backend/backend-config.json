@@ -1,3 +1,10 @@
 {
-	"function": {}
+	"auth": {
+		"monitor15fe57b4": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
 }

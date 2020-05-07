@@ -1,16 +1,38 @@
 {
-	"providers": {
-		"awscloudformation": {
-			"AuthRoleName": "amplify-monitor-staging-163224-authRole",
-			"UnauthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-163224-unauthRole",
-			"AuthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-163224-authRole",
-			"Region": "us-east-2",
-			"DeploymentBucketName": "amplify-monitor-staging-163224-deployment",
-			"UnauthRoleName": "amplify-monitor-staging-163224-unauthRole",
-			"StackName": "amplify-monitor-staging-163224",
-			"StackId": "arn:aws:cloudformation:us-east-2:210851079002:stack/amplify-monitor-staging-163224/e9c0d510-8f17-11ea-9b32-0a7adbd72fc8",
-			"AmplifyAppId": "d39gxnun1rzger"
-		}
-	},
-	"function": {}
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-monitor-staging-155026-authRole",
+            "UnauthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-155026-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::210851079002:role/amplify-monitor-staging-155026-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-monitor-staging-155026-deployment",
+            "UnauthRoleName": "amplify-monitor-staging-155026-unauthRole",
+            "StackName": "amplify-monitor-staging-155026",
+            "StackId": "arn:aws:cloudformation:us-east-2:210851079002:stack/amplify-monitor-staging-155026/617f2420-90a4-11ea-bd5c-0a0a04c5437c",
+            "AmplifyAppId": "d3anni6v85tlqx"
+        }
+    },
+    "auth": {
+        "monitor15fe57b4": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [],
+            "customAuth": false,
+            "providerMetadata": {
+                "s3TemplateURL": "https://s3.amazonaws.com/amplify-monitor-staging-155026-deployment/amplify-cfn-templates/auth/monitor15fe57b4-cloudformation-template.yml",
+                "logicalId": "authmonitor15fe57b4"
+            },
+            "lastPushTimeStamp": "2020-05-07T21:05:30.357Z",
+            "output": {
+                "AppClientSecret": "oevpfqv1gjsvcoc35jcalatpoue88v3a0eg92g7h9ud5o36atq2",
+                "UserPoolId": "us-east-2_QnJB5HZqD",
+                "AppClientIDWeb": "3o7doa5avjjah29atnf56oe56v",
+                "AppClientID": "7mt6fkd81brqgac06sm1vbktbo",
+                "IdentityPoolId": "us-east-2:b878b476-a96a-4e6d-91e7-6898b4676f79",
+                "IdentityPoolName": "monitor15fe57b4_identitypool_15fe57b4__staging",
+                "UserPoolName": "monitor15fe57b4_userpool_15fe57b4"
+            },
+            "lastPushDirHash": "MtHVl42gUyAtPPRWuGjynQ+lvAE="
+        }
+    }
 }
