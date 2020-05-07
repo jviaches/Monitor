@@ -2,7 +2,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 10
+      dotnetcore3.1
   pre_build:
     commands:
       - cd back/ResourcesLambda/ResourcesLambda
@@ -11,6 +11,6 @@ phases:
     commands:
       - echo Build started on `date`
       - dotnet build
-      - dotnet publish ResourcesLambda.csproj -o bin/Release/netcoreapp2.1/publish
-      - ~/.dotnet/tools/dotnet-lambda deploy-serverless
+      - dotnet publish ResourcesLambda.csproj -o bin/Release/netcoreapp3.1/publish
+      - ~/.dotnet/tools/dotnet-lambda deploy-serverless --stackname ResourceManagementStaging --s3-bucket ResourceManagementStaging
 
