@@ -40,7 +40,7 @@ namespace Monitor.Infra.Repositories
             return resource;
         }
 
-        public async Task<IEnumerable<Resource>> GetByUserId(int id)
+        public async Task<IEnumerable<Resource>> GetByUserId(Guid id)
         {
             var resources = _dbContext.Resources
                    .Include(res => res.History)
@@ -58,13 +58,9 @@ namespace Monitor.Infra.Repositories
             return await resources;
         }
 
-        public async Task<IReadOnlyList<Resource>> ListAllAsync(int userId)
+        public async Task<IReadOnlyList<Resource>> ListAllAsync()
         {
-            var resources = _dbContext.Resources
-                   .Include(rs => rs.History)
-                   .Where(rs => rs.UserId == userId).ToListAsync();
-
-            return await resources;
+            throw new NotImplementedException();
         }
 
         public void Update(Resource entity)

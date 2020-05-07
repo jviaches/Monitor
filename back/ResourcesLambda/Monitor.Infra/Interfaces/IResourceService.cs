@@ -10,7 +10,7 @@ namespace Monitor.Infra.Entities
     public interface IResourceService
     {
         Task<Resource> GetById(int id);
-        Task<IEnumerable<Resource>> GetByUserId(int userId);
+        Task<IEnumerable<Resource>> GetByUserId(Guid userId);
         Task<IEnumerable<Resource>> GetByPeriodicityAndMonitor(int periodicity, bool isMonitored);
         Resource Add(AddResourceDto resourcedto);
         //Task<Result> Update(UpdateResourceViewModel resourceVM);

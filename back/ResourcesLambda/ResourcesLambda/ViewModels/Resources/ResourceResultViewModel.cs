@@ -25,7 +25,7 @@ namespace ResourcesLambda.Services.Resources
 
         public int Id { get { return _resource.Id; } }
         public string Url { get { return _resource.Url; } }
-        public int UserId { get { return _resource.UserId; } }
+        public Guid UserId { get { return _resource.UserId; } }
         public int MonitorPeriod { get { return _resource.MonitorPeriod; } }
         public bool IsMonitorActivated { get { return _resource.IsMonitorActivated; } }
         public DateTime MonitorActivationDate { get { return _resource.MonitorActivationDate; } }

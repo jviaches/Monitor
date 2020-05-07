@@ -45,7 +45,7 @@ namespace Monitor.Infra.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IReadOnlyList<ResourcesHistory>> ListAllAsync(int id)
+        public Task<IReadOnlyList<ResourcesHistory>> ListAllAsync()
         {
             throw new NotImplementedException();
         }

@@ -15,7 +15,7 @@ namespace Monitor.Infra.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Url = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     MonitorPeriod = table.Column<int>(nullable: false),
                     IsMonitorActivated = table.Column<bool>(nullable: false),
                     MonitorActivationDate = table.Column<DateTime>(nullable: false)
@@ -31,7 +31,7 @@ namespace Monitor.Infra.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Action = table.Column<int>(nullable: false),
                     Data = table.Column<string>(nullable: true)

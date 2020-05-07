@@ -40,7 +40,7 @@ namespace ResourcesLambda.Controllers
         //[Authorize(Policy = "Admin")]
         [Route("[action]/{id}")]
         [HttpGet]
-        public async Task<IEnumerable<ResourceResultViewModel>> GetByUserId(int id)
+        public async Task<IEnumerable<ResourceResultViewModel>> GetByUserId(Guid id)
         {
             var resources = await _resourceService.GetByUserId(id);
             return resources.Select(res => new ResourceResultViewModel(res));

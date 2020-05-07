@@ -40,19 +40,16 @@ namespace Monitor.Infra.Repositories
             return resource;
         }
 
-        public async Task<IEnumerable<UserAction>> GetByUserId(int id)
+        public async Task<IEnumerable<UserAction>> GetByUserId(Guid id)
         {
             var resources = _dbContext.UserAction.Where(res => res.UserId == id).ToListAsync();
             return await resources;
             
         }
 
-        public async Task<IReadOnlyList<UserAction>> ListAllAsync(int userId)
+        public async Task<IReadOnlyList<UserAction>> ListAllAsync()
         {
-            var resources = _dbContext.UserAction
-                   .Where(rs => rs.UserId == userId).ToListAsync();
-
-            return await resources;
+            throw new NotImplementedException();
         }
 
         public void Update(UserAction entity)

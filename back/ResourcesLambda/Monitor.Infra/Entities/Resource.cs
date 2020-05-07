@@ -9,7 +9,7 @@ namespace Monitor.Infra.Entities
     public class Resource: BaseEntity
     {
         public string Url { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public int MonitorPeriod { get; set; }
         public bool IsMonitorActivated { get; set; }
         public DateTime MonitorActivationDate { get; set; }

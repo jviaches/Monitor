@@ -56,11 +56,12 @@ namespace ResourcesLambda
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                if (string.IsNullOrEmpty(DBHostName) || string.IsNullOrEmpty(DBName) ||
-                    string.IsNullOrEmpty(DBUserName) || string.IsNullOrEmpty(DBPassword) || string.IsNullOrEmpty(DBPort))
-                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Monitor.Infra"));
-                else                    
-                    options.UseNpgsql($"Host={DBHostName};Port={DBPort};Username={DBUserName};Password={DBPassword};Database={DBName};", b => b.MigrationsAssembly("Monitor.Infra"));
+                //if (string.IsNullOrEmpty(DBHostName) || string.IsNullOrEmpty(DBName) ||
+                //    string.IsNullOrEmpty(DBUserName) || string.IsNullOrEmpty(DBPassword) || string.IsNullOrEmpty(DBPort))
+                //    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Monitor.Infra"));
+                //else                    
+                //    options.UseNpgsql($"Host={DBHostName};Port={DBPort};Username={DBUserName};Password={DBPassword};Database={DBName};", b => b.MigrationsAssembly("Monitor.Infra"));
+                options.UseNpgsql($"Host=monitor-staging.cjfsrulnrass.us-east-2.rds.amazonaws.com;Port=5432;Username=monitor;Password=9mUqfSdgNjOufXNrjq4m;Database=postgres;", b => b.MigrationsAssembly("Monitor.Infra"));
             });
 
             // Add S3 to the ASP.NET Core dependency injection framework.

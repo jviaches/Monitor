@@ -22,7 +22,7 @@ namespace Monitor.Infra.Services
             return await _resourceRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<Resource>> GetByUserId(int userId)
+        public async Task<IEnumerable<Resource>> GetByUserId(Guid userId)
         {
             return await _resourceRepository.GetByUserId(userId);
         }

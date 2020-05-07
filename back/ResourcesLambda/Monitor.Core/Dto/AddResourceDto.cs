@@ -7,7 +7,7 @@ namespace Monitor.Core.Dto
     public class AddResourceDto
     {
         public string Url { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         /// <summary>
         /// In minutes
