@@ -9,10 +9,6 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.CognitoIdentityProvider;
 using Amazon.CognitoIdentityProvider.Model;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.Model;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Lambda;
 using Amazon.Lambda.Core;
@@ -38,8 +34,8 @@ namespace Monitor.StepperLogic
     public class StepFunctionTasks
     {
         private static AmazonLambdaClient lambdaClient;
-        private ResourceService _resourceService;
-        private ResourceHistoryService _resourceHistoryService;
+        private IResourceService _resourceService;
+        private IResourceHistoryService _resourceHistoryService;
 
         public StepFunctionTasks()
         {
@@ -52,16 +48,17 @@ namespace Monitor.StepperLogic
             lambdaClient = new AmazonLambdaClient(awsOptions.Credentials, awsOptions.Region);
 
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddScoped<IResourceRepository, ResourceRepository>();
-            serviceCollection.AddScoped<IResourceHistoryRepository, ResourceHistoryRepository>();
+            serviceCollection.AddSingleton<IResourceRepository, ResourceRepository>();
+            serviceCollection.AddSingleton<IResourceHistoryRepository, ResourceHistoryRepository>();
 
-            serviceCollection.AddScoped<IResourceService, ResourceService>();
-            serviceCollection.AddScoped<IResourceHistoryService, ResourceHistoryService>();
-            serviceCollection.AddScoped<IUserActionService, UserActionService>();
+            serviceCollection.AddSingleton<IResourceService, ResourceService>();
+            serviceCollection.AddSingleton<IResourceHistoryService, ResourceHistoryService>();
+            serviceCollection.AddSingleton<IUserActionService, UserActionService>();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            _resourceService = ActivatorUtilities.CreateInstance<ResourceService>(serviceProvider);
-            _resourceHistoryService = ActivatorUtilities.CreateInstance<ResourceHistoryService>(serviceProvider);
+
+            _resourceService = serviceProvider.GetService<IResourceService>();
+            _resourceHistoryService = serviceProvider.GetService<IResourceHistoryService>();
         }
 
         /// <summary>
