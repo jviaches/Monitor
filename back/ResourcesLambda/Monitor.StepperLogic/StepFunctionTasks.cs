@@ -16,14 +16,17 @@ using Amazon.Lambda.Model;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Monitor.Core.Dto;
+using Monitor.Infra;
 using Monitor.Infra.Entities;
 using Monitor.Infra.Interfaces.Repository;
 using Monitor.Infra.Repositories;
 using Monitor.Infra.Services;
 using Monitor.StepperLogic.StateModels;
 using Newtonsoft.Json;
+using Environment = System.Environment;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -54,6 +57,17 @@ namespace Monitor.StepperLogic
             serviceCollection.AddSingleton<IResourceService, ResourceService>();
             serviceCollection.AddSingleton<IResourceHistoryService, ResourceHistoryService>();
             serviceCollection.AddSingleton<IUserActionService, UserActionService>();
+
+            var DBHostName = Environment.GetEnvironmentVariable("DBHostName");
+            var DBName = Environment.GetEnvironmentVariable("DBName");
+            var DBUserName = Environment.GetEnvironmentVariable("DBUserName");
+            var DBPassword = Environment.GetEnvironmentVariable("DBPassword");
+            var DBPort = Environment.GetEnvironmentVariable("DBPort");
+
+            serviceCollection.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseNpgsql($"Host={DBHostName};Port={DBPort};Username={DBUserName};Password={DBPassword};Database={DBName};", b => b.MigrationsAssembly("Monitor.Infra"));
+            });
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
