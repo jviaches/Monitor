@@ -51,7 +51,7 @@ namespace ResourcesLambda
             var DBName = Environment.GetEnvironmentVariable("DBName;");
             var DBUserName = Environment.GetEnvironmentVariable("DBUserName;");
             var DBPassword = Environment.GetEnvironmentVariable("DBPassword;");
-            var DBPort = Environment.GetEnvironmentVariable("DBPassword;");
+            var DBPort = Environment.GetEnvironmentVariable("DBPort;");
 
             services.AddDbContext<AppDbContext>(options =>
             {
