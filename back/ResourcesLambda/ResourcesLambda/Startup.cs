@@ -45,13 +45,11 @@ namespace ResourcesLambda
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            //Environment.SetEnvironmentVariable("Env", "STAGE");
-
-            var DBHostName = Environment.GetEnvironmentVariable("DBHostName;");
-            var DBName = Environment.GetEnvironmentVariable("DBName;");
-            var DBUserName = Environment.GetEnvironmentVariable("DBUserName;");
-            var DBPassword = Environment.GetEnvironmentVariable("DBPassword;");
-            var DBPort = Environment.GetEnvironmentVariable("DBPort;");
+            var DBHostName = Environment.GetEnvironmentVariable("DBHostName");
+            var DBName = Environment.GetEnvironmentVariable("DBName");
+            var DBUserName = Environment.GetEnvironmentVariable("DBUserName");
+            var DBPassword = Environment.GetEnvironmentVariable("DBPassword");
+            var DBPort = Environment.GetEnvironmentVariable("DBPort");
 
             services.AddDbContext<AppDbContext>(options =>
             {
