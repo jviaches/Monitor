@@ -40,9 +40,9 @@ namespace ResourcesLambda
                 options.AddPolicy("GlobalCorPolicy",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200", "https://monitor-stage.s3-website.us-east-2.amazonaws.com", 
-                                        "https://d3mbies4lx0e41.cloudfront.net")
-                    //builder.AllowAnyOrigin()
+                    //builder.WithOrigins("http://localhost:4200", "https://monitor-stage.s3-website.us-east-2.amazonaws.com", 
+                    //                    "https://d3mbies4lx0e41.cloudfront.net")
+                    builder.AllowAnyOrigin()
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });
