@@ -21,4 +21,6 @@ phases:
       - aws s3 cp dist/front s3://monitor-stage --recursive
       - echo aws cloudfront create-invalidation --distribution-id E13GE1GMAJKUBE \ --paths /index.html /error.html
       - echo Build completed on `date`
+      - echo Update Cloudfront on `date`
+      - aws cloudfront create-invalidation --distribution-id E39D42FT6MB5QV --paths '/*'
 
