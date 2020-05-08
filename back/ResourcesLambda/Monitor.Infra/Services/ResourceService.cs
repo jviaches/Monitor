@@ -1,5 +1,7 @@
 ﻿using Monitor.Core.Dto;
+using Monitor.Core.Enums;
 using Monitor.Core.Settings;
+using Monitor.Core.Validations;
 using Monitor.Infra.Entities;
 using Monitor.Infra.Interfaces.Repository;
 using System;
@@ -12,10 +14,12 @@ namespace Monitor.Infra.Services
     public class ResourceService : IResourceService
     {
         private IResourceRepository _resourceRepository;
+        private readonly IUserActionService _userActionService;
 
-        public ResourceService(IResourceRepository resourceRepository)
+        public ResourceService(IResourceRepository resourceRepository, IUserActionService userActionService)
         {
             _resourceRepository = resourceRepository;
+            _userActionService = userActionService;
         }
         public async Task<Resource> GetById(int id)
         {
@@ -38,6 +42,16 @@ namespace Monitor.Infra.Services
                 MonitorActivationDate = DateTime.UtcNow
             };
 
+            _userActionService.Add(new UserActionDto()
+            {
+                UserId = resourcedto.UserId,
+                Date = DateTime.UtcNow,
+                Action = UserActiontype.ResourceAdded,
+                Data = $@"Url: [{resourcedto.Url}], 
+                       IsActivated: [{resourcedto.IsMonitorActivated}], 
+                       Activation Period: [{resourcedto.MonitorPeriod}]"
+            });
+
             return _resourceRepository.Add(resource);
         }
 
@@ -46,77 +60,44 @@ namespace Monitor.Infra.Services
             return await _resourceRepository.GetByPeriodicityAndMonitor(periodicity, isMonitored);
         }
 
-        //public async Task<Result> Update(UpdateResourceViewModel resourceVM)
-        //{
-        //    try
-        //    {
-        //        var periodTimeInSeconds = resourceVM.MonitorPeriod;
-        //        var updateItemRequest = new UpdateItemRequest()
-        //        {
-        //            TableName = "Resources-prod",
-        //            Key = new Dictionary<string, AttributeValue> { { "Id", new AttributeValue { S = resourceVM.Id } } },
-        //            ExpressionAttributeNames = new Dictionary<string, string>()
-        //            {
-        //                {"#MP", "MonitorPeriod"},
-        //                {"#MA", "IsMonitorActivated"},
-        //            },
+        public async Task Update(UpdateResourceDto updateResourceDto)
+        {
+            var existingResource = await _resourceRepository.GetById(updateResourceDto.Id);
+            
+            var newResource = existingResource;
+            newResource.IsMonitorActivated = updateResourceDto.IsMonitorActivated;
+            newResource.MonitorActivationDate = DateTime.UtcNow;
+            newResource.MonitorPeriod = updateResourceDto.MonitorPeriod;
+            newResource.Url = updateResourceDto.Url;
 
-        //            ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
-        //            {
-        //                {":mp",new AttributeValue {N = resourceVM.MonitorPeriod.ToString()}},
-        //                {":ma",new AttributeValue {N = resourceVM.IsMonitorActivated.ToString()}}
-        //            },
+            _resourceRepository.Update(newResource);
 
-        //            UpdateExpression = "SET #MP = :mp, #MA = :ma"
-        //        };
+            _userActionService.Add(new UserActionDto()
+            {
+                UserId = existingResource.UserId,
+                Date = DateTime.UtcNow,
+                Action = UserActiontype.ResourceUpdated,
+                Data = $@"Url: [old: {existingResource.Url}, new: {newResource.Url}], 
+                        IsActivated: [old: {existingResource.IsMonitorActivated}, new: {newResource.IsMonitorActivated}], 
+                        Activation Period: [old: {existingResource.MonitorPeriod}, new: {newResource.MonitorPeriod}]"
+            });
 
-        //        await client.UpdateItemAsync(updateItemRequest);
-        //        return Result.Ok();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Result.Fail();
-        //    }
-        //}
+        }
 
-        //public async Task<Result> Delete(UpdateResourceViewModel resourceVM)
-        //{
-        //    try
-        //    {
-        //        // delete resource history related entries
-        //        var historyItems = await GetHistoryByResourceId(resourceVM.Id);
+        public async Task Delete(int resourceId)
+        {
+            var resource = await _resourceRepository.GetById(resourceId);
+            _resourceRepository.Delete(resource);
 
-        //        var deleteHistoryBatch = context.CreateBatchWrite<ResourcesHistory>();
-        //        deleteHistoryBatch.AddDeleteItems(historyItems);
-        //        await deleteHistoryBatch.ExecuteAsync();
-
-        //        // delete resource entry
-        //        string tableName = "Resources";
-
-        //        var request = new DeleteItemRequest
-        //        {
-        //            TableName = tableName,
-        //            Key = new Dictionary<string, AttributeValue>() { { "Id", new AttributeValue { S = resourceVM.Id } } },
-        //        };
-
-        //        await client.DeleteItemAsync(request);
-        //        return Result.Ok();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Result.Fail();
-        //    }
-        //}
-
-        //public async Task<IEnumerable<ResourcesHistory>> GetHistoryByResourceId(string resourceId)
-        //{
-        //    var resourceHistoryConditions = new List<ScanCondition>
-        //    {
-        //       new ScanCondition("ResourceId", ScanOperator.Equal,resourceId)
-        //    };
-
-        //    var resourcesHistory = await context.ScanAsync<ResourcesHistory>(resourceHistoryConditions).GetRemainingAsync();
-        //    return resourcesHistory;
-        //}
+            _userActionService.Add(new UserActionDto()
+            {
+                UserId = resource.UserId,
+                Date = DateTime.UtcNow,
+                Action = UserActiontype.ResourceRemoved,
+                Data = $@"Url: [:{resource.Url}], 
+                        IsActivated: [old: {resource.IsMonitorActivated}], 
+                        Activation Period: [old: {resource.MonitorPeriod}]"
+            });
+        }
     }
 }

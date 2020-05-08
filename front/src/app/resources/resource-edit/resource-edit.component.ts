@@ -68,20 +68,18 @@ export class ResourceEditComponent implements OnInit {
             hour12: false
           };
 
-        console.log(Number(this.getActivationState.value));
-
         const resource = {
             id: this.resourceToEdit.id,
             url: this.getUrl.value + '',
             userId: this.authService.getUserName(),
             monitorPeriod: this.getPeriodicity.value,
-            isMonitorActivated: Number(this.getActivationState.value),
-            monitorActivationDate: new Intl.DateTimeFormat('en-US', timeOptions).format(new Date()).toString()
+            isMonitorActivated: !!Number(this.getActivationState.value)  // convert to boolean
         };
 
         this.resourceService.updateResource(resource).subscribe( () => {
             this.generalService.showActionConfirmationSuccess(`Resource ${resource.url} succesfully updated`);
         });
+
         this.closeDialog();
     }
 }

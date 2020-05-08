@@ -19,13 +19,11 @@ namespace ResourcesLambda.Controllers
     [ApiController]
     public class ResourcesController : ControllerBase
     {
-        private IResourceService _resourceService;
-        private IUserActionService _userActionService;
+        private readonly IResourceService _resourceService;
 
-        public ResourcesController(IResourceService resourceService, IUserActionService userActionService)
+        public ResourcesController(IResourceService resourceService)
         {
             _resourceService = resourceService;
-            _userActionService = userActionService;
         }
 
         // GET: api/Resources/5
@@ -55,65 +53,38 @@ namespace ResourcesLambda.Controllers
             _resourceService.Add(new AddResourceDto()
             {
                 Url = resourceHistoryVM.Url,
-                UserId = resourceHistoryVM.UserId,
+                UserId = new Guid(resourceHistoryVM.UserId),
                 MonitorPeriod = resourceHistoryVM.MonitorPeriod,
                 IsMonitorActivated = resourceHistoryVM.IsMonitorActivated
-            });
-
-            _userActionService.Add(new UserActionDto()
-            {
-                UserId = resourceHistoryVM.UserId,
-                Date = DateTime.UtcNow,
-                Action = UserActiontype.ResourceAdded,
-                Data = $@"Url: [{resourceHistoryVM.Url}], 
-                       IsActivated: [{resourceHistoryVM.IsMonitorActivated}], 
-                       Activation Period: [{resourceHistoryVM.MonitorPeriod}]"
             });
 
             return Ok();
         }
 
-        //[HttpPost("{id}", Name = "/Resources/Update")]
-        //[ProducesResponseType(typeof(ErrorViewModel), 400)]
-        //[ProducesResponseType(200)]
-        //public async Task<IActionResult> Update([FromBody] UpdateResourceViewModel viewModel)
-        //{
-        //    var oldResource = await _resourceService.GetById(viewModel.Id);
+        [HttpPost("{id}", Name = "/Resources/Update")]
+        [ProducesResponseType(typeof(ErrorViewModel), 400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> Update([FromBody] UpdateResourceViewModel viewModel)
+        {
+            await _resourceService.Update(new UpdateResourceDto()
+            {
+                Id = viewModel.Id,
+                Url = viewModel.Url,
+                UserId = new Guid(viewModel.UserId),
+                MonitorPeriod = viewModel.MonitorPeriod,
+                IsMonitorActivated = viewModel.IsMonitorActivated
+            });
 
-        //    var result = await _resourceService.Update(viewModel);
-        //    if (!result.Success)
-        //        return BadRequest(new ErrorViewModel { Message = $"Error to update resource: {viewModel.Url}" });
-
-        //    await _userActionService.Add(new UserActionViewModel()
-        //    {
-        //        UserId = viewModel.UserId,
-        //        Date = DateTime.UtcNow.ToString(),
-        //        Action = UserAction.ResourceUpdated.ToString(),
-        //        Data = $@"Url: [old: {oldResource.Url}, new: {viewModel.Url}], 
-        //                IsActivated: [old: {oldResource.IsMonitorActivated}, new: {viewModel.IsMonitorActivated}], 
-        //                Activation Period: [old: {oldResource.MonitorPeriod}, new: {viewModel.MonitorPeriod}]"
-        //    });
-        //    return Ok();
-        //}
+            return Ok();
+        }
 
         //[Authorize(Policy = "Admin")]
-        //[HttpDelete]
-        //public async Task<IActionResult> Delete([FromBody] UpdateResourceViewModel viewModel)
-        //{
-        //    var result = await _resourceService.Delete(viewModel);
-        //    if (!result.Success)
-        //        return BadRequest(new ErrorViewModel { Message = $"Error deleting resource: {viewModel.Url}" });
-
-        //    await _userActionService.Add(new UserActionViewModel()
-        //    {
-        //        UserId = viewModel.UserId,
-        //        Date = DateTime.UtcNow.ToString(),
-        //        Action = UserAction.ResourceRemoved.ToString(),
-        //        Data = $@"Url: [{viewModel.Url}], 
-        //                IsActivated: [{viewModel.IsMonitorActivated}], 
-        //                Activation Period: [{viewModel.MonitorPeriod}]"
-        //    });
-        //    return Ok();
-        //}
+        [HttpDelete]
+        [Route("[action]/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _resourceService.Delete(id);
+            return Ok();
+        }
     }
 }

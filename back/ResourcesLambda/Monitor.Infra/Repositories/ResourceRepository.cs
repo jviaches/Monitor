@@ -28,13 +28,14 @@ namespace Monitor.Infra.Repositories
 
         public void Delete(Resource entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<Resource>().Remove(entity);
+            _dbContext.SaveChanges();
         }
 
         public Task<Resource> GetById(int id)
         {
             var resource = _dbContext.Resources
-                   .Include(rs => rs.Id)
+                   .Include(rs => rs.History)
                    .SingleOrDefaultAsync(rs => rs.Id == id);
 
             return resource;

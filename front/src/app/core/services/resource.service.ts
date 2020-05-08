@@ -24,7 +24,7 @@ export class ResourceService {
         return this.httpClient.post<any>(this.generalService.URL + 'Resources/Update', resource);
     }
 
-    deleteResource(resource: any): Observable<any> {
-        return this.httpClient.request('delete', this.generalService.URL + 'Resources', { body: resource });
+    deleteResource(id: number): Observable<any> {
+        return this.httpClient.delete(this.generalService.URL + `Resources/Delete/${id}`);
     }
 }

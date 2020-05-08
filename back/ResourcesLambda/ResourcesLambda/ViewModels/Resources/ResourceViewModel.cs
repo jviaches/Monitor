@@ -8,7 +8,7 @@ namespace ResourcesLambda.Services.Resources
     public class ResourceViewModel
     {
         public string Url { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// In minutes
