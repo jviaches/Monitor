@@ -46,18 +46,11 @@ export class ResourceAddComponent {
     }
 
     saveWebSiteDialog() {
-
-        const timeOptions = {
-            year: 'numeric', month: 'numeric', day: 'numeric',
-            hour: 'numeric', minute: 'numeric', second: 'numeric',
-            hour12: false
-          };
-
         const resource = {
             url: this.getUrl.value + '',
             userId: this.authService.getUserName(),
             monitorPeriod: this.getPeriodicity.value,
-            isMonitorActivated: Number(this.getActivationState.value),
+            isMonitorActivated: !!Number(this.getActivationState.value)  // convert to boolean
         };
 
         this.resourceService.addResource(resource).subscribe( () => {
