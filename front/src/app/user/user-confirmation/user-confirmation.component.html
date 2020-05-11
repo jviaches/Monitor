@@ -25,14 +25,16 @@
                         </mat-form-field>
                     </div>
 
-                    <div
-                        class="form-group custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                    <div class="form-group custom-control custom-checkbox d-flex align-items-center justify-content-between">
                         <span>Don't have an account? <a href="/register" class="btn--color-primary btn-text-hover">Sign
                                 up here</a></span>
                         <button type="submit" class="btn btn--bg-primary btn-splash-hover btn-3d-hover"
                             (click)="doValidate()" [disabled]="isInValid()">
                             <span class="btn__text">Verify</span>
                         </button>
+                    </div>
+                    <div class="form-group custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                        <span><b>* Please check you email for verification code.</b></span>
                     </div>
                 </form>
             </div>
