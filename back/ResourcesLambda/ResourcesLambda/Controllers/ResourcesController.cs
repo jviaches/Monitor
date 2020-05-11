@@ -13,8 +13,7 @@ using ResourcesLambda.Services.Resources;
 
 namespace ResourcesLambda.Controllers
 {
-    //[Authorize]
-    [AllowAnonymous]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ResourcesController : ControllerBase
