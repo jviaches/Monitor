@@ -106,7 +106,8 @@ namespace Monitor.StepperLogic
             {
                 var lamdaRequest = new InvokeRequest
                 {
-                    FunctionName = "MonitorStepperLogic-GetResourceStatusTask-P53XRWMQLD3Z",
+                    //Todo: call lamda depending on environment
+                    FunctionName = "ResourceStepperStaging-GetResourceStatusTask-WKMVBYB2Q548",
                     InvocationType = Amazon.Lambda.InvocationType.RequestResponse,
                     Payload = JsonConvert.SerializeObject(item)
                 };
