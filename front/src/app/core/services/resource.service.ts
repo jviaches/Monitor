@@ -13,6 +13,7 @@ export class ResourceService {
     constructor(private httpClient: HttpClient, private generalService: GeneralService, private authService: AuthorizationService) { }
 
     getResources(): Observable<IResource[]> {
+        setTimeout(() => { this.getResources(); }, 2000);
         return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${this.authService.getUserName()}`);
     }
 
