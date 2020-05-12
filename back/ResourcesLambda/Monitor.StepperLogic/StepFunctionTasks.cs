@@ -57,6 +57,7 @@ namespace Monitor.StepperLogic
             serviceCollection.AddSingleton<IResourceService, ResourceService>();
             serviceCollection.AddSingleton<IResourceHistoryService, ResourceHistoryService>();
             serviceCollection.AddSingleton<IUserActionService, UserActionService>();
+            serviceCollection.AddSingleton<IUserActionRepository, UserActionRepository>();
 
             var DBHostName = Environment.GetEnvironmentVariable("DBHostName");
             var DBName = Environment.GetEnvironmentVariable("DBName");
