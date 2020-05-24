@@ -44,10 +44,6 @@
         "Handler": "ResourcesLambda::ResourcesLambda.LambdaEntryPoint::FunctionHandlerAsync",
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
-        "AutoPublishAlias":"staging",
-        "ProvisionedConcurrencyConfig": {
-        "ProvisionedConcurrentExecutions" : "10"
-        },
         "MemorySize": 512,
         "Timeout": 30,
         "Role": null,
