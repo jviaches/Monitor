@@ -62,7 +62,12 @@
                   "Ref": "BucketName"
                 }
               ]
-            }
+            },
+            "DBHostName" : "monitor-staging.cjfsrulnrass.us-east-2.rds.amazonaws.com",
+            "DBPort" : "5432",
+            "DBUserName" : "monitor",
+            "DBPassword" : "9mUqfSdgNjOufXNrjq4m",
+            "DBName" : "postgres"
           }
         },
         "Events": {
