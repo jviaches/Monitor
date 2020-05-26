@@ -4,7 +4,7 @@
             <label class="label-control mb-10" for="email">Site URL</label>
             <mat-form-field class="form-group mb-20 display-block" appearance="outline">
                 <input matInput placeholder="Ex. https://stackoverflow.com" formControlName="url">
-                <mat-error *ngIf="getUrl.invalid">Please enter a valid web site</mat-error>
+                <mat-error *ngIf="getUrl.invalid">Please enter a valid web site with prefix (http or https)</mat-error>
             </mat-form-field>
 
             <label class="label-control mb-10" for="email">Monitor periodicity</label>
