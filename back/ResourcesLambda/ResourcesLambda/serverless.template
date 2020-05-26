@@ -44,7 +44,7 @@
         "Handler": "ResourcesLambda::ResourcesLambda.LambdaEntryPoint::FunctionHandlerAsync",
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
-        "MemorySize": 512,
+        "MemorySize": 1024,
         "Timeout": 30,
         "Role": null,
         "Policies": [

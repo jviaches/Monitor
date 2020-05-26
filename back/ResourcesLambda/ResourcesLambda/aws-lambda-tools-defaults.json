@@ -13,6 +13,6 @@
     "s3-prefix"     : "ResourcesLambda/",
     "template"      : "serverless.template",
     "template-parameters" : "\"ShouldCreateBucket\"=\"false\";\"BucketName\"=\"\"",
-    "s3-bucket"           : "monitor-lamda",
+    "s3-bucket"           : "amplify-monitor-staging-155026-deployment",
     "stack-name"          : "ResourcesLambda"
 }
