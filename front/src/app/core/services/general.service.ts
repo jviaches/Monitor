@@ -1,4 +1,4 @@
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ModalDialogComponent } from '../components/modal-dialog/modal-dialog.component';
@@ -6,6 +6,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ModalYesNoDialogComponent } from '../components/yesno-modal-dialog/yesno-modal-dialog.component';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { ModalLoaderDialogComponent } from '../components/modal-loader-dialog/modal-loader-dialog.component';
 
 @Injectable({
     providedIn: 'root'
@@ -56,6 +57,18 @@ export class GeneralService {
         const dialogRef = this.dialog.open(component, dialogConfig);
 
         return dialogRef.afterClosed();
+    }
+
+    public showLoadingModal(text: string): any {
+        const dialogConfig = new MatDialogConfig();
+
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        // dialogConfig.panelClass = 'logout-dialog';
+
+        dialogConfig.data = { data: {caption: text } };
+
+        return this.dialog.open(ModalLoaderDialogComponent, dialogConfig);
     }
 
     public showActionConfirmationSuccess(text: string) {

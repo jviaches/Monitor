@@ -19,8 +19,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button/';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -46,7 +47,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatCommonModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatCardModule,
@@ -71,7 +73,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatCommonModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     MatDatepickerModule,

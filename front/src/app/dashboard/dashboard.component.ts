@@ -35,11 +35,14 @@ export class DashboardComponent implements OnInit {
   }
 
   getResources() {
+    const modalRef = this.generalService.showLoadingModal('Fetching data..');
     this.resourceService.getResources().subscribe(resource => {
       this.resources = resource;
       this.buildHistoryStatusChart(resource);
       this.activeResources = this.resources.filter(res => res.isMonitorActivated);
       this.inActiveResources = this.resources.filter(res => !res.isMonitorActivated);
+
+      modalRef.close();
     });
   }
 

@@ -36,6 +36,7 @@ import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.co
 import { HeaderMainComponent } from './pages/header-main/header-main.component';
 import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialog/modal-loader-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     DashboardComponent,
     PeriodicyPipe,
     ModalDialogComponent,
+    ModalLoaderDialogComponent,
     ModalYesNoDialogComponent,
     ResourceAddComponent,
     ResourceEditComponent,
@@ -82,7 +84,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
       }
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ResourceAddComponent,
+  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ResourceAddComponent, ModalLoaderDialogComponent,
                     ResourceEditComponent, UserChangePasswordComponent]
 })
 export class AppModule { }
