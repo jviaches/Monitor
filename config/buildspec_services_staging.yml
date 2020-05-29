@@ -16,9 +16,9 @@ phases:
       - dotnet build back/ResourcesLambda/Monitor.Infra/Monitor.Infra.csproj
       - dotnet build back/ResourcesLambda/Monitor.Service/Monitor.Service.csproj
       
-      - dotnet publish Monitor.Service.csproj -o bin/Release/netcoreapp3.1
-      - aws s3 sync bin/Release/netcoreapp3.1/publish "s3://resource-management-staging/MonitorServices"
+      - dotnet publish back/ResourcesLambda/Monitor.Service/Monitor.Service.csproj -o back/ResourcesLambda/Monitor.Service/bin/Debug/netcoreapp3.1
+      - aws s3 sync back/ResourcesLambda/Monitor.Service/bin/Debug/netcoreapp3.1 "s3://resource-management-staging/MonitorServices"
 artifacts:
   files:
-    - .\bin\Release\netcoreapp3.1\*      
+    - back\ResourcesLambda\Monitor.Service\bin\Debug\netcoreapp3.1\*      
 
