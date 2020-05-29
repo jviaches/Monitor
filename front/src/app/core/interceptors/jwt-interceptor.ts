@@ -18,9 +18,8 @@ export class JwtInterceptor implements HttpInterceptor {
             const isExpired = helper.isTokenExpired(this.autService.getUserToken());
 
             if (isExpired) {
-                this.generalService.showModalMessage('Message', 'Your session has been expired').subscribe(() => {
-                    this.autService.logOut();
-                });
+                this.autService.sessionExpired();
+
             } else {
                 // console.log(this.autService.getUserToken());
                 request = request.clone({

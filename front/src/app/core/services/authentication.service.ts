@@ -118,4 +118,13 @@ export class AuthorizationService {
       window.location.reload();
     });
   }
+
+  sessionExpired() {
+    Auth.signOut({ global: true }).finally(() => {
+      localStorage.removeItem('user');
+      this.user = null;
+      window.location.reload();
+      this.generalService.showModalMessage('Message', 'Your session has been expired').subscribe(() => { });
+    });
+  }
 }
