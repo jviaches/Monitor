@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      dotnet: latest
+  pre_build:
+    commands:
+      - cd back/ResourcesLambda/Monitor.Service
+  build:
+    commands:
+      - echo Build started on `date`
+      - dotnet build
+      - dotnet publish Monitor.Service.csproj -o bin/Release/netcoreapp3.1/publish
+
