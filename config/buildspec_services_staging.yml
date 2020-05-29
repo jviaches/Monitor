@@ -11,5 +11,9 @@ phases:
       - echo Build started on `date`
       - dotnet restore
       - dotnet build
-      - dotnet publish Monitor.Service.csproj -o bin/Release/netcoreapp3.1/publish
+      - dotnet publish Monitor.Service.csproj -o bin/Release/netcoreapp3.1
+      - aws s3 sync bin/Release/netcoreapp3.1/publish "s3://resource-management-staging/MonitorServices"
+artifacts:
+  files:
+    - .\bin\Release\netcoreapp3.1\*      
 
