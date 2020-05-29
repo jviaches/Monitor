@@ -37,6 +37,7 @@ import { HeaderMainComponent } from './pages/header-main/header-main.component';
 import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialog/modal-loader-dialog.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialo
     PrivacyPolicyComponent,
     FooterComponent,
     HeaderMainComponent,
-    TermsOfServiceComponent
+    TermsOfServiceComponent,
+    UserProfileComponent
   ],
   imports: [
     AppRoutingModule,

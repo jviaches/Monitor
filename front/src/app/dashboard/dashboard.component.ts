@@ -78,16 +78,17 @@ export class DashboardComponent implements OnInit {
                 dataLabels: {
                     enabled: true,
                     formatter() {
-                      if (this.y % 100 !== 0) { // show labels when not euals to 100s
+                      if (this.y % 100 !== 0) { // show labels when not equals to 100s
                         return this.y;
                       }
                     }
                 },
-                enableMouseTracking: false,
+                enableMouseTracking: true,
             },
         },
         series: [{
           type: 'line',
+          showInLegend: false,
           name: element.url,
           data: historyData,
           color: '#007bff'
@@ -167,11 +168,7 @@ export class DashboardComponent implements OnInit {
     // dialogConfig.data = { data: resource };
     dialogConfig.disableClose = true;
     dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
-    const dialogRef = this.dialog.open(UserChangePasswordComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.getResources();
-    });
+    this.dialog.open(UserChangePasswordComponent, dialogConfig);
   }
 
   lastMonitoredDate(resource: IResource): Date {
