@@ -19,5 +19,6 @@ phases:
       - dotnet publish back/ResourcesLambda/Monitor.Service/Monitor.Service.csproj -o back/ResourcesLambda/Monitor.Service/bin/Debug/netcoreapp3.1
 artifacts:
   files:
-    - back\ResourcesLambda\Monitor.Service\bin\Debug\netcoreapp3.1\*      
+   - '**/*' 
+  base-directory: back\ResourcesLambda\Monitor.Service\bin\Debug\netcoreapp3.1      
 
