@@ -12,6 +12,7 @@ import { MainPageComponent } from './pages/main/main.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+// import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,8 @@ const routes: Routes = [
     path: 'dashboard',
     canActivate: [AuthGuard, AuthGuard],
     children: [
-      { path: '', component: DashboardComponent }
+      { path: '', component: DashboardComponent },
+      // { path: 'profile', component: UserProfileComponent }
     ]
   },
   { path: '**', component: PageNotFoundComponent },
