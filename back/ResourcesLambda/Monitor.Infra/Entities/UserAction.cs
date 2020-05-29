@@ -1,5 +1,4 @@
-﻿using Amazon.DynamoDBv2.DataModel;
-using Monitor.Core.Enums;
+﻿using Monitor.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
