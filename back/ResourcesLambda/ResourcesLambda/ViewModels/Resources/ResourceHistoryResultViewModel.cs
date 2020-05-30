@@ -17,7 +17,7 @@ namespace ResourcesLambda.Services.Resources
 
         public int Id { get { return _resourcehistory.Id; } }
         public int ResourceId { get { return _resourcehistory.ResourceId; } }
-        public DateTime RequestDate => _resourcehistory.RequestDate;
+        public DateTime RequestDate => _resourcehistory.RequestDate.ToLocalTime();
 
         public string Result { get { return _resourcehistory.Result; } }
     }
