@@ -32,20 +32,21 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getResources();
-
+    this.getInitialResources();
   }
 
-  // getInitialResources() {
-  //   const modalRef = this.generalService.showLoadingModal('Fetching data..');
-  //   this.resourceService.getResources().subscribe(resource => {
-  //     this.resources = resource;
-  //     this.buildHistoryStatusChart(resource);
-  //     this.activeResources = this.resources.filter(res => res.isMonitorActivated);
-  //     this.inActiveResources = this.resources.filter(res => !res.isMonitorActivated);
-  //     modalRef.close();
-  //   });
-  // }
+  getInitialResources() {
+    const modalRef = this.generalService.showLoadingModal('Fetching data..');
+    this.resourceService.getResources().subscribe(resource => {
+      this.resources = resource;
+      this.buildHistoryStatusChart(resource);
+      this.activeResources = this.resources.filter(res => res.isMonitorActivated);
+      this.inActiveResources = this.resources.filter(res => !res.isMonitorActivated);
+      this.resetMonitoringIntervalRefresh();
+
+      modalRef.close();
+    });
+  }
 
   getResources() {
     this.resourceService.getResources().subscribe(resource => {
@@ -54,6 +55,14 @@ export class DashboardComponent implements OnInit {
       this.activeResources = this.resources.filter(res => res.isMonitorActivated);
       this.inActiveResources = this.resources.filter(res => !res.isMonitorActivated);
 
+      this.resetMonitoringIntervalRefresh();
+    });
+  }
+
+  onSelect(event) {
+  }
+
+  resetMonitoringIntervalRefresh() {
       // pick the most periodic and aply minimal refresh rate.
       // tslint:disable-next-line:no-shadowed-variable
       const minimalRefreshRate  = Math.min(...this.resources.filter(res => res.isMonitorActivated).map(resource => resource.monitorPeriod));
@@ -65,10 +74,6 @@ export class DashboardComponent implements OnInit {
       } else {
         clearInterval(this.interval);
       }
-    });
-  }
-
-  onSelect(event) {
   }
 
   private buildHistoryStatusChart(resources: IResource[]) {
