@@ -12,10 +12,8 @@ import { PeriodicyPipe } from './core/pipes/periodicy.pipe';
 import { ChartModule } from 'angular-highcharts';
 import { ModalDialogComponent } from './core/components/modal-dialog/modal-dialog.component';
 import { GeneralService } from './core/services/general.service';
-import { ResourceAddComponent } from './resources/resource-add/resource-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorInterceptor } from './core/interceptors/error-interceptor';
-import { ResourceEditComponent } from './resources/resource-edit/resource-edit.component';
 import { ModalYesNoDialogComponent } from './core/components/yesno-modal-dialog/yesno-modal-dialog.component';
 import { AuthorizationService } from './core/services/authentication.service';
 import { LoginComponent } from './user/user-login/user-login.component';
@@ -48,8 +46,6 @@ import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialo
     ModalDialogComponent,
     ModalLoaderDialogComponent,
     ModalYesNoDialogComponent,
-    ResourceAddComponent,
-    ResourceEditComponent,
     LoginComponent,
     RegisterComponent,
     UserConfirmationComponent,
@@ -86,7 +82,6 @@ import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialo
       }
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ResourceAddComponent, ModalLoaderDialogComponent,
-                    ResourceEditComponent, UserChangePasswordComponent]
+  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ModalLoaderDialogComponent]
 })
 export class AppModule { }

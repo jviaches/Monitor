@@ -3514,6 +3514,7 @@ p {
 /**! 29. footer **/
 .footer {
   position: relative;
+  height: 2.5rem;            /* Footer height */
 }
 
 @media (min-width: 992px) {

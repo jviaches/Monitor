@@ -1,6 +1,8 @@
 
 .dashboard-content{
   background-color: #F4F5F6;
+  // display: flex;
+  min-height: 100vh;
 }
 
 .spacer {
@@ -10,14 +12,14 @@
 .content {
   margin: 80px auto 32px;
   padding: 0 16px;
-  max-width: 70%;
+  max-width: 80%;
   flex-direction: column;
   align-items: center;
 }
 
 .first-content {
   @extend .content;
-  margin: 160px auto 32px;
+  margin: 100px auto 32px;
 }
 
 .card-container {

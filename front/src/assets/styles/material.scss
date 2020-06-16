@@ -177,7 +177,6 @@
 // //   border: 6px solid #fafafa;
 // // }
 
-
 .mat-tab-label-content {
   text-transform: uppercase;
   font-size: 12px;
@@ -218,7 +217,10 @@
 }
 
 mat-card-title {
-  color: #6e6d7a;
+  background-color: #407AC5;
+  color: white;
+  margin: -16px;
+  height: 60px;
 }
 
 // .mat-form-field {

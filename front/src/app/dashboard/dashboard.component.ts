@@ -3,14 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { IResource } from '../core/models/resource.model';
 import { Chart } from 'angular-highcharts';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { ResourceAddComponent } from '../resources/resource-add/resource-add.component';
-import { ResourceEditComponent } from '../resources/resource-edit/resource-edit.component';
 import { GeneralService } from '../core/services/general.service';
 import { AuthorizationService } from '../core/services/authentication.service';
-import { Router } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { UserChangePasswordComponent } from '../user/user-change-password/user-change-password.component';
 import { YAxisLabelsOptions } from 'highcharts';
+import { SelectionOptions } from '../core/shared/selection-options';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,15 +20,21 @@ import { YAxisLabelsOptions } from 'highcharts';
 export class DashboardComponent implements OnInit {
 
   resources: IResource[] = [];
-  activeResources: IResource[] = [];
-  inActiveResources: IResource[] = [];
   chartMap: Map<number, Chart>;
+  periodicityOptions = SelectionOptions.periodicityOptions();
 
-  panelOpenState = false;
   interval = undefined;
 
-  constructor(private resourceService: ResourceService, public dialog: MatDialog, private router: Router,
-              private generalService: GeneralService, public authService: AuthorizationService) {
+  siteFormGroup: FormGroup;
+  urlRegex = '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
+
+  constructor(private resourceService: ResourceService, public dialog: MatDialog, private formBuilder: FormBuilder,
+              private generalService: GeneralService, public authService: AuthorizationService, ) {
+
+    this.siteFormGroup = this.formBuilder.group({
+      url: ['', [Validators.required, Validators.pattern(this.urlRegex)]],
+      periodicity: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
@@ -40,8 +46,6 @@ export class DashboardComponent implements OnInit {
     this.resourceService.getResources().subscribe(resource => {
       this.resources = resource;
       this.buildHistoryStatusChart(resource);
-      this.activeResources = this.resources.filter(res => res.isMonitorActivated);
-      this.inActiveResources = this.resources.filter(res => !res.isMonitorActivated);
       this.resetMonitoringIntervalRefresh();
 
       modalRef.close();
@@ -52,28 +56,43 @@ export class DashboardComponent implements OnInit {
     this.resourceService.getResources().subscribe(resource => {
       this.resources = resource;
       this.buildHistoryStatusChart(resource);
-      this.activeResources = this.resources.filter(res => res.isMonitorActivated);
-      this.inActiveResources = this.resources.filter(res => !res.isMonitorActivated);
 
       this.resetMonitoringIntervalRefresh();
     });
   }
 
-  onSelect(event) {
+  monitorChange(event: MatSlideToggleChange, resource: IResource) {
+    resource.isMonitorActivated = event.checked;
+
+    this.generalService.showYesNoModalMessage().subscribe(data => {
+      if (data === 'yes') {
+        this.resourceService.updateResource(resource).subscribe(() => {
+          this.resourceService.getResources().subscribe(() => {
+            this.resetMonitoringIntervalRefresh();
+            this.generalService.showActionConfirmationSuccess(`Resource successfully updated!`);
+          });
+        });
+      }
+    });
   }
 
   resetMonitoringIntervalRefresh() {
-      // pick the most periodic and aply minimal refresh rate.
-      // tslint:disable-next-line:no-shadowed-variable
-      const minimalRefreshRate  = Math.min(...this.resources.filter(res => res.isMonitorActivated).map(resource => resource.monitorPeriod));
-      if (minimalRefreshRate > 0) {
-        console.log(minimalRefreshRate);
-        this.interval = setInterval(() => {
-          this.getResources();
-        }, minimalRefreshRate * 60000); // millisec
-      } else {
-        clearInterval(this.interval);
-      }
+    // pick the most periodic and aply minimal refresh rate.
+    clearInterval(this.interval);
+
+    if (this.resources.length === 0) {
+      return;
+    }
+
+    // tslint:disable-next-line:no-shadowed-variable
+    const minimalRefreshRate = Math.min(...this.resources.filter(res => res.isMonitorActivated).map(resource => resource.monitorPeriod));
+    if (minimalRefreshRate > 0 && minimalRefreshRate < 1000) { // to prevent infinity --> all resources are disabled
+      this.interval = setInterval(() => {
+        this.getResources();
+      }, minimalRefreshRate * 60000); // millisec
+    } else {
+      clearInterval(this.interval);
+    }
   }
 
   private buildHistoryStatusChart(resources: IResource[]) {
@@ -101,17 +120,17 @@ export class DashboardComponent implements OnInit {
           enabled: false
         },
         plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true,
-                    formatter() {
-                      if (this.y % 100 !== 0) { // show labels when not equals to 100s
-                        return this.y;
-                      }
-                    }
-                },
-                enableMouseTracking: true,
+          line: {
+            dataLabels: {
+              enabled: true,
+              formatter() {
+                if (this.y % 100 !== 0) { // show labels when not equals to 100s
+                  return this.y;
+                }
+              }
             },
+            enableMouseTracking: true,
+          },
         },
         series: [{
           type: 'line',
@@ -144,27 +163,16 @@ export class DashboardComponent implements OnInit {
   }
 
   addResource() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { data: '' };
-    dialogConfig.disableClose = true;
-    dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
-    const dialogRef = this.dialog.open(ResourceAddComponent, dialogConfig);
+    const resource = {
+      url: this.getUrl.value + '',
+      userId: this.authService.getUserName(),
+      monitorPeriod: this.getPeriodicity.value,
+      isMonitorActivated: true
+    };
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.getResources();
-    });
-  }
-
-  editResource(resource: IResource, event: any) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { data: resource };
-    dialogConfig.disableClose = true;
-    dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
-    const dialogRef = this.dialog.open(ResourceEditComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(() => {
+    this.resourceService.addResource(resource).subscribe(() => {
+      this.generalService.showActionConfirmationSuccess('New resource succesfully created');
+      this.clearFormGroup(this.siteFormGroup);
       this.getResources();
     });
   }
@@ -192,17 +200,24 @@ export class DashboardComponent implements OnInit {
   changePassword() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    // dialogConfig.data = { data: resource };
     dialogConfig.disableClose = true;
     dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
     this.dialog.open(UserChangePasswordComponent, dialogConfig);
   }
 
-  lastMonitoredDate(resource: IResource): Date {
-    if (resource.history.length > 0) {
-      return resource.history[resource.history.length - 1].requestDate;
-    }
+  clearFormGroup(formGroup: FormGroup) {
+    formGroup.reset();
 
-    return resource.monitorActivationDate;
+    Object.keys(formGroup.controls).forEach(key => {
+      formGroup.get(key).setErrors(null);
+    });
+  }
+
+  get getUrl() {
+    return this.siteFormGroup.get('url');
+  }
+
+  get getPeriodicity() {
+    return this.siteFormGroup.get('periodicity');
   }
 }

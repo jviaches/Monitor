@@ -9,10 +9,11 @@ export interface SelectionOption {
 export class SelectionOptions {
     static periodicityOptions(): SelectionOption[] {
         return [
-            { key: 5, value: 'Every 5 minutes'},
-            { key: 60, value: 'Hourly'},
-            { key: 10080, value: 'Weekly'},
-            { key: 43800, value: 'Monthly'},
+            { key: 1, value: '1 min'},
+            { key: 5, value: '5 min'},
+            { key: 60, value: '1h'},
+            { key: 10080, value: '1w'},
+            { key: 43800, value: '1month'},
         ];
     }
 }
