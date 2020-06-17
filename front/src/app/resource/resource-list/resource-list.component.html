@@ -1,0 +1,59 @@
+<!-- Add Monitor section -->
+<mat-card class="mat-card-flat">
+    <mat-card-content>
+        <form [formGroup]="siteFormGroup" name="siteFormGroup" role="form">
+            <div class="flex_justify_content_space-between" style="height: 40px;">
+                <div style="display: flex; padding: 0;">
+                    <mat-form-field style="width: 400px; margin-right: 20px;">
+                        <mat-label>Monitor URL</mat-label>
+                        <input matInput placeholder="Ex. https://stackoverflow.com" formControlName="url">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Monitor periodicity</mat-label>
+                        <mat-select formControlName="periodicity">
+                            <mat-option *ngFor="let period of periodicityOptions" [value]="period.key">
+                                {{ period.value }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <button mat-stroked-button (click)="addResource()" [disabled]="siteFormGroup.invalid">Add
+                    Monitor</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+<!-- Monitors section -->
+<ng-container *ngIf="this.resources.length === 0">
+    <div class="monitor-section"> Create new Monitor - it's so easy! </div>
+</ng-container>
+
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap">
+    <ng-container *ngIf="this.resources.length > 0">
+        <mat-card class="mat-card-flat;" style="margin-top:30px; width: 49%;" *ngFor="let resource of resources">
+            <div style="padding-bottom:40px; display: flex; justify-content: space-between;">
+                <div>
+                    <img src="https://www.google.com/s2/favicons?domain={{resource.url}}"><img>
+                    {{resource.url}}
+                </div>
+                <div style="display:flex">
+                    <mat-chip-list>
+                        <mat-chip matTooltip="Monitor Periodicity"> {{resource.monitorPeriod | periodicy}}</mat-chip>
+                    </mat-chip-list>
+                    <button mat-icon-button (click)="redirectToResourceDetails(resource)">
+                        <span class="material-icons">settings</span>
+                    </button>
+                </div>
+            </div>
+            <mat-card-content>
+                <div class="graph" [chart]="chartMap[resource.id]"></div>
+                <hr class="new1">
+                <div class="actions" class="flex_justify_content_space-between">
+                    <mat-slide-toggle [checked]="resource.isMonitorActivated"
+                        (change)="monitorChange($event, resource)">Enable/Disable</mat-slide-toggle>
+                    <button mat-stroked-button color="warn" (click)="deleteResource(resource)">Delete</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</div>

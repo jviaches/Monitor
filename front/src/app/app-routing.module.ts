@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './user/user-login/user-login.component';
 import { AuthGuard } from './core/guards/auth-guard';
 import { RegisterComponent } from './user/user-register/user-register.component';
@@ -12,6 +11,9 @@ import { MainPageComponent } from './pages/main/main.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
+import { ResourceListComponent } from './resource/resource-list/resource-list.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 // import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
@@ -29,8 +31,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     canActivate: [AuthGuard, AuthGuard],
+    component: DashboardComponent,
     children: [
-      { path: '', component: DashboardComponent },
+      { path: '', component: ResourceListComponent },
+      { path: 'resource-details', component: ResourceDetailsComponent },
       // { path: 'profile', component: UserProfileComponent }
     ]
   },

@@ -35,6 +35,8 @@ import { HeaderMainComponent } from './pages/header-main/header-main.component';
 import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialog/modal-loader-dialog.component';
+import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
+import { ResourceListComponent } from './resource/resource-list/resource-list.component';
 // import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
@@ -58,6 +60,8 @@ import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialo
     FooterComponent,
     HeaderMainComponent,
     TermsOfServiceComponent,
+    ResourceDetailsComponent,
+    ResourceListComponent
     // UserProfileComponent
   ],
   imports: [

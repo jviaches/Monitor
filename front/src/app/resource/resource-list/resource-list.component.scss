@@ -1,0 +1,19 @@
+.widget {
+  .graph {
+    margin: 0;
+    float: left;
+    width: 80%;
+    overflow: hidden;
+  }
+}
+
+.monitor-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 25%;
+}
+
+.flex_justify_content_space-between {
+  display: flex;
+  justify-content: space-between;
+}

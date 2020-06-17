@@ -1,0 +1,38 @@
+<mat-card class="mat-card-flat">
+    <div style="padding-bottom:40px; display: flex; justify-content: space-between;">
+        <div>
+            <img src="https://www.google.com/s2/favicons?domain={{resource.url}}"><img>
+            {{resource.url}}
+        </div>
+        <div style="display:flex">
+            <mat-chip-list>
+                <mat-chip matTooltip="Monitor Periodicity"> {{resource.monitorPeriod | periodicy}}</mat-chip>
+            </mat-chip-list>
+        </div>
+    </div>
+
+    <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Overview">
+            <div class="graph-detailed" [chart]="chartMap[resource.id]"></div>
+        </mat-tab>
+        <mat-tab label="Settings">
+            <form [formGroup]="siteFormGroup" name="siteFormGroup" role="form">
+                <!-- <div>
+                    <mat-form-field>
+                        <mat-label>Monitor periodicity</mat-label>
+                        <mat-select formControlName="periodicity">
+                            <mat-option *ngFor="let period of periodicityOptions" [value]="period.key">
+                                {{ period.value }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="actions" class="flex_justify_content_space-between">
+                    <mat-slide-toggle [checked]="resource.isMonitorActivated"
+                        (change)="monitorChange($event, resource)">Enable/Disable</mat-slide-toggle>
+                    <button mat-stroked-button color="warn" (click)="deleteResource(resource)">Delete</button>
+                </div>                 -->
+            </form>
+        </mat-tab>
+        <!-- <mat-tab label="Third">Content 3</mat-tab> -->
+    </mat-tab-group>
+</mat-card>
