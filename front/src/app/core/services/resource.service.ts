@@ -121,6 +121,7 @@ export class ResourceService {
                     name: element.url,
                     showInLegend: false,
                     data: historyData,
+                    turboThreshold: 10000
                 } as unknown as SeriesOptionsType],
                 navigation: {
                     menuItemStyle: {
