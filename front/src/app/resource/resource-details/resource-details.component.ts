@@ -3,9 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IResource } from 'src/app/core/models/resource.model';
 import { SelectionOptions } from 'src/app/core/shared/selection-options';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { SeriesOptionsType, YAxisOptions } from 'highcharts';
 import { Chart } from 'angular-highcharts';
-import * as moment from 'moment-timezone';
+import { ResourceService } from 'src/app/core/services/resource.service';
 
 @Component({
     selector: 'app-resource-details',
@@ -19,7 +18,8 @@ export class ResourceDetailsComponent implements OnInit {
     periodicityOptions = SelectionOptions.periodicityOptions();
     chartMap: Map<number, Chart>;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) {
+    constructor(private activatedRoute: ActivatedRoute, private router: Router,
+                private formBuilder: FormBuilder, private resourceService: ResourceService) {
     }
 
     ngOnInit(): void {
@@ -35,123 +35,7 @@ export class ResourceDetailsComponent implements OnInit {
             periodicity: [this.resource.monitorPeriod, Validators.required],
         });
 
-        this.buildHistoryStatusChart();
-    }
-
-    private buildHistoryStatusChart() {
-        this.chartMap = new Map<number, Chart>();
-
-        const historyData: any[] = [];
-        // tslint:disable-next-line:max-line-length
-        this.resource.history.map(record => historyData.push(({ name: moment(record.requestDate).format('LLL'), y: Number(record.result) })));
-
-        this.chartMap[this.resource.id] = new Chart({
-            chart: {
-                type: 'spline',
-                scrollablePlotArea: {
-                    minWidth: 600,
-                    scrollPositionX: 1
-                }
-            },
-            title: {
-                text: 'Monitoring History'
-            },
-            credits: {
-                enabled: false
-            },
-            xAxis: {
-                categories: historyData.map(cat => cat.name),
-                type: 'datetime',
-                labels: {
-                    overflow: 'justify'
-                },
-                title: {
-                    text: 'Timeline'
-                },
-            },
-            yAxis: {
-                title: {
-                    text: 'Status Code'
-                },
-                range: 500,
-                minorGridLineWidth: 0,
-                gridLineWidth: 0,
-                alternateGridColor: null,
-                plotBands: [{ // Successful
-                    from: 200,
-                    to: 299,
-                    color: 'rgba(68, 170, 213, 0.1)',
-                    label: {
-                        text: 'Successful',
-                        style: {
-                            color: '#606060'
-                        }
-                    }
-                }, { // Redirection
-                    from: 300,
-                    to: 399,
-                    color: 'rgba(0, 0, 0, 0)',
-                    label: {
-                        text: 'Redirection',
-                        style: {
-                            color: '#ffcdb2'
-                        }
-                    }
-                }, { // Client error
-                    from: 400,
-                    to: 499,
-                    color: 'rgba(68, 170, 213, 0.1)',
-                    label: {
-                        text: 'Client error',
-                        style: {
-                            color: '#e5989b'
-                        }
-                    }
-                }, { // Server error
-                    from: 500,
-                    to: 511,
-                    color: 'rgba(0, 0, 0, 0)',
-                    label: {
-                        text: 'Server error',
-                        style: {
-                            color: '#e5989b'
-                        }
-                    }
-                }]
-            } as unknown as YAxisOptions | YAxisOptions[],
-            tooltip: {
-                valuePrefix: 'Http Code: '
-            },
-            plotOptions: {
-                spline: {
-                    lineWidth: 4,
-                    states: {
-                        hover: {
-                            lineWidth: 5
-                        }
-                    },
-                    marker: {
-                        enabled: false
-                    },
-                }
-            },
-            series: [{
-                name: this.resource.url,
-                showInLegend: false,
-                data: historyData
-            } as unknown as SeriesOptionsType],
-            navigation: {
-                menuItemStyle: {
-                    fontSize: '10px'
-                }
-            },
-            // labels: {
-            //     formatter() {
-            //         if (historyData.map(cat => cat.y).includes(this.value)) {
-            //             return this.value;
-            //         }
-            //     }
-            // },
-        });
+        const resources = [this.resource];
+        this.chartMap = this.resourceService.buildHistoryStatusChart(resources);
     }
 }
