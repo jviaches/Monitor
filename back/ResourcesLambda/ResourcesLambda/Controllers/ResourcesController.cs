@@ -51,7 +51,7 @@ namespace ResourcesLambda.Controllers
         {
             _resourceService.Add(new AddResourceDto()
             {
-                Url = resourceHistoryVM.Url,
+                Url = resourceHistoryVM.Url.TrimEnd(new[] { '/' }),
                 UserId = new Guid(resourceHistoryVM.UserId),
                 MonitorPeriod = resourceHistoryVM.MonitorPeriod,
                 IsMonitorActivated = resourceHistoryVM.IsMonitorActivated

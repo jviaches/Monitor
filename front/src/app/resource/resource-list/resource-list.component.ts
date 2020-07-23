@@ -71,7 +71,7 @@ export class ResourceListComponent implements OnInit {
 
     addResource() {
         const resource = {
-            url: this.getUrl.value + '',
+            url: this.getUrl.value.replace(/\/$/, '') + '',
             userId: this.authService.getUserName(),
             monitorPeriod: this.getPeriodicity.value,
             isMonitorActivated: true
