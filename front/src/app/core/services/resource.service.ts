@@ -49,6 +49,7 @@ export class ResourceService {
                     type: 'datetime',
                     labels: {
                         overflow: 'justify',
+                        rotation: -45,
                     },
                     title: {
                         text: 'Timeline'
@@ -65,6 +66,8 @@ export class ResourceService {
                     title: {
                         text: 'Status Code'
                     },
+                    min: 200,
+                    max: 600,
                     range: 500,
                     minorGridLineWidth: 0,
                     gridLineWidth: 0,
