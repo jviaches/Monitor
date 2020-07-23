@@ -24,13 +24,13 @@
 </mat-card>
 
 <!-- Monitors section -->
-<ng-container *ngIf="this.resources.length === 0">
+<ng-container *ngIf="this.resourceService.resources.length === 0">
     <div class="monitor-section"> Create new Monitor - it's so easy! </div>
 </ng-container>
 
 <div style="display: flex; justify-content: space-between; flex-wrap: wrap">
-    <ng-container *ngIf="this.resources.length > 0">
-        <mat-card class="mat-card-flat;" style="margin-top:30px; width: 49%;" *ngFor="let resource of resources">
+    <ng-container *ngIf="this.resourceService.resources.length > 0">
+        <mat-card class="mat-card-flat;" style="margin-top:30px; width: 49%;" *ngFor="let resource of this.resourceService.resources">
             <div style="padding-bottom:40px; display: flex; justify-content: space-between;">
                 <div>
                     <img src="https://www.google.com/s2/favicons?domain={{resource.url}}"><img>
@@ -38,7 +38,7 @@
                 </div>
                 <div style="display:flex">
                     <mat-chip-list>
-                        <mat-chip matTooltip="Monitor Periodicity"> {{resource.monitorPeriod | periodicy}}</mat-chip>
+                        <!-- <mat-chip matTooltip="Monitor Periodicity"> {{resource.monitorPeriod | periodicy}}</mat-chip> -->
                     </mat-chip-list>
                     <button mat-icon-button (click)="redirectToResourceDetails(resource)">
                         <span class="material-icons">remove_red_eye</span>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <mat-card-content>
-                <div class="graph" [chart]="chartMap[resource.id]"></div>
+                <div class="graph" [chart]="this.resourceService.chartMap[resource.id]"></div>
                 <hr class="new1">
                 <div class="actions" class="flex_justify_content_space-between">
                     <mat-slide-toggle [checked]="resource.isMonitorActivated"

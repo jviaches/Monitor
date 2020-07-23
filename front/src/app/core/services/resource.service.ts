@@ -14,18 +14,26 @@ import * as moment from 'moment-timezone';
 export class ResourceService {
 
     interval = undefined;
+    resources: IResource[] = [];
+    chartMap = new Map<number, Chart>();
 
-    constructor(private httpClient: HttpClient, private generalService: GeneralService, private authService: AuthorizationService) { }
+    constructor(private httpClient: HttpClient, private generalService: GeneralService, private authService: AuthorizationService) {
+        this.getResources().subscribe(resources => {
+            this.resources = resources;
+            this.buildHistoryStatusChart();
+            this.resetMonitoringIntervalRefresh();
+        });
+     }
 
-    buildHistoryStatusChart(resources: IResource[]): Map<number, Chart> {
-        const chartMap = new Map<number, Chart>();
+    private buildHistoryStatusChart(): Map<number, Chart> {
+        this.chartMap = new Map<number, Chart>();
 
-        resources.forEach(element => {
+        this.resources.forEach(element => {
 
             const historyData: any[] = [];
             element.history.map(record => historyData.push(({ name: moment(record.requestDate).format('LLL'), y: Number(record.result) })));
 
-            chartMap[element.id] = new Chart({
+            this.chartMap[element.id] = new Chart({
                 chart: {
                     // renderTo: 'chart',
                     type: 'spline',
@@ -133,22 +141,40 @@ export class ResourceService {
                 },
             });
         });
-        return chartMap;
+        return this.chartMap;
     }
 
-    resetMonitoringIntervalRefresh(resources: IResource[]) {
+    resetMonitoringIntervalRefresh() {
         // pick the most periodic and aply minimal refresh rate.
         clearInterval(this.interval);
 
-        if (resources.length === 0) {
+        if (this.resources.length === 0) {
             return;
         }
 
-        const minimalRefreshRate = Math.min(...resources.filter(res => res.isMonitorActivated)
+        const minimalRefreshRate = Math.min(...this.resources.filter(res => res.isMonitorActivated)
             .map(resource => resource.monitorPeriod));
         if (minimalRefreshRate > 0 && minimalRefreshRate < 1000) { // to prevent infinity --> all resources are disabled
             this.interval = setInterval(() => {
-                this.getResources();
+                this.getResources().subscribe(resources => {
+
+                    // PREPARATION TO partial graph refresh
+                    // resources.forEach(element => {
+                    //     const foundResource = this.resources.find(res => res.id === element.id);
+                    //     // tslint:disable-next-line:max-line-length
+                //  const lastMonitoredDate = foundResource.history.filter(res => Math.max(new Date(res.requestDate).getMilliseconds()))[0];
+                //  const newStartIndex = element.history.findIndex(history => history.requestDate === lastMonitoredDate.requestDate);
+
+                    //     const newHistoryitems = element.history.slice(newStartIndex, element.history.length - 1);
+                    //     if (newHistoryitems.length > 0) {
+                    //         console.log(newHistoryitems);
+                    //         foundResource.history.concat(newHistoryitems);
+                    //     }
+                    // });
+
+                    this.resources = resources;
+                    this.buildHistoryStatusChart();
+                });
             }, minimalRefreshRate * 60000); // millisec
         } else {
             clearInterval(this.interval);
@@ -159,15 +185,21 @@ export class ResourceService {
         return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${this.authService.getUserName()}`);
     }
 
-    addResource(resource: any): Observable<any> {
-        return this.httpClient.post<any>(this.generalService.URL + 'Resources', resource);
+    addResource(resource: any) {
+        this.httpClient.post<any>(this.generalService.URL + 'Resources', resource).subscribe(() => {
+            this.resetMonitoringIntervalRefresh();
+        });
     }
 
-    updateResource(resource: any): Observable<any> {
-        return this.httpClient.post<any>(this.generalService.URL + 'Resources/Update', resource);
+    updateResource(resource: any) {
+        this.httpClient.post<any>(this.generalService.URL + 'Resources/Update', resource).subscribe(() => {
+            this.resetMonitoringIntervalRefresh();
+        });
     }
 
-    deleteResource(id: number): Observable<any> {
-        return this.httpClient.delete(this.generalService.URL + `Resources/Delete/${id}`);
+    deleteResource(id: number) {
+        this.httpClient.delete(this.generalService.URL + `Resources/Delete/${id}`).subscribe(() => {
+            this.resetMonitoringIntervalRefresh();
+        });
     }
 }

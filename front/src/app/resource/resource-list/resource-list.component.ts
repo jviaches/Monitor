@@ -15,13 +15,12 @@ import { Router } from '@angular/router';
     styleUrls: ['./resource-list.component.scss']
 })
 export class ResourceListComponent implements OnInit {
-    resources: IResource[] = [];
     chartMap: Map<number, Chart>;
     periodicityOptions = SelectionOptions.periodicityOptions();
     siteFormGroup: FormGroup;
     urlRegex = '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
 
-    constructor(private resourceService: ResourceService, private formBuilder: FormBuilder, private router: Router,
+    constructor(public resourceService: ResourceService, private formBuilder: FormBuilder, private router: Router,
                 private generalService: GeneralService, public authService: AuthorizationService) {
 
         this.siteFormGroup = this.formBuilder.group({
@@ -31,27 +30,6 @@ export class ResourceListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getInitialResources();
-    }
-
-    getInitialResources() {
-        const modalRef = this.generalService.showLoadingModal('Fetching data..');
-        this.resourceService.getResources().subscribe(resource => {
-            this.resources = resource;
-            this.chartMap = this.resourceService.buildHistoryStatusChart(this.resources);
-            this.resourceService.resetMonitoringIntervalRefresh(this.resources);
-
-            modalRef.close();
-        });
-    }
-
-    getResources() {
-        this.resourceService.getResources().subscribe(resource => {
-            this.resources = resource;
-            this.chartMap = this.resourceService.buildHistoryStatusChart(this.resources);
-
-            this.resourceService.resetMonitoringIntervalRefresh(this.resources);
-        });
     }
 
     monitorChange(event: MatSlideToggleChange, resource: IResource) {
@@ -59,12 +37,7 @@ export class ResourceListComponent implements OnInit {
 
         this.generalService.showYesNoModalMessage().subscribe(data => {
             if (data === 'yes') {
-                this.resourceService.updateResource(resource).subscribe(() => {
-                    this.resourceService.getResources().subscribe(() => {
-                        this.resourceService.resetMonitoringIntervalRefresh(this.resources);
-                        this.generalService.showActionConfirmationSuccess(`Resource successfully updated!`);
-                    });
-                });
+                this.resourceService.updateResource(resource);
             }
         });
     }
@@ -77,21 +50,14 @@ export class ResourceListComponent implements OnInit {
             isMonitorActivated: true
         };
 
-        this.resourceService.addResource(resource).subscribe(() => {
-            this.generalService.showActionConfirmationSuccess('New resource succesfully created');
-            this.clearFormGroup(this.siteFormGroup);
-            this.getResources();
-        });
+        this.resourceService.addResource(resource);
     }
 
     deleteResource(resource: IResource) {
 
         this.generalService.showYesNoModalMessage().subscribe(data => {
             if (data === 'yes') {
-                this.resourceService.deleteResource(resource.id).subscribe(() => {
-                    this.generalService.showActionConfirmationSuccess(`Resource: ${resource.url} successfully deleted`);
-                    this.getResources();
-                });
+                this.resourceService.deleteResource(resource.id);
             }
         });
     }

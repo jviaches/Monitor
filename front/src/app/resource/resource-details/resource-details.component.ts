@@ -35,7 +35,7 @@ export class ResourceDetailsComponent implements OnInit {
             periodicity: [this.resource.monitorPeriod, Validators.required],
         });
 
-        const resources = [this.resource];
-        this.chartMap = this.resourceService.buildHistoryStatusChart(resources);
+        // const resources = [this.resource];
+        this.chartMap = this.resourceService.chartMap;
     }
 }
