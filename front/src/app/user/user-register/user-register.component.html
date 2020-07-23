@@ -26,7 +26,7 @@
                         <label class="label-control mb-10" for="cpassword">Confirm Password:</label>
                         <mat-form-field class="form-group mb-20 display-block" appearance="outline">
                             <input matInput placeholder="Confirm Password" type="password" formControlName="passwordConfirm">
-                            <mat-error *ngIf="getPasswordConfirm.hasError('NoPassswordMatch')">Passwords should be identical</mat-error>
+                            <mat-error *ngIf="getPasswordConfirm.invalid">Passwords should be identical</mat-error>
                         </mat-form-field>                        
                     </div>
                     <div class="form-group custom-control custom-checkbox d-flex align-items-center justify-content-between">
