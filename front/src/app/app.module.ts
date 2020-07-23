@@ -86,6 +86,6 @@ import { ResourceListComponent } from './resource/resource-list/resource-list.co
       }
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ModalLoaderDialogComponent]
+  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ModalLoaderDialogComponent, UserChangePasswordComponent]
 })
 export class AppModule { }
