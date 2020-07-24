@@ -25,7 +25,7 @@ export class ResourceService {
             this.resetMonitoringIntervalRefresh();
             modalRef.close();
         });
-     }
+    }
 
     private buildHistoryStatusChart(): Map<number, Chart> {
         this.chartMap = new Map<number, Chart>();
@@ -154,8 +154,11 @@ export class ResourceService {
             return;
         }
 
-        const minimalRefreshRate = Math.min(...this.resources.filter(res => res.isMonitorActivated)
+        let minimalRefreshRate = Math.min(...this.resources.filter(res => res.isMonitorActivated)
             .map(resource => resource.monitorPeriod));
+
+        console.log('resetMonitoringIntervalRefresh: minimalRefreshRate = ' + minimalRefreshRate);
+
         if (minimalRefreshRate > 0 && minimalRefreshRate < 1000) { // to prevent infinity --> all resources are disabled
             this.interval = setInterval(() => {
                 this.getResources().subscribe(resources => {
@@ -165,7 +168,7 @@ export class ResourceService {
                     //     const foundResource = this.resources.find(res => res.id === element.id);
                     //     // tslint:disable-next-line:max-line-length
                 //  const lastMonitoredDate = foundResource.history.filter(res => Math.max(new Date(res.requestDate).getMilliseconds()))[0];
-                //  const newStartIndex = element.history.findIndex(history => history.requestDate === lastMonitoredDate.requestDate);
+                    //  const newStartIndex = element.history.findIndex(history => history.requestDate === lastMonitoredDate.requestDate);
 
                     //     const newHistoryitems = element.history.slice(newStartIndex, element.history.length - 1);
                     //     if (newHistoryitems.length > 0) {
@@ -175,6 +178,9 @@ export class ResourceService {
                     // });
 
                     this.resources = resources;
+                    minimalRefreshRate = Math.min(...this.resources.filter(res => res.isMonitorActivated)
+                        .map(resource => resource.monitorPeriod));
+
                     this.buildHistoryStatusChart();
                 });
             }, minimalRefreshRate * 60000); // millisec
@@ -189,18 +195,33 @@ export class ResourceService {
 
     addResource(resource: any) {
         this.httpClient.post<any>(this.generalService.URL + 'Resources', resource).subscribe(() => {
+            console.log('resource has been added');
+            this.getResources().subscribe(resources => {
+                this.resources = resources;
+                this.buildHistoryStatusChart();
+            });
             this.resetMonitoringIntervalRefresh();
         });
     }
 
     updateResource(resource: any) {
         this.httpClient.post<any>(this.generalService.URL + 'Resources/Update', resource).subscribe(() => {
+            console.log('resource has been updated');
+            this.getResources().subscribe(resources => {
+                this.resources = resources;
+                this.buildHistoryStatusChart();
+            });
             this.resetMonitoringIntervalRefresh();
         });
     }
 
     deleteResource(id: number) {
         this.httpClient.delete(this.generalService.URL + `Resources/Delete/${id}`).subscribe(() => {
+            console.log('resource has been removed');
+            this.getResources().subscribe(resources => {
+                this.resources = resources;
+                this.buildHistoryStatusChart();
+            });
             this.resetMonitoringIntervalRefresh();
         });
     }

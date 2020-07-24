@@ -108,6 +108,15 @@ export class AuthorizationService {
   }
 
   getUserToken(): string {
+    if (this.user) {
+      this.user.refreshSession(this.user.getSignInUserSession().getRefreshToken(), () => {
+        localStorage.removeItem('user');
+        localStorage.setItem('user', JSON.stringify(this.user));
+      });
+
+      return this.user.signInUserSession.idToken.jwtToken;
+    }
+
     return JSON.parse(localStorage.getItem('user')).signInUserSession.idToken.jwtToken;
   }
 
