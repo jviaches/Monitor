@@ -18,10 +18,12 @@ export class ResourceService {
     chartMap = new Map<number, Chart>();
 
     constructor(private httpClient: HttpClient, private generalService: GeneralService, private authService: AuthorizationService) {
+        const modalRef = this.generalService.showLoadingModal('Fetching data..');
         this.getResources().subscribe(resources => {
             this.resources = resources;
             this.buildHistoryStatusChart();
             this.resetMonitoringIntervalRefresh();
+            modalRef.close();
         });
      }
 

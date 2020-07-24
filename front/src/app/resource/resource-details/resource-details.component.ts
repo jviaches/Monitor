@@ -38,4 +38,8 @@ export class ResourceDetailsComponent implements OnInit {
         // const resources = [this.resource];
         this.chartMap = this.resourceService.chartMap;
     }
+
+    redirectBack() {
+        this.router.navigate(['dashboard']);
+    }
 }
