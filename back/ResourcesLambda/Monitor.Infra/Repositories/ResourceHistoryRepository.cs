@@ -3,8 +3,6 @@ using Monitor.Infra.Entities;
 using Monitor.Infra.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Monitor.Infra.Repositories

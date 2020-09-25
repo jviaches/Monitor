@@ -1,8 +1,4 @@
 ﻿using Monitor.Core.Dto;
-using Monitor.Infra.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Monitor.Infra.Entities

@@ -1,12 +1,9 @@
 ﻿using Monitor.Core.Dto;
 using Monitor.Core.Enums;
-using Monitor.Core.Settings;
-using Monitor.Core.Validations;
 using Monitor.Infra.Entities;
 using Monitor.Infra.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Monitor.Infra.Services
@@ -81,7 +78,6 @@ namespace Monitor.Infra.Services
                         IsActivated: [old: {existingResource.IsMonitorActivated}, new: {newResource.IsMonitorActivated}], 
                         Activation Period: [old: {existingResource.MonitorPeriod}, new: {newResource.MonitorPeriod}]"
             });
-
         }
 
         public async Task Delete(int resourceId)

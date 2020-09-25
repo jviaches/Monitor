@@ -29,7 +29,6 @@ namespace ResourcesLambda.Services.Resources
         public bool IsMonitorActivated { get { return _resource.IsMonitorActivated; } }
         public DateTime MonitorActivationDate { get { return _resource.MonitorActivationDate; } }
         public string LastStatus { get; private set; }
-
         public IEnumerable<ResourceHistoryResultViewModel> History { get; set; }
     }
 }

@@ -1,10 +1,7 @@
 ﻿using Monitor.Core.Dto;
-using Monitor.Core.Settings;
 using Monitor.Infra.Entities;
 using Monitor.Infra.Interfaces.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Monitor.Infra.Services

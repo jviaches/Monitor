@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Monitor.Core.Dto;
-using Monitor.Core.Enums;
 using Monitor.Core.Validations;
 using Monitor.Core.ViewModels;
 using Monitor.Infra.Entities;

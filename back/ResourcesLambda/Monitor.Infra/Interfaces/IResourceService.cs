@@ -1,6 +1,4 @@
 ﻿using Monitor.Core.Dto;
-using Monitor.Core.Validations;
-using Monitor.Infra.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
