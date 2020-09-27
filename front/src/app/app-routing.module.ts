@@ -14,6 +14,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
 import { ResourceListComponent } from './resource/resource-list/resource-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 // import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
@@ -35,7 +36,7 @@ const routes: Routes = [
     children: [
       { path: '', component: ResourceListComponent },
       { path: 'resource-details', component: ResourceDetailsComponent },
-      // { path: 'profile', component: UserProfileComponent }
+      { path: 'profile', component: UserProfileComponent }
     ]
   },
   { path: '**', component: PageNotFoundComponent },

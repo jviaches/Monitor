@@ -1,0 +1,140 @@
+<section class="space">
+    <div class="container">
+
+        <!-- Profile Info -->
+        <mat-card>
+            <div class="row">
+                <div class="col-12 col-lg-4 mx-auto text-center">
+                    <div class="row justify-content-center">
+                        <span class="material-icons">account_circle</span>
+                    </div>
+                    <div class="row justify-content-center">
+                        <label>Profile Info</label>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8 mx-auto text-left">
+                    <div class="row">
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Username:
+                        </div>
+                        <div class="col-6 col-lg-6 mx-auto">
+                            {{authorizationService.getUserEmail()}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Plan:
+                            <!-- <a class="small btn--color-primary btn-text-hover" (click)="changePassword()">Change</a> -->
+                        </div>
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Free
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Password: <a class="small btn--color-primary btn-text-hover" [routerLink]=""
+                                (click)="changePassword()">Change</a>
+                        </div>
+                        <div class="col-6 col-lg-6 mx-auto">
+                            *********
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+        <br />
+        <mat-divider></mat-divider>
+        <br />
+
+        <!-- Communications -->
+        <mat-card>
+            <div class="row">
+                <div class="col-12 col-lg-4 mx-auto text-center">
+                    <div class="row justify-content-center">
+                        <span class="material-icons">mobile_screen_share</span>
+                    </div>
+                    <div class="row justify-content-center">
+                        <label>Communications</label>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8 mx-auto text-left">
+                    <div class="row">
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Email Notifications:
+                        </div>
+                        <div class="col-6 col-lg-6 mx-auto">
+                            <mat-slide-toggle></mat-slide-toggle>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Slack Notifications:
+                        </div>
+                        <div class="col-6 col-lg-6 mx-auto">
+                            <mat-slide-toggle></mat-slide-toggle>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+        <br />
+        <mat-divider></mat-divider>
+        <br />
+
+        <!-- Billing -->
+        <mat-card>
+            <div class="row">
+                <div class="col-12 col-lg-4 mx-auto text-center">
+                    <div class="row justify-content-center">
+                        <span class="material-icons">monetization_on</span>
+                    </div>
+                    <div class="row justify-content-center">
+                        <label>Billing</label>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8 mx-auto text-left">
+                    <div class="row">
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Credit Card:
+                        </div>
+                        <div class="col-6 col-lg-6 mx-auto">
+                            -
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Exp. Date:
+                        </div>
+                        <div class="col-6 col-lg-6 mx-auto">
+                            -
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Plan Cost:
+                        </div>
+                        <div class="col-6 col-lg-6 mx-auto">
+                            -
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-lg-6 mx-auto">
+                            Next Payment Date:
+                        </div>
+                        <div class="col-6 col-lg-6 mx-auto">
+                            -
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</section>

@@ -3,6 +3,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { GeneralService } from '../core/services/general.service';
 import { AuthorizationService } from '../core/services/authentication.service';
 import { UserChangePasswordComponent } from '../user/user-change-password/user-change-password.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,8 @@ import { UserChangePasswordComponent } from '../user/user-change-password/user-c
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private generalService: GeneralService, public authService: AuthorizationService) {
+  constructor(public dialog: MatDialog, private generalService: GeneralService,
+              public authService: AuthorizationService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -25,11 +27,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  changePassword() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.disableClose = true;
-    dialogConfig.panelClass = 'custom-modal-dialog-transparent-background';
-    this.dialog.open(UserChangePasswordComponent, dialogConfig);
+  redirectToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  redirectToUserProfile() {
+    this.router.navigate(['/dashboard/profile']);
   }
 }

@@ -37,6 +37,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialog/modal-loader-dialog.component';
 import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
 import { ResourceListComponent } from './resource/resource-list/resource-list.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 // import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
@@ -61,8 +62,8 @@ import { ResourceListComponent } from './resource/resource-list/resource-list.co
     HeaderMainComponent,
     TermsOfServiceComponent,
     ResourceDetailsComponent,
-    ResourceListComponent
-    // UserProfileComponent
+    ResourceListComponent,
+    UserProfileComponent
   ],
   imports: [
     AppRoutingModule,

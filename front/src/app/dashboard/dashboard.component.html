@@ -7,8 +7,12 @@
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item (click)="changePassword()">
-            <mat-icon>vpn_key</mat-icon>Change Password
+        <button mat-menu-item (click)="redirectToDashboard()">
+            <mat-icon>vpn_key</mat-icon>Dashboard
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="redirectToUserProfile()">
+            <mat-icon>vpn_key</mat-icon>Profile
         </button>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="logOff()" class="logout-btn">
