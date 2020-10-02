@@ -9,6 +9,7 @@ namespace Monitor.Infra
         public DbSet<Resource> Resources { get; set; }
         public DbSet<ResourcesHistory> ResourcesHistory { get; set; }
         public DbSet<UserAction> UserAction { get; set; }
+        public DbSet<IntegrationSettings> IntegrationSettings { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {

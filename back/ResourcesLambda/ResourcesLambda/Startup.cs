@@ -75,10 +75,12 @@ namespace ResourcesLambda
             services.AddScoped<IResourceRepository, ResourceRepository>();
             services.AddScoped<IResourceHistoryRepository, ResourceHistoryRepository>();
             services.AddScoped<IUserActionRepository, UserActionRepository>();
+            services.AddScoped<IIntegrationSettingsRepository, IntegrationSettingsRepository>();
 
             services.AddScoped<IResourceService, ResourceService>();
             services.AddScoped<IResourceHistoryService, ResourceHistoryService>();
             services.AddScoped<IUserActionService, UserActionService>();
+            services.AddScoped<IIntegrationSettingsService, IntegrationSettingsService>();
 
             //services.AddCognitoIdentity();
             var RegionStaging = Configuration["AWSCognito-staging:Region"];
@@ -94,9 +96,7 @@ namespace ResourcesLambda
                             {
                                 // get JsonWebKeySet from AWS
                                 var json = new WebClient().DownloadString(parameters.ValidIssuer + "/.well-known/jwks.json");
-                                // serialize the result
                                 var keys = JsonConvert.DeserializeObject<JsonWebKeySet>(json).Keys;
-                                // cast the result to be the type expected by IssuerSigningKeyResolver
                                 return (IEnumerable<SecurityKey>)keys;
                             },
 

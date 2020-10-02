@@ -3,6 +3,7 @@ import { Auth } from 'aws-amplify';
 import { GeneralService } from './general.service';
 import { Router } from '@angular/router';
 import { AuthFlow } from '../enums/enums';
+import { IntegrationSettingsService } from './integration.service';
 
 // source: https://aws-amplify.github.io/docs/js/authentication
 
@@ -11,7 +12,7 @@ export class AuthorizationService {
 
   private user: any;
 
-  constructor(private router: Router, private generalService: GeneralService) { }
+  constructor(private router: Router, private generalService: GeneralService, private notificationService: IntegrationSettingsService) { }
 
   async SignIn(email: string, password: string) {
     try {
@@ -57,13 +58,17 @@ export class AuthorizationService {
       },
       validationData: []  // optional
     })
-      .then(data => this.router.navigateByUrl(`/user-confirmation/${AuthFlow.Register}`))
-      .catch(err => this.generalService.showActionConfirmationFail(err.message));
+    .then( () => {
+      this.notificationService.addDefaultIntegrationSettings(username).subscribe( () => {
+        this.router.navigateByUrl(`/user-confirmation/${AuthFlow.Register}`);
+      });
+    })
+    .catch(err => this.generalService.showActionConfirmationFail(err.message));
   }
 
   async confirmSignUp(username: string, code: string): Promise<any> {
     Auth.confirmSignUp(username, code)
-      .then(data => this.router.navigateByUrl('/login'))
+      .then(() => this.router.navigateByUrl('/login'))
       .catch(err => this.generalService.showActionConfirmationFail(err.message));
   }
 

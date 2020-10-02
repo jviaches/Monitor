@@ -180,7 +180,7 @@ namespace Monitor.StepperLogic
             catch (Exception e)
             {
                 context.Logger.LogLine($"Exception occured: [{e}] ");
-                await sendEmail(resource, "ERROR", context);
+                await sendEmail(resource, "ERROR", context); //TODO: send to support@projscope.com
                 return string.Empty;
             }
         }

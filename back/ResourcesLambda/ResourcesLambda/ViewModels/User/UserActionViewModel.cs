@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ResourcesLambda.Services.UserActions
+namespace ResourcesLambda.Services.User
 {
     public class UserActionViewModel
     {

@@ -38,6 +38,8 @@ import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialo
 import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
 import { ResourceListComponent } from './resource/resource-list/resource-list.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { IntegrationSettingsService } from './core/services/integration.service';
+import { UserSlackIntegrationComponent } from './user/integrations/slack/user-slack-integration/user-slack-integration.component';
 // import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
@@ -63,7 +65,8 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     TermsOfServiceComponent,
     ResourceDetailsComponent,
     ResourceListComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserSlackIntegrationComponent
   ],
   imports: [
     AppRoutingModule,
@@ -75,7 +78,7 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     FormsModule, ReactiveFormsModule,
     AmplifyAngularModule
   ],
-  providers: [ ResourceService, GeneralService, AuthorizationService,
+  providers: [ ResourceService, GeneralService, AuthorizationService, IntegrationSettingsService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: AmplifyService, useFactory:  () => {
@@ -87,6 +90,50 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
       }
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ModalLoaderDialogComponent, UserChangePasswordComponent]
+  entryComponents: [
+    ModalDialogComponent, ModalYesNoDialogComponent, ModalLoaderDialogComponent, UserChangePasswordComponent, UserSlackIntegrationComponent]
 })
 export class AppModule { }
+
+
+
+
+
+
+
+// import { BrowserModule } from '@angular/platform-browser';
+// import { NgModule } from '@angular/core';
+
+// import { AppRoutingModule } from './app-routing.module';
+// import { AppComponent } from './app.component';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { MaterialModule } from './material.module';
+// import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+// import { ChartModule } from 'angular-highcharts';
+// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { ExternalModuleModule } from './core/modules/external-module';
+// import { ProtectedModule } from './core/modules/protected.module';
+// import { ModalDialogComponent } from './core/components/modal-dialog/modal-dialog.component';
+// import { ModalYesNoDialogComponent } from './core/components/yesno-modal-dialog/yesno-modal-dialog.component';
+// import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialog/modal-loader-dialog.component';
+// import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
+// import { FooterComponent } from './pages/footer/footer.component';
+
+// @NgModule({
+//   declarations: [ FooterComponent ],
+//   imports: [
+//     AppRoutingModule,
+//     BrowserModule,
+//     BrowserAnimationsModule,
+//     MaterialModule,
+//     ChartModule,
+//     HttpClientModule, HttpClientJsonpModule,
+//     FormsModule, ReactiveFormsModule,
+//     ExternalModuleModule,
+//     ProtectedModule
+//   ],
+//   providers: [],
+//   bootstrap: [AppComponent],
+//   entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ModalLoaderDialogComponent, UserChangePasswordComponent]
+// })
+// export class AppModule { }
