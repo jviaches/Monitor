@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { GeneralService } from 'src/app/core/services/general.service';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -13,7 +13,7 @@ export class UserChangePasswordComponent {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthorizationService,
+  constructor(private fb: FormBuilder, private authService: AuthenticationService,
               private generalService: GeneralService, public dialog: MatDialog) {
     this.form = this.fb.group({
       oldPassword: ['', [Validators.required, Validators.minLength(8)]],
@@ -22,15 +22,15 @@ export class UserChangePasswordComponent {
   }
 
   async doSubmit() {
-    await this.authService.changePassword(this.form.value.oldPassword, this.form.value.newPassword)
-     .then( response => {
-      console.log(response);
+    // await this.authService.changePassword(this.form.value.oldPassword, this.form.value.newPassword)
+    //  .then( response => {
+    //   console.log(response);
 
-      if (response === 'SUCCESS') {
-        this.generalService.showActionConfirmationSuccess('Code changes succesfully!');
-        this.dialog.closeAll();
-      }
-    });
+    //   if (response === 'SUCCESS') {
+    //     this.generalService.showActionConfirmationSuccess('Code changes succesfully!');
+    //     this.dialog.closeAll();
+    //   }
+    // });
   }
   doCancel() {
     this.dialog.closeAll();

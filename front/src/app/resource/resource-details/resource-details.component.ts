@@ -32,7 +32,7 @@ export class ResourceDetailsComponent implements OnInit {
         });
 
         this.siteFormGroup = this.formBuilder.group({
-            periodicity: [this.resource.monitorPeriod, Validators.required],
+            periodicity: [this.resource.monitorItem.period, Validators.required],
         });
 
         // const resources = [this.resource];

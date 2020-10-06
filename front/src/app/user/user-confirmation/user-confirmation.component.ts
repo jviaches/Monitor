@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralService } from 'src/app/core/services/general.service';
 import { UserResendConfirmationComponent } from '../user-resend-confirmation/user-resend-confirmation.component';
 import { AuthFlow } from 'src/app/core/enums/enums';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-user-confirmation',
@@ -17,7 +17,7 @@ export class UserConfirmationComponent implements OnInit {
   authFlow: AuthFlow;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private generalService: GeneralService,
-              private authService: AuthorizationService, private router: Router) {
+              private authService: AuthenticationService, private router: Router) {
     this.codeForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       code: ['', [Validators.required, Validators.maxLength(20)]],
@@ -30,11 +30,11 @@ export class UserConfirmationComponent implements OnInit {
   }
 
   doValidate() {
-    if (this.authFlow.toString() === AuthFlow[AuthFlow.Register]) {
-      this.authService.confirmSignUp(this.getEmail.value, this.getCode.value);
-    } else if (this.authFlow.toString() === AuthFlow[AuthFlow.ForgetPassword]) {
-      this.router.navigate(['/new-password'], { state: { email: this.getEmail.value, code: this.getCode.value}});
-    }
+    // if (this.authFlow.toString() === AuthFlow[AuthFlow.Register]) {
+    //   this.authService.confirmSignUp(this.getEmail.value, this.getCode.value);
+    // } else if (this.authFlow.toString() === AuthFlow[AuthFlow.ForgetPassword]) {
+    //   this.router.navigate(['/new-password'], { state: { email: this.getEmail.value, code: this.getCode.value}});
+    // }
   }
 
   resendCode() {

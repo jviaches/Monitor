@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-user-resend-confirmation',
@@ -11,14 +11,14 @@ export class UserResendConfirmationComponent {
 
   codeForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthorizationService) {
+  constructor(private fb: FormBuilder, private authService: AuthenticationService) {
     this.codeForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
   resendCode() {
-    this.authService.resendSignUp(this.getEmail.value);
+    // this.authService.resendSignUp(this.getEmail.value);
   }
 
   get getEmail() {

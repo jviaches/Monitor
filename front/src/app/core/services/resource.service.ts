@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IResource } from '../models/resource.model';
 import { GeneralService } from './general.service';
-import { AuthorizationService } from './authentication.service';
 import { SeriesOptionsType, YAxisOptions } from 'highcharts';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment-timezone';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +17,7 @@ export class ResourceService {
     resources: IResource[] = [];
     chartMap = new Map<number, Chart>();
 
-    constructor(private httpClient: HttpClient, private generalService: GeneralService, private authService: AuthorizationService) {
+    constructor(private httpClient: HttpClient, private generalService: GeneralService, private authService: AuthenticationService) {
         const modalRef = this.generalService.showLoadingModal('Fetching data..');
         this.getResources().subscribe(resources => {
             this.resources = resources;
@@ -33,7 +33,8 @@ export class ResourceService {
         this.resources.forEach(element => {
 
             const historyData: any[] = [];
-            element.history.map(record => historyData.push(({ name: moment(record.requestDate).format('LLL'), y: Number(record.result) })));
+            element.monitorItem.history
+                .map(record => historyData.push(({ name: moment(record.scanDate).format('LLL'), y: Number(record.result) })));
 
             this.chartMap[element.id] = new Chart({
                 chart: {
@@ -154,8 +155,8 @@ export class ResourceService {
             return;
         }
 
-        let minimalRefreshRate = Math.min(...this.resources.filter(res => res.isMonitorActivated)
-            .map(resource => resource.monitorPeriod));
+        let minimalRefreshRate = Math.min(...this.resources.filter(res => res.monitoringActivated && res.monitorItem.isActive)
+            .map(resource => resource.monitorItem.period));
 
         console.log('resetMonitoringIntervalRefresh: minimalRefreshRate = ' + minimalRefreshRate);
 
@@ -178,8 +179,8 @@ export class ResourceService {
                     // });
 
                     this.resources = resources;
-                    minimalRefreshRate = Math.min(...this.resources.filter(res => res.isMonitorActivated)
-                        .map(resource => resource.monitorPeriod));
+                    minimalRefreshRate = Math.min(...this.resources.filter(res => res.monitoringActivated && res.monitorItem.isActive)
+                        .map(resource => resource.monitorItem.period));
 
                     this.buildHistoryStatusChart();
                 });
@@ -190,11 +191,11 @@ export class ResourceService {
     }
 
     getResources(): Observable<IResource[]> {
-        return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${this.authService.getUserName()}`);
+        return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${this.authService.currentUserValue.id}`);
     }
 
     addResource(resource: any) {
-        this.httpClient.post<any>(this.generalService.URL + 'Resources', resource).subscribe(() => {
+        this.httpClient.post<any>(this.generalService.URL + 'Resources/Add', resource).subscribe(() => {
             console.log('resource has been added');
             this.getResources().subscribe(resources => {
                 this.resources = resources;
@@ -204,8 +205,14 @@ export class ResourceService {
         });
     }
 
-    updateResource(resource: any) {
-        this.httpClient.post<any>(this.generalService.URL + 'Resources/Update', resource).subscribe(() => {
+    updateResource(resource: IResource) {
+        const updateDetails = {
+            resourceId: resource.id,
+            url: resource.url,
+            isMonitorActivate: resource.monitorItem.isActive
+        };
+
+        this.httpClient.post<any>(this.generalService.URL + 'Resources/Update', updateDetails).subscribe(() => {
             console.log('resource has been updated');
             this.getResources().subscribe(resources => {
                 this.resources = resources;
@@ -215,7 +222,7 @@ export class ResourceService {
         });
     }
 
-    deleteResource(id: number) {
+    deleteResource(id: any) {
         this.httpClient.delete(this.generalService.URL + `Resources/Delete/${id}`).subscribe(() => {
             console.log('resource has been removed');
             this.getResources().subscribe(resources => {

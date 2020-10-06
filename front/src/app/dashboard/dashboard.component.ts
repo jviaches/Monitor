@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { GeneralService } from '../core/services/general.service';
-import { AuthorizationService } from '../core/services/authentication.service';
+import { AuthenticationService } from '../core/services/authentication.service';
 import { UserChangePasswordComponent } from '../user/user-change-password/user-change-password.component';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private generalService: GeneralService,
-              public authService: AuthorizationService, private router: Router) {
+              public authService: AuthenticationService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   logOff() {
     this.generalService.showYesNoModalMessage().subscribe(data => {
       if (data === 'yes') {
-        this.authService.logOut();
+        this.authService.logout();
       }
     });
   }

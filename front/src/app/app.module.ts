@@ -15,14 +15,10 @@ import { GeneralService } from './core/services/general.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorInterceptor } from './core/interceptors/error-interceptor';
 import { ModalYesNoDialogComponent } from './core/components/yesno-modal-dialog/yesno-modal-dialog.component';
-import { AuthorizationService } from './core/services/authentication.service';
+import { AuthenticationService } from './core/services/authentication.service';
 import { LoginComponent } from './user/user-login/user-login.component';
 import { RegisterComponent } from './user/user-register/user-register.component';
 import { UserConfirmationComponent } from './user/user-confirmation/user-confirmation.component';
-import { AmplifyAngularModule, AmplifyService, AmplifyModules } from 'aws-amplify-angular';
-import Auth from '@aws-amplify/auth';
-import Interactions from '@aws-amplify/interactions';
-import Storage from '@aws-amplify/storage';
 import { UserResendConfirmationComponent } from './user/user-resend-confirmation/user-resend-confirmation.component';
 import { UserForgetPasswordComponent } from './user/user-forget-password/user-forget-passwordcomponent';
 import { UserNewPasswordComponent } from './user/user-new-password/user-new-password.component';
@@ -76,64 +72,13 @@ import { UserSlackIntegrationComponent } from './user/integrations/slack/user-sl
     ChartModule,
     HttpClientModule, HttpClientJsonpModule,
     FormsModule, ReactiveFormsModule,
-    AmplifyAngularModule
   ],
-  providers: [ ResourceService, GeneralService, AuthorizationService, IntegrationSettingsService,
+  providers: [ ResourceService, GeneralService, AuthenticationService, IntegrationSettingsService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: AmplifyService, useFactory:  () => {
-        return AmplifyModules({
-          Auth,
-          Storage,
-          Interactions
-        });
-      }
-    }],
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     ModalDialogComponent, ModalYesNoDialogComponent, ModalLoaderDialogComponent, UserChangePasswordComponent, UserSlackIntegrationComponent]
 })
 export class AppModule { }
-
-
-
-
-
-
-
-// import { BrowserModule } from '@angular/platform-browser';
-// import { NgModule } from '@angular/core';
-
-// import { AppRoutingModule } from './app-routing.module';
-// import { AppComponent } from './app.component';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { MaterialModule } from './material.module';
-// import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-// import { ChartModule } from 'angular-highcharts';
-// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { ExternalModuleModule } from './core/modules/external-module';
-// import { ProtectedModule } from './core/modules/protected.module';
-// import { ModalDialogComponent } from './core/components/modal-dialog/modal-dialog.component';
-// import { ModalYesNoDialogComponent } from './core/components/yesno-modal-dialog/yesno-modal-dialog.component';
-// import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialog/modal-loader-dialog.component';
-// import { UserChangePasswordComponent } from './user/user-change-password/user-change-password.component';
-// import { FooterComponent } from './pages/footer/footer.component';
-
-// @NgModule({
-//   declarations: [ FooterComponent ],
-//   imports: [
-//     AppRoutingModule,
-//     BrowserModule,
-//     BrowserAnimationsModule,
-//     MaterialModule,
-//     ChartModule,
-//     HttpClientModule, HttpClientJsonpModule,
-//     FormsModule, ReactiveFormsModule,
-//     ExternalModuleModule,
-//     ProtectedModule
-//   ],
-//   providers: [],
-//   bootstrap: [AppComponent],
-//   entryComponents: [ModalDialogComponent, ModalYesNoDialogComponent, ModalLoaderDialogComponent, UserChangePasswordComponent]
-// })
-// export class AppModule { }

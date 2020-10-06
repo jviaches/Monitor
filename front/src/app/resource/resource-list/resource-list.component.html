@@ -49,7 +49,7 @@
                 <div class="graph" [chart]="this.resourceService.chartMap[resource.id]"></div>
                 <hr class="new1">
                 <div class="actions" class="flex_justify_content_space-between">
-                    <mat-slide-toggle [checked]="resource.isMonitorActivated"
+                    <mat-slide-toggle [checked]="resource.monitorItem.isActive"
                         (change)="monitorChange($event, resource)">Enable/Disable</mat-slide-toggle>
                     <button mat-stroked-button color="warn" (click)="deleteResource(resource)">Delete</button>
                 </div>

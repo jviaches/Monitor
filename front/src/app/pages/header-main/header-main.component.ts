@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { GeneralService } from 'src/app/core/services/general.service';
 
 @Component({
@@ -12,11 +12,11 @@ export class HeaderMainComponent implements OnInit {
 
   isAuthorized = false;
 
-  constructor(private router: Router, private authorizationService: AuthorizationService,
+  constructor(private router: Router, private authService: AuthenticationService,
               private generalService: GeneralService) { }
 
   ngOnInit() {
-    if (this.authorizationService.isLoggedIn()) {
+    if (this.authService.isUserLoggedIn()) {
       this.isAuthorized = true;
     }
   }
@@ -24,7 +24,7 @@ export class HeaderMainComponent implements OnInit {
   logOff() {
     this.generalService.showYesNoModalMessage().subscribe(data => {
       if (data === 'yes') {
-        this.authorizationService.logOut();
+        this.authService.logout();
       }
     });
   }

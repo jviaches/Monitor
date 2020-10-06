@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { CustomValidators } from 'src/app/core/validators/validators';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ export class UserNewPasswordComponent {
   email = '';
   verifCode = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthorizationService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private router: Router) {
     this.email = this.router.getCurrentNavigation().extras.state.email;
     this.verifCode = this.router.getCurrentNavigation().extras.state.code;
     console.log(this.email);
@@ -29,7 +29,7 @@ export class UserNewPasswordComponent {
   }
 
   doSubmit() {
-    this.authService.forgotPasswordSubmit(this.email, this.verifCode, this.loginForm.value.password);
+    // this.authService.forgotPasswordSubmit(this.email, this.verifCode, this.loginForm.value.password);
   }
 
   get getPassword() {

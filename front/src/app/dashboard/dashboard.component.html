@@ -2,7 +2,7 @@
     <img width="120" style="background: gray;" src="../../assets/img/brand-logo-color.png" />
     <div class="spacer"></div>
 
-    <button [matMenuTriggerFor]="belowMenu" mat-flat-button color="primary" *ngIf="authService.isLoggedIn()"
+    <button [matMenuTriggerFor]="belowMenu" mat-flat-button color="primary" *ngIf="authService.isUserLoggedIn()"
         class="logout-btn">
         <mat-icon>menu</mat-icon>
     </button>

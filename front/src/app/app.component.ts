@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AmplifyService } from 'aws-amplify-angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +8,6 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-  constructor(private router: Router, public amplifyService: AmplifyService) {
+  constructor(private router: Router) {
   }
 }

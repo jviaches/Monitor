@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-user-login',
@@ -11,7 +11,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthorizationService) {
+  constructor(private fb: FormBuilder, private authService: AuthenticationService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
@@ -19,7 +19,7 @@ export class LoginComponent {
   }
 
   doLogin() {
-    this.authService.SignIn(this.getEmil.value, this.getPassword.value);
+    this.authService.login(this.getEmil.value, this.getPassword.value);
   }
 
   get getEmil() {

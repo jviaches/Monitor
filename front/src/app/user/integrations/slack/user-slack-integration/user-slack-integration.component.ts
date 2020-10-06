@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
 import { GeneralService } from 'src/app/core/services/general.service';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-user-slack-integration',
@@ -13,7 +13,7 @@ export class UserSlackIntegrationComponent {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthorizationService,
+  constructor(private fb: FormBuilder, private authService: AuthenticationService,
               private generalService: GeneralService, public dialog: MatDialog) {
 
     this.form = this.fb.group({ slack_channel: ['', [Validators.required]] });

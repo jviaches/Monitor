@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { GeneralService } from 'src/app/core/services/general.service';
 import { UserResendConfirmationComponent } from '../user-resend-confirmation/user-resend-confirmation.component';
 
@@ -13,14 +13,14 @@ export class UserForgetPasswordComponent {
 
   codeForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthorizationService, private generalService: GeneralService) {
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private generalService: GeneralService) {
     this.codeForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
     });
   }
 
   sendPassword() {
-    this.authService.forgotPassword(this.getEmail.value);
+    // this.authService.forgotPassword(this.getEmail.value);
   }
 
   resendCode() {

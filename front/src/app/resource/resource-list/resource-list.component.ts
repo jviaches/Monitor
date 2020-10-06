@@ -5,7 +5,7 @@ import { SelectionOptions } from 'src/app/core/shared/selection-options';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ResourceService } from 'src/app/core/services/resource.service';
 import { GeneralService } from 'src/app/core/services/general.service';
-import { AuthorizationService } from 'src/app/core/services/authentication.service';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 
@@ -21,7 +21,7 @@ export class ResourceListComponent implements OnInit {
     urlRegex = '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
 
     constructor(public resourceService: ResourceService, private formBuilder: FormBuilder, private router: Router,
-                private generalService: GeneralService, public authService: AuthorizationService) {
+                private generalService: GeneralService, public authService: AuthenticationService) {
 
         this.siteFormGroup = this.formBuilder.group({
             url: ['', [Validators.required, Validators.pattern(this.urlRegex)]],
@@ -33,7 +33,7 @@ export class ResourceListComponent implements OnInit {
     }
 
     monitorChange(event: MatSlideToggleChange, resource: IResource) {
-        resource.isMonitorActivated = event.checked;
+        resource.monitorItem.isActive = event.checked;
 
         this.generalService.showYesNoModalMessage().subscribe(data => {
             if (data === 'yes') {
@@ -45,9 +45,9 @@ export class ResourceListComponent implements OnInit {
     addResource() {
         const resource = {
             url: this.getUrl.value.replace(/\/$/, '') + '',
-            userId: this.authService.getUserName(),
-            monitorPeriod: this.getPeriodicity.value,
-            isMonitorActivated: true
+            userId: this.authService.currentUserValue.id,
+            periodicity: this.getPeriodicity.value,
+            monitorActivated: true
         };
 
         this.resourceService.addResource(resource);

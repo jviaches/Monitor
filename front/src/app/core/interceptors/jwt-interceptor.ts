@@ -2,33 +2,34 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthorizationService } from '../services/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    constructor(private autService: AuthorizationService) {
+    constructor(private authService: AuthenticationService) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const authorizedUser = this.autService.isLoggedIn();
+        const authorizedUser = this.authService.isUserLoggedIn();
 
         if (authorizedUser) {
             const helper = new JwtHelperService();
-            const isExpired = helper.isTokenExpired(this.autService.getUserToken());
+            const isExpired = helper.isTokenExpired(this.authService.currentUserValue.token);
 
             if (isExpired) {
-                this.autService.sessionExpired();
+                this.authService.logout();
 
             } else {
                 // console.log(this.autService.getUserToken());
                 request = request.clone({
                     setHeaders: {
-                        Authorization: `Bearer ${this.autService.getUserToken()}`
+                        Authorization: `Bearer ${this.authService.currentUserValue.token}`
                     }
                 });
             }
-            return next.handle(request);
         }
+
+        return next.handle(request);
     }
 }
