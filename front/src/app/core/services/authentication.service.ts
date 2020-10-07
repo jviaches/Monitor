@@ -48,6 +48,20 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
+  signUp(email: string, password: string) {
+    const request = {
+      Email: email,
+      Password: password
+    };
+
+    const header = new HttpHeaders().set('Content-type', 'application/json');
+
+    this.http.post<any>(this.generalService.URL + 'users/signup', request, { headers: header})
+      .subscribe(data => {
+        this.router.navigate(['/user-confirmation/1']);
+      });
+  }
+
   login(email: string, password: string) {
     // password = sha512_256(password);
     const request = {
@@ -55,15 +69,10 @@ export class AuthenticationService {
       Password: password
     };
 
-    console.log(`login: ${email}/${password}`);
-    console.log(this.generalService.URL + `users/signin`);
-
     const header = new HttpHeaders().set('Content-type', 'application/json');
 
     this.http.post<any>(this.generalService.URL + 'users/signin', request, { headers: header})
       .subscribe(data => {
-
-        console.log(data);
 
         // if (serverReply.payload === 'REQUIRE_ACTIVATION') {
         //   this.generalService.showModalMessage('Account require activation!').subscribe(() => {

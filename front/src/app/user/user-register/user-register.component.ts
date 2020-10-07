@@ -22,7 +22,7 @@ export class RegisterComponent {
   }
 
   doRegister() {
-    this.authService.login(this.loginForm.value.email, this.loginForm.value.password);
+    this.authService.signUp(this.loginForm.value.email, this.loginForm.value.password);
   }
 
   get getPassword() {
