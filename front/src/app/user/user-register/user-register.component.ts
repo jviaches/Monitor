@@ -38,6 +38,6 @@ export class RegisterComponent {
   }
 
   isInValid() {
-    return this.loginForm.invalid;
+    return this.loginForm.invalid && this.getPassword !== this.getPasswordConfirm;
   }
 }
