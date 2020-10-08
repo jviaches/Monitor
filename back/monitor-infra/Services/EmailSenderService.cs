@@ -13,7 +13,7 @@ namespace monitor_infra.Services
     {
         public void SendConfirmationAccountEmail(string senderAddress, string tempCode)
         {
-            using AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USWest2);
+            using AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1);
             var sendRequest = new SendEmailRequest
             {
                 Source = "support@projscope.com",
@@ -49,18 +49,20 @@ namespace monitor_infra.Services
 
         private string getConfirmationAccountTemplate(string email, string tempCode)
         {
+            // TODO: instead of localhost, send on server based on environment variable
             // The HTML body of the email.
             return @$"<html>
             <head></head>
             <body>
-              <p>Your verification code is ${tempCode} Please activate it here: http://localhost:4200/user/confirmation/${email}/${tempCode}</p>
+              <p>Your verification code is <b>{tempCode}</b>. Please activate it here: http://localhost:4200/user-confirmation/1?email={email}&code={tempCode} </p>
             </body>
             </html>";
         }
 
         private string getConfirmationAccountBodyTemplate(string email, string tempCode)
         {
-            return $"Your verification code is ${tempCode} Please activate it here: http://localhost:4200/user/confirmation/${email}/${tempCode}";
+            // TODO: instead of localhost, send on server based on environment variable
+            return $"Your verification code is {tempCode}. Please activate it here:  http://localhost:4200/user-confirmation/1?email={email}&code={tempCode}";
         }
     }
 }

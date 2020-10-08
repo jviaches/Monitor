@@ -117,4 +117,21 @@ export class AuthenticationService {
 
     return false;
   }
+
+  confirmUser(email: string, confirmationCode: string) {
+    this.http.get<any>(this.generalService.URL + `users/Confirmation/${email}/${confirmationCode}`)
+      .subscribe(data => {
+        if (data) {
+          this.router.navigate(['/login']);
+        } else {
+          this.generalService.showActionConfirmationFail('Email or confirmation code are not valid!');
+        }
+      });
+  }
+
+  sendUserActivationCode(email: string) {
+    this.http.get<any>(this.generalService.URL + `users/SendActivationCode/${email}`).subscribe(() => {
+          this.generalService.showActionConfirmationSuccess('Confirmation code willbe send to your email');
+      });
+  }
 }

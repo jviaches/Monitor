@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using monitor_infra.Entities;
+using monitor_infra.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

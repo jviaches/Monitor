@@ -15,6 +15,10 @@ namespace monitor_infra.Entities
         public DateTime LastLoginDate { get; set; }
         public List<UserAction> UserActions { get; set; }
         public List<Resource> Resources { get; set; }
-        public string ActivationCode { get; set; }
+        public string ActivationCode { get; private set; }
+
+        public void GenerateActivationCode() => ActivationCode = Guid.NewGuid().ToString("n").Substring(0, 8);
+
+        public void RemoveActivationCode() => ActivationCode = string.Empty;
     }
 }

@@ -24,13 +24,17 @@ export class UserConfirmationComponent implements OnInit {
     });
 
     this.authFlow = (AuthFlow)[this.route.snapshot.paramMap.get('id')];
+
+    this.codeForm.controls.email.setValue(this.route.snapshot.queryParamMap.get('email'));
+    this.codeForm.controls.code.setValue(this.route.snapshot.queryParamMap.get('code'));
   }
 
   ngOnInit() {
   }
 
   doValidate() {
-    // if (this.authFlow.toString() === AuthFlow[AuthFlow.Register]) {
+    // if (this.authF
+    this.authService.confirmUser(this.getEmail.value, this.getCode.value);
     //   this.authService.confirmSignUp(this.getEmail.value, this.getCode.value);
     // } else if (this.authFlow.toString() === AuthFlow[AuthFlow.ForgetPassword]) {
     //   this.router.navigate(['/new-password'], { state: { email: this.getEmail.value, code: this.getCode.value}});
@@ -38,7 +42,6 @@ export class UserConfirmationComponent implements OnInit {
   }
 
   resendCode() {
-    // this.generalService.showModalComponent(UserResendConfirmationComponent, 'Send confirmation code');
     this.router.navigateByUrl('/resend-code');
   }
 

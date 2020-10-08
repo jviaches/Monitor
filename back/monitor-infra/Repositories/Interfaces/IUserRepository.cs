@@ -13,5 +13,6 @@ namespace monitor_infra.Repositories.Interfaces
         User GetById(int userId);
         User GetByEmail(string email);
         Task<bool> Activate(string email, string activationCode);
+        User Update(User user);
     }
 }

@@ -18,7 +18,7 @@ export class UserResendConfirmationComponent {
   }
 
   resendCode() {
-    // this.authService.resendSignUp(this.getEmail.value);
+    this.authService.sendUserActivationCode(this.getEmail.value);
   }
 
   get getEmail() {

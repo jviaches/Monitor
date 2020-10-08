@@ -60,6 +60,12 @@ namespace monitor_back
             var appSettings = tokenSection.Get<TokenSettings>();
             services.AddSingleton<TokenSettings>(appSettings);
 
+            var encryptionSection = Configuration.GetSection("EncryptionSettings");
+            services.Configure<EncryptionSettings>(encryptionSection);
+            var encryptionSettings = encryptionSection.Get<EncryptionSettings>();
+            services.AddSingleton<EncryptionSettings>(encryptionSettings);
+
+
             var key = Encoding.ASCII.GetBytes(appSettings.SigningKey);
 
             services.AddAuthentication(x =>
@@ -100,6 +106,7 @@ namespace monitor_back
             // Infra Services
             services.AddScoped<ITokenService, JwtTokenService>();
             services.AddScoped<IEmailSenderService, EmailSenderService>();
+            services.AddScoped<IEncryptionService, EncryptionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

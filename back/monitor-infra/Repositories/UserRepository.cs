@@ -14,12 +14,12 @@ namespace monitor_infra.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _dbContext;
-        private readonly IEmailSenderService _emailService;
+        private readonly IEncryptionService _encryptionService;
 
-        public UserRepository(AppDbContext dbContext, IEmailSenderService emailService)
+        public UserRepository(AppDbContext dbContext, IEncryptionService encryptionService)
         {
             _dbContext = dbContext;
-            _emailService = emailService;
+            _encryptionService = encryptionService;
         }
 
         public Task<bool> Activate(string email, string activationCode)
@@ -27,14 +27,26 @@ namespace monitor_infra.Repositories
             var user = _dbContext.Users.SingleOrDefault(rs => rs.Email == email && rs.ActivationCode == activationCode);
             if (user != null)
             {
-                user.ActivationCode = string.Empty;
-                _dbContext.Set<User>().Update(user);
+                user.RemoveActivationCode();
+                _dbContext.Update(user);
                 _dbContext.SaveChanges();
 
                 return Task<bool>.Factory.StartNew(() => true);
             }
 
             return Task<bool>.Factory.StartNew(() => false);
+        }
+
+        public User Update(User existingUser)
+        {
+            var user = GetByEmail(existingUser.Email);
+            if (user != null)
+            {
+                _dbContext.Update(user);
+                _dbContext.SaveChanges();
+            }
+
+            return user;
         }
 
         public User Add(AddUserDto addUserDto)
@@ -45,15 +57,14 @@ namespace monitor_infra.Repositories
             User user = new User()
             {
                 Email = addUserDto.Email,
-                Password = addUserDto.Password,
-                RegistrationDate = DateTime.UtcNow,
-                ActivationCode = Guid.NewGuid().ToString("n").Substring(0, 8)
+                Password = _encryptionService.Encrypt(addUserDto.Password),
+                RegistrationDate = DateTime.UtcNow
             };
+
+            user.GenerateActivationCode();
 
             _dbContext.Set<User>().Add(user);
             _dbContext.SaveChanges();
-
-            _emailService.SendConfirmationAccountEmail(user.Email, user.ActivationCode);
 
             return user;
         }

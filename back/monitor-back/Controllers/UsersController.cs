@@ -29,6 +29,9 @@ namespace monitor_back.Controllers
         [Route("[action]")]
         public IActionResult SignUp([FromBody]AddUserViewModel vm)
         {
+            if (string.IsNullOrEmpty(vm.Email) || string.IsNullOrEmpty(vm.Email))
+                return BadRequest(new { message = "input data is empty!" });
+
             var user = _userService.Add(vm.Email, vm.Password);
 
             if (user == null)
@@ -42,12 +45,9 @@ namespace monitor_back.Controllers
         [Route("[action]")]
         public IActionResult SignIn([FromBody]SignInViewModel vm)
         {
-            var user = _userService.GetByEmail(vm.Email);
+            var user = _userService.SignIn(vm.Email, vm.Password);
 
             if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-
-            if (user.Password != vm.Password)
                 return BadRequest(new { message = "Username or password is incorrect" });
 
             var userModel = new ResponseUserModel(user, _tokenService.GetToken(user));
@@ -84,7 +84,18 @@ namespace monitor_back.Controllers
             if (result)
                 return Ok(result);
 
-            return BadRequest("User already activated or does not exist!");
+            return Ok(false);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("[action]/{email}")]
+        public IActionResult SendActivationCode([FromRoute]string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return BadRequest("No Email provided!");
+
+            _userService.ResendActivationCode(email);
+            return Ok();
         }
     }
 }
