@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "monitor-core", "..\monitor-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "monitor-infra", "..\monitor-infra\monitor-infra.csproj", "{91E9B396-04D9-4E42-A0CC-6830D3982A50}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monitor.StepperLogic", "..\Monitor.StepperLogic\Monitor.StepperLogic.csproj", "{D66DA14B-E8DD-45FD-A8C4-116F9CC0DE6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{91E9B396-04D9-4E42-A0CC-6830D3982A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91E9B396-04D9-4E42-A0CC-6830D3982A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91E9B396-04D9-4E42-A0CC-6830D3982A50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66DA14B-E8DD-45FD-A8C4-116F9CC0DE6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66DA14B-E8DD-45FD-A8C4-116F9CC0DE6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66DA14B-E8DD-45FD-A8C4-116F9CC0DE6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66DA14B-E8DD-45FD-A8C4-116F9CC0DE6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

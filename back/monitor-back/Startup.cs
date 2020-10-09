@@ -102,6 +102,7 @@ namespace monitor_back
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserActionService, UserActionService>();
             services.AddScoped<IResourceService, ResourceService>();
+            services.AddScoped<IMonitorItemService, MonitorItemService>();
 
             // Infra Services
             services.AddScoped<ITokenService, JwtTokenService>();

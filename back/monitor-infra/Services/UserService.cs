@@ -36,7 +36,7 @@ namespace monitor_infra.Services
                 Password = password
             });
 
-            _emailService.SendConfirmationAccountEmail(user.Email, user.ActivationCode);
+            _emailService.SendConfirmationAccount(user.Email, user.ActivationCode);
 
             return user;
         }
@@ -62,7 +62,7 @@ namespace monitor_infra.Services
 
             user.GenerateActivationCode();
             _userRepository.Update(user);
-            _emailService.SendConfirmationAccountEmail(email, user.ActivationCode);
+            _emailService.SendConfirmationAccount(email, user.ActivationCode);
         }
 
         public User SignIn(string email, string password)

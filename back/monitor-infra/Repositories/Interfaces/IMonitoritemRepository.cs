@@ -11,5 +11,7 @@ namespace monitor_infra.Repositories.Interfaces
     {
         MonitorItem Add(AddMonitorItemDto dto);
         Task<MonitorItem> GetById(Guid id);
+        Task<IEnumerable<MonitorItem>> GetByPeriodicityAndMonitor(int periodicity, bool isMonitored);
+        Task AddHistoryItem(AddMonitorHistoryDto dto);
     }
 }

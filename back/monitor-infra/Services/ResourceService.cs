@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Text;
 using System.Threading.Tasks;
+using IResourceService = monitor_infra.Services.Interfaces.IResourceService;
 
 namespace monitor_infra.Services
 {
-    public class ResourceService : Interfaces.IResourceService
+    public class ResourceService : IResourceService
     {
         private IResourceRepository _resourceRepository;
         private readonly IUserActionService _userActionService;
@@ -76,6 +77,11 @@ namespace monitor_infra.Services
             });
 
             return updatedResource;
+        }
+
+        public Dictionary<Resource, MonitorItem> GetMonitoredItemsByPeriodicity(int periodicity)
+        {
+            return _resourceRepository.GetMonitoredItemsByPeriodicity(periodicity);
         }
     }
 }

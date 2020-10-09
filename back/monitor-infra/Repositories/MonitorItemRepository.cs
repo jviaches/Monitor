@@ -34,10 +34,33 @@ namespace monitor_infra.Repositories
             return newItem.Entity;
         }
 
+        public async Task AddHistoryItem(AddMonitorHistoryDto dto)
+        {
+            var result = await _dbContext.MonitorItems.FirstOrDefaultAsync(mi => dto.MonitorItemId == mi.Id);
+            if (result != null)
+            {
+                result.History.Add(new MonitorHistory()
+                {
+                    MonitorItemId = dto.MonitorItemId,
+                    ScanDate = dto.ScanDate,
+                    Result = dto.Result
+                });
+
+                var newItem = _dbContext.Set<MonitorItem>().Update(result);
+                _dbContext.SaveChanges();
+            }
+        }
+
         public async Task<MonitorItem> GetById(Guid id)
         {
             var result = await _dbContext.MonitorItems.FirstOrDefaultAsync(rs => rs.Id == id);
             return result;
+        }
+
+        public async Task<IEnumerable<MonitorItem>> GetByPeriodicityAndMonitor(int periodicity, bool isMonitored)
+        {
+            var resources = _dbContext.MonitorItems.Where(res => res.Period == periodicity && res.IsActive == isMonitored).ToListAsync();
+            return await resources;
         }
     }
 }

@@ -14,5 +14,6 @@ namespace monitor_infra.Repositories.Interfaces
         Task<Resource> GetById(Guid id);
         Task<IEnumerable<Resource>> GetByUserId(int userId);
         Task<Resource> Update(UpdateResourceDto resourcedto);
+        Dictionary<Resource, MonitorItem> GetMonitoredItemsByPeriodicity(int periodicity);
     }
 }

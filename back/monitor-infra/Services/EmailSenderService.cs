@@ -11,7 +11,6 @@ namespace monitor_infra.Services
 {
     public class EmailSenderService : IEmailSenderService
     {
-
         private void sendEmail(string senderAddress, string subject, string htmlTemplate, string textTemplate)
         {
             using var client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1);
@@ -48,7 +47,7 @@ namespace monitor_infra.Services
             }
         }
 
-        public void SendConfirmationAccountEmail(string senderAddress, string tempCode)
+        public void SendConfirmationAccount(string senderAddress, string tempCode)
         {
             var htmlTemplate = getConfirmationAccountHtmlTemplate(senderAddress, tempCode);
             var textTemplate = getConfirmationAccountTextTemplate(senderAddress, tempCode);
@@ -95,6 +94,49 @@ namespace monitor_infra.Services
               <p>Your password is <b>{password}</b>. You can login here: http://projscope.com </p>
             </body>
             </html>";
+        }
+
+        public void SendAbnormalStatus(string email, string url, string status)
+        {
+            var htmlTemplate = getAbnotmalStatusHtmlTemplate(url, status);
+            var textTemplate = getAbnotmalStatusTextTemplate(url, status);
+
+            sendEmail(email, "Alert: Abnormal resource status detected", htmlTemplate, textTemplate);
+        }
+
+        private string getAbnotmalStatusTextTemplate(string url, string status)
+        {
+            return @$"
+                <h1>Projscope - Alert</h1>
+                <div>Abnormal status detected for resource: {url}</ div>
+                <div>Site status code: {status}</ div>
+                <p>This email was sent by
+                    <a href='https://projscope.com/'>Proscope.com</a>.
+            ";
+        }
+
+        private string getAbnotmalStatusHtmlTemplate(string url, string status)
+        {
+            return $"Site <b>{url }</b> has abnormal status code: <b>{status}</b>. You can login here: http://projscope.com";
+        }
+
+        public void SendServicesException(string exceptionDetails)
+        {
+            var htmlTemplate = getServerExceptionHtmlTemplate(exceptionDetails);
+            var textTemplate = getExceptionTextTemplate(exceptionDetails);
+
+            // TODO: change in production to support@projscope.com            
+            sendEmail("jviaches@gmail.com", "Password retrival - Projscope", htmlTemplate, textTemplate);
+        }
+
+        private string getExceptionTextTemplate(string exceptionDetails)
+        {
+            return $"Exception occured: <br /> <b><p>{exceptionDetails}</p></b>";
+        }
+
+        private string getServerExceptionHtmlTemplate(string exceptionDetails)
+        {
+            return $"Exception occured: <b>{exceptionDetails}</b>";
         }
     }
 }

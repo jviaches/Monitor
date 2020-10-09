@@ -73,6 +73,22 @@ namespace monitor_infra.Repositories
             return resource;
         }
 
+        public Dictionary<Resource, MonitorItem> GetMonitoredItemsByPeriodicity(int periodicity)
+        {
+            var result = new Dictionary<Resource, MonitorItem>();
+
+            var foundItems = _dbContext.Resources
+                .Include(rs => rs.MonitorItem)
+                .Include(rs => rs.CommunicationChanel)
+                .Where(rs => rs.MonitoringActivated && rs.MonitorItem.IsActive && rs.MonitorItem.Period == periodicity)
+                .Select(res => new KeyValuePair<Resource, MonitorItem>(res,res.MonitorItem));
+
+            foreach (var item in foundItems)
+                result.Add(item.Key, item.Value);
+
+            return result;
+        }
+
         public Task<Resource> Update(UpdateResourceDto resourcedto)
         {
             var resource = GetById(resourcedto.ResourceId);

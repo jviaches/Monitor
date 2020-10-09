@@ -9,7 +9,7 @@ namespace monitor_infra.Entities
     {
         [Key]
         public Guid Id { get; set; }
-        public Guid ResourceId { get; set; }
+        public Guid MonitorItemId { get; set; }
         public DateTime ScanDate { get; set; }
         public string Result { get; set; }
     }

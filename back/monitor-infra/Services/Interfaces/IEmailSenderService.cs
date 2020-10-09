@@ -7,7 +7,10 @@ namespace monitor_infra.Services.Interfaces
 {
     public interface IEmailSenderService
     {
-        void SendConfirmationAccountEmail(string senderAddress, string tempCode);
+        void SendConfirmationAccount(string senderAddress, string tempCode);
         void SendForgottenPassword(string email, string password);
+
+        void SendAbnormalStatus(string email, string url, string status);
+        void SendServicesException(string exceptionDetails);
     }
 }

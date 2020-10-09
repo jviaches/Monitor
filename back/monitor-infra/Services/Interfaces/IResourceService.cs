@@ -15,5 +15,6 @@ namespace monitor_infra.Services.Interfaces
         Resource Add(AddResourceDto resourcedto);
         Task<Resource> Update(UpdateResourceDto resourcedto);
         Task Delete(Guid resourceId);
+        Dictionary<Resource, MonitorItem> GetMonitoredItemsByPeriodicity(int periodicity);
     }
 }
