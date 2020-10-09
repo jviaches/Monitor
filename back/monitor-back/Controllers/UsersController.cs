@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using monitor_core.Dto;
 using monitor_infra.Models.Response;
@@ -11,6 +12,7 @@ using monitorback.ViewModels;
 
 namespace monitor_back.Controllers
 {
+    [EnableCors("GlobalCorPolicy")]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
