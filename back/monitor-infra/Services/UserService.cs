@@ -104,5 +104,16 @@ namespace monitor_infra.Services
 
             return true;
         }
+
+        public void ResendPassword(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return;
+
+            var user = _userRepository.GetByEmail(email);
+            var decryptedPassword = _encryptionService.Decrypt(user.Password);
+
+            _emailService.SendForgottenPassword(user.Email, decryptedPassword);
+        }
     }
 }

@@ -108,5 +108,16 @@ namespace monitor_back.Controllers
             var result = _userService.ChangePassword(vm.Email, vm.OldPassword, vm.NewPassword);
             return Ok(result);
         }
+
+        [AllowAnonymous]
+        [HttpGet("[action]/{email}")]
+        public IActionResult PasswordRetrieval([FromRoute]string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return BadRequest("No Email provided!");
+
+            _userService.ResendPassword(email);
+            return Ok();
+        }
     }
 }

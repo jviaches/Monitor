@@ -11,27 +11,28 @@ namespace monitor_infra.Services
 {
     public class EmailSenderService : IEmailSenderService
     {
-        public void SendConfirmationAccountEmail(string senderAddress, string tempCode)
+
+        private void sendEmail(string senderAddress, string subject, string htmlTemplate, string textTemplate)
         {
-            using AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1);
+            using var client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1);
             var sendRequest = new SendEmailRequest
             {
                 Source = "support@projscope.com",
                 Destination = new Destination { ToAddresses = new List<string> { senderAddress } },
                 Message = new Message
                 {
-                    Subject = new Content("Account confirmation - Projscope"),
+                    Subject = new Content(subject),
                     Body = new Body
                     {
                         Html = new Content
                         {
                             Charset = "UTF-8",
-                            Data = getConfirmationAccountTemplate(senderAddress, tempCode)
+                            Data = htmlTemplate
                         },
                         Text = new Content
                         {
                             Charset = "UTF-8",
-                            Data = getConfirmationAccountBodyTemplate(senderAddress, tempCode)
+                            Data = textTemplate
                         }
                     }
                 },
@@ -47,7 +48,15 @@ namespace monitor_infra.Services
             }
         }
 
-        private string getConfirmationAccountTemplate(string email, string tempCode)
+        public void SendConfirmationAccountEmail(string senderAddress, string tempCode)
+        {
+            var htmlTemplate = getConfirmationAccountHtmlTemplate(senderAddress, tempCode);
+            var textTemplate = getConfirmationAccountTextTemplate(senderAddress, tempCode);
+
+            sendEmail(senderAddress, "Account confirmation - Projscope", htmlTemplate, textTemplate);
+        }
+
+        private string getConfirmationAccountHtmlTemplate(string email, string tempCode)
         {
             // TODO: instead of localhost, send on server based on environment variable
             // The HTML body of the email.
@@ -59,10 +68,33 @@ namespace monitor_infra.Services
             </html>";
         }
 
-        private string getConfirmationAccountBodyTemplate(string email, string tempCode)
+        private string getConfirmationAccountTextTemplate(string email, string tempCode)
         {
             // TODO: instead of localhost, send on server based on environment variable
             return $"Your verification code is {tempCode}. Please activate it here:  http://localhost:4200/user-confirmation/1?email={email}&code={tempCode}";
+        }
+
+        public void SendForgottenPassword(string email, string password)
+        {
+            var htmlTemplate = getEmailHtmlTemplate(password);
+            var textTemplate = getEmailTextTemplate(password);
+
+            sendEmail(email, "Password retrival - Projscope", htmlTemplate, textTemplate);
+        }
+
+        private string getEmailTextTemplate(string password)
+        {
+            return $"Your password is <b>{password}</b>. You can login here: http://projscope.com";
+        }
+
+        private string getEmailHtmlTemplate(string password)
+        {
+            return @$"<html>
+            <head></head>
+            <body>
+              <p>Your password is <b>{password}</b>. You can login here: http://projscope.com </p>
+            </body>
+            </html>";
         }
     }
 }

@@ -15,5 +15,6 @@ namespace monitor_infra.Services.Interfaces
         Task<bool> Activate(string email, string activationCode);
         void ResendActivationCode(string email);
         bool ChangePassword(string email, string oldPassword, string newPassword);
+        void ResendPassword(string email);
     }
 }

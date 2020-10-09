@@ -20,7 +20,7 @@ export class UserForgetPasswordComponent {
   }
 
   sendPassword() {
-    // this.authService.forgotPassword(this.getEmail.value);
+    this.authService.forgotPassword(this.getEmail.value);
   }
 
   resendCode() {

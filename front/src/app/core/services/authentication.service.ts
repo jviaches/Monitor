@@ -153,4 +153,11 @@ export class AuthenticationService {
         }
       });
   }
+
+  forgotPassword(email: string) {
+    this.http.get<any>(this.generalService.URL + `users/PasswordRetrieval/${email}`)
+      .subscribe(data => {
+          this.generalService.showActionConfirmationFail('Sent, please check your email.');
+      });
+  }
 }
