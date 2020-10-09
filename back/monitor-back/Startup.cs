@@ -41,10 +41,10 @@ namespace monitor_back
                 builder =>
                 {
                     builder
-                           //.WithOrigins("http://localhost:4200", "https://d3mbies4lx0e41.cloudfront.net")
+                           .WithOrigins("http://localhost:4200", "https://d3mbies4lx0e41.cloudfront.net")
                            .AllowAnyHeader()
-                           .AllowAnyMethod()
-                           .AllowAnyOrigin();
+                           .AllowAnyMethod();
+                           //.AllowAnyOrigin();
                 });
             });
 
