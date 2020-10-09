@@ -40,7 +40,7 @@ namespace monitor_back
                 options.AddPolicy("GlobalCorPolicy",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.WithOrigins("http://localhost:4200", "https://d3mbies4lx0e41.cloudfront.net")
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });
