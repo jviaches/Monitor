@@ -8,17 +8,17 @@ phases:
       - echo Build started on `date`
       
       
-      - dotnet restore back/ResourcesLambda/Monitor.Core/Monitor.Core.csproj
-      - dotnet restore back/ResourcesLambda/Monitor.Infra/Monitor.Infra.csproj
-      - dotnet restore back/ResourcesLambda/Monitor.Service/Monitor.Service.csproj
+      - dotnet restore back/monitor-back/monitor-core/monitor-core.csproj
+      - dotnet restore back/monitor-back/monitor-infra/monitor-infra.csproj
+      - dotnet restore back/monitor-back/monitor-back/monitor-back.csproj
 
-      - dotnet build back/ResourcesLambda/Monitor.Core/Monitor.Core.csproj
-      - dotnet build back/ResourcesLambda/Monitor.Infra/Monitor.Infra.csproj
-      - dotnet build back/ResourcesLambda/Monitor.Service/Monitor.Service.csproj
+      - dotnet build back/monitor-back/monitor-core/monitor-core.csproj
+      - dotnet build back/monitor-back/monitor-infra/monitor-infra.csproj
+      - dotnet build back/monitor-back/monitor-back/monitor-back.csproj
       
-      - dotnet publish back/ResourcesLambda/Monitor.Service/Monitor.Service.csproj -o back/ResourcesLambda/Monitor.Service/bin/Debug/netcoreapp3.1
+      - dotnet publish back/monitor-back/monitor-back.csproj -o back/monitor-back/bin/Debug/netcoreapp3.1
 artifacts:
   files:
    - '**/*' 
-  base-directory: back\ResourcesLambda\Monitor.Service\bin\Debug\netcoreapp3.1      
+  base-directory: back\monitor-back\bin\Debug\netcoreapp3.1      
 
