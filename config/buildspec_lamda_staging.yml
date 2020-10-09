@@ -5,14 +5,14 @@ phases:
       dotnet: latest
   pre_build:
     commands:
-      - cd back/ResourcesLambda/ResourcesLambda
+      - cd back/monitor-back
       - dotnet tool install --global Amazon.Lambda.Tools
   build:
     commands:
       - echo Build started on `date`
       - dotnet build
-      - dotnet publish ResourcesLambda.csproj -o bin/Release/netcoreapp3.1/publish
-      - echo Deploy ResourceManagement started on `date`
+      - dotnet publish monitor-back.csproj -o bin/Release/netcoreapp3.1/publish
+      - echo Deploy Monitor Back project started on `date`
       - ~/.dotnet/tools/dotnet-lambda deploy-serverless --stackname ResourceManagementStaging --s3-bucket resource-management-staging
       - cd ../Monitor.StepperLogic
       - dotnet build
