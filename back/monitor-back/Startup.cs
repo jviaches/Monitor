@@ -120,11 +120,10 @@ namespace monitor_back
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseRouting();
             app.UseCors("GlobalCorPolicy");
 
             app.UseHttpsRedirection();
-
-            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
