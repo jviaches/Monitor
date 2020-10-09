@@ -67,7 +67,7 @@ namespace monitor_infra.Services
 
         public User SignIn(string email, string password)
         {
-            if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 throw new Exception("Empty email or password !");
 
             var user = _userRepository.GetByEmail(email);
@@ -81,6 +81,28 @@ namespace monitor_infra.Services
                 return user;
 
             return null;
+        }
+
+        public bool ChangePassword(string email, string oldPassword, string newPassword)
+        {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(oldPassword) || string.IsNullOrEmpty(newPassword))
+                return false;
+
+            if (oldPassword == newPassword)
+                return false;
+
+            var user = _userRepository.GetByEmail(email);
+
+            var decryptedPassword = _encryptionService.Decrypt(user.Password);
+            if (oldPassword != decryptedPassword)
+                return false;
+
+            var pass = _encryptionService.Encrypt(newPassword);
+            user.Password = pass;
+
+            _userRepository.Update(user);
+
+            return true;
         }
     }
 }

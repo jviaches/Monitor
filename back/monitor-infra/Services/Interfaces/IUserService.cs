@@ -14,5 +14,6 @@ namespace monitor_infra.Services.Interfaces
         User GetById(int id);
         Task<bool> Activate(string email, string activationCode);
         void ResendActivationCode(string email);
+        bool ChangePassword(string email, string oldPassword, string newPassword);
     }
 }

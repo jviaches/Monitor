@@ -9,7 +9,6 @@ import { UserModel } from '../models/user.model';
 
 @Injectable()
 export class AuthenticationService {
-
   private currentUserSubject: BehaviorSubject<UserModel>;
   public currentUser: Observable<UserModel>;
 
@@ -132,6 +131,26 @@ export class AuthenticationService {
   sendUserActivationCode(email: string) {
     this.http.get<any>(this.generalService.URL + `users/SendActivationCode/${email}`).subscribe(() => {
           this.generalService.showActionConfirmationSuccess('Confirmation code willbe send to your email');
+      });
+  }
+
+  changeUserPassword(oldPassword: string, newPassword: string) {
+    const request = {
+      Email: this.currentUserValue.email,
+      OldPassword: oldPassword,
+      NewPassword: newPassword,
+    };
+
+    const header = new HttpHeaders().set('Content-type', 'application/json');
+
+    this.http.post<any>(this.generalService.URL + 'users/ChangePassword', request, { headers: header})
+      .subscribe(successResult => {
+        console.log(successResult);
+        if (successResult) {
+          this.generalService.showActionConfirmationSuccess('Password updated!');
+        } else {
+          this.generalService.showActionConfirmationFail('Password update fail!');
+        }
       });
   }
 }

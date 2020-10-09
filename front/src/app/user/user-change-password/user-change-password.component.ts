@@ -22,15 +22,8 @@ export class UserChangePasswordComponent {
   }
 
   async doSubmit() {
-    // await this.authService.changePassword(this.form.value.oldPassword, this.form.value.newPassword)
-    //  .then( response => {
-    //   console.log(response);
-
-    //   if (response === 'SUCCESS') {
-    //     this.generalService.showActionConfirmationSuccess('Code changes succesfully!');
-    //     this.dialog.closeAll();
-    //   }
-    // });
+    this.authService.changeUserPassword(this.form.value.oldPassword, this.form.value.newPassword);
+    this.dialog.closeAll();
   }
   doCancel() {
     this.dialog.closeAll();

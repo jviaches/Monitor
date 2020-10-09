@@ -97,5 +97,16 @@ namespace monitor_back.Controllers
             _userService.ResendActivationCode(email);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("[action]")]
+        public IActionResult ChangePassword([FromBody]ChangePasswordViewModel vm)
+        {
+            if (string.IsNullOrEmpty(vm.Email) ||  string.IsNullOrEmpty(vm.OldPassword) || (string.IsNullOrEmpty(vm.NewPassword)))
+                return BadRequest("Password is empty!");
+
+            var result = _userService.ChangePassword(vm.Email, vm.OldPassword, vm.NewPassword);
+            return Ok(result);
+        }
     }
 }
