@@ -26,6 +26,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\monitor-back\monitor-back.csproj" />
+    <ProjectReference Include="..\monitor-back\monitor.back.csproj" />
   </ItemGroup>
 </Project>

@@ -7,15 +7,15 @@ phases:
     commands:
       - echo Build started on `date`
       
-      - dotnet restore back/monitor-back/monitor-core/monitor-core.csproj
-      - dotnet restore back/monitor-back/monitor-infra/monitor-infra.csproj
-      - dotnet restore back/monitor-back/monitor-back/monitor-back.csproj
+      - dotnet restore back/monitor-back/monitor-core/monitor.core.csproj
+      - dotnet restore back/monitor-back/monitor-infra/monitor.infra.csproj
+      - dotnet restore back/monitor-back/monitor-back/monitor.back.csproj
 
-      - dotnet build back/monitor-back/monitor-core/monitor-core.csproj
-      - dotnet build back/monitor-back/monitor-infra/monitor-infra.csproj
-      - dotnet build back/monitor-back/monitor-back/monitor-back.csproj
+      - dotnet build back/monitor-back/monitor-core/monitor.core.csproj
+      - dotnet build back/monitor-back/monitor-infra/monitor.infra.csproj
+      - dotnet build back/monitor-back/monitor-back/monitor.back.csproj
       
-      - dotnet publish back/monitor-back/monitor-back.csproj -o back/monitor-back/bin/Release/netcoreapp3.1
+      - dotnet publish back/monitor-back/monitor.back.csproj -o back/monitor-back/bin/Release/netcoreapp3.1
 artifacts:
   files:
    - '**/*' 

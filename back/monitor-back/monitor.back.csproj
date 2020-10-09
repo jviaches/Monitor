@@ -4,6 +4,7 @@
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AWSProjectType>Lambda</AWSProjectType>
     <UserSecretsId>8bde4488-603d-4790-8dcd-686c2ad21086</UserSecretsId>
+    <AssemblyName>monitor.back</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.Core" Version="3.5.1.23" />
@@ -18,6 +19,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\monitor-infra\monitor-infra.csproj" />
+    <ProjectReference Include="..\monitor-infra\monitor.infra.csproj" />
   </ItemGroup>
 </Project>
