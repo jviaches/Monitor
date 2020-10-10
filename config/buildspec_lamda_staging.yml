@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - dotnet build
+      - dotnet build monitor.back.csproj
       - dotnet publish monitor.back.csproj -o bin/Release/netcoreapp3.1/publish
       - echo Deploy Monitor Back project started on `date`
       - ~/.dotnet/tools/dotnet-lambda deploy-serverless --stackname ResourceManagementStaging --s3-bucket resource-management-staging
