@@ -41,7 +41,7 @@
     "AspNetCoreFunction": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
-        "Handler": "monitor.back::monitor-back.LambdaEntryPoint::FunctionHandlerAsync",
+        "Handler": "monitor.back::monitor.back.LambdaEntryPoint::FunctionHandlerAsync",
         "Runtime": "dotnetcore3.1",
         "CodeUri": "",
         "MemorySize": 1024,
