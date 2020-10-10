@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "monitor.back", "monitor.back.csproj", "{EF12CE0E-7B40-4D95-8BD0-8B73907B16BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "monitor.back", "monitor-back\monitor.back.csproj", "{EF12CE0E-7B40-4D95-8BD0-8B73907B16BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "monitor-back.Tests", "..\monitor-back.Tests\monitor-back.Tests.csproj", "{937F5657-439F-4B2B-A2E2-7F47F359E8B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "monitor-back.Tests", "monitor-back.Tests\monitor-back.Tests.csproj", "{937F5657-439F-4B2B-A2E2-7F47F359E8B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "monitor.core", "..\monitor-core\monitor.core.csproj", "{489C0418-892E-4AFE-91B6-C7F7B71242AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "monitor.core", "monitor-core\monitor.core.csproj", "{489C0418-892E-4AFE-91B6-C7F7B71242AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "monitor.infra", "..\monitor-infra\monitor.infra.csproj", "{91E9B396-04D9-4E42-A0CC-6830D3982A50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "monitor.infra", "monitor-infra\monitor.infra.csproj", "{91E9B396-04D9-4E42-A0CC-6830D3982A50}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monitor.StepperLogic", "..\Monitor.StepperLogic\Monitor.StepperLogic.csproj", "{D66DA14B-E8DD-45FD-A8C4-116F9CC0DE6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monitor.StepperLogic", "Monitor.StepperLogic\Monitor.StepperLogic.csproj", "{D66DA14B-E8DD-45FD-A8C4-116F9CC0DE6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
