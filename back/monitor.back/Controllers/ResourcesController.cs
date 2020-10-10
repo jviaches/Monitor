@@ -7,7 +7,7 @@ using monitor_core.Dto;
 using monitor_infra.Services.Interfaces;
 using monitorback.ViewModels;
 
-namespace monitor_back.Controllers
+namespace monitor.back.Controllers
 {
     [Route("api/[controller]")]
     public class ResourcesController : ControllerBase

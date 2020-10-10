@@ -21,7 +21,7 @@ using monitor_infra.Repositories.Interfaces;
 using monitor_infra.Services;
 using monitor_infra.Services.Interfaces;
 
-namespace monitor_back
+namespace monitor.back
 {
     public class Startup
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace monitor_back.Controllers
+namespace monitor.back.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : ControllerBase

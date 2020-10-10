@@ -14,7 +14,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\monitor-core\monitor.core.csproj" />
-    <ProjectReference Include="..\monitor-infra\monitor.infra.csproj" />
+    <ProjectReference Include="..\monitor.core\monitor.core.csproj" />
+    <ProjectReference Include="..\monitor.infra\monitor.infra.csproj" />
   </ItemGroup>
 </Project>

@@ -19,6 +19,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\monitor-infra\monitor.infra.csproj" />
+    <ProjectReference Include="..\monitor.infra\monitor.infra.csproj" />
   </ItemGroup>
 </Project>
