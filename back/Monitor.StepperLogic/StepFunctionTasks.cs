@@ -17,6 +17,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Monitor.StepperLogic.StateModels;
 using monitor_core.Dto;
 using monitor_infra;
+using monitor_infra.Repositories;
+using monitor_infra.Repositories.Interfaces;
 using monitor_infra.Services;
 using monitor_infra.Services.Interfaces;
 using Newtonsoft.Json;
@@ -49,6 +51,7 @@ namespace Monitor.StepperLogic
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddSingleton<IResourceService, ResourceService>();
+            serviceCollection.AddSingleton<IResourceRepository, ResourceRepository>();
             serviceCollection.AddSingleton<IUserService, UserService>();
             serviceCollection.AddSingleton<IMonitorItemService, MonitorItemService>();
             serviceCollection.AddSingleton<IEmailSenderService, EmailSenderService>();
