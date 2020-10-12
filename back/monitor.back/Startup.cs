@@ -52,7 +52,7 @@ namespace monitor.back
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("monitor-infra"));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("monitor.infra"));
             });
 
             // configure strongly typed settings objects
