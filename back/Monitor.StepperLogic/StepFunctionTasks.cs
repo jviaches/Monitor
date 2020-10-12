@@ -50,21 +50,27 @@ namespace Monitor.StepperLogic
 
             var serviceCollection = new ServiceCollection();
 
-            serviceCollection.AddSingleton<IResourceService, ResourceService>();
-            serviceCollection.AddSingleton<IResourceRepository, ResourceRepository>();
-            serviceCollection.AddSingleton<IUserService, UserService>();
-            serviceCollection.AddSingleton<IMonitorItemService, MonitorItemService>();
-            serviceCollection.AddSingleton<IEmailSenderService, EmailSenderService>();
+            // Repositories
+            serviceCollection.AddScoped<ICommunicationChanelRepository, CommunicationChanelRepository>();
+            serviceCollection.AddScoped<IMonitorHistoryRepository, MonitorHistoryRepository>();
+            serviceCollection.AddScoped<IMonitorItemRepository, MonitorItemRepository>();
+            serviceCollection.AddScoped<IResourceRepository, ResourceRepository>();
+            serviceCollection.AddScoped<IUserActionRepository, UserActionRepository>();
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
 
-            //var DBHostName = Environment.GetEnvironmentVariable("DBHostName");
-            //var DBName = Environment.GetEnvironmentVariable("DBName");
-            //var DBUserName = Environment.GetEnvironmentVariable("DBUserName");
-            //var DBPassword = Environment.GetEnvironmentVariable("DBPassword");
-            //var DBPort = Environment.GetEnvironmentVariable("DBPort");
+            // Services
+            serviceCollection.AddScoped<IUserService, UserService>();
+            serviceCollection.AddScoped<IUserActionService, UserActionService>();
+            serviceCollection.AddScoped<IResourceService, ResourceService>();
+            serviceCollection.AddScoped<IMonitorItemService, MonitorItemService>();
+
+            // Infra Services
+            serviceCollection.AddScoped<ITokenService, JwtTokenService>();
+            serviceCollection.AddScoped<IEmailSenderService, EmailSenderService>();
+            serviceCollection.AddScoped<IEncryptionService, EncryptionService>();
 
             serviceCollection.AddDbContext<AppDbContext>(options =>
             {
-                // options.UseNpgsql($"Host={DBHostName};Port={DBPort};Username={DBUserName};Password={DBPassword};Database={DBName};", b => b.MigrationsAssembly("Monitor.Infra"));
                 var connection = Environment.GetEnvironmentVariable("DefaultConnection");
                 options.UseNpgsql(connection, b => b.MigrationsAssembly("monitor.infra"));
             });
