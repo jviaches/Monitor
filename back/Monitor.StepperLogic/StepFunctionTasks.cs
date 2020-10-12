@@ -86,23 +86,23 @@ namespace Monitor.StepperLogic
         /// <param name="model">Periodicity</param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public ResourceScanResultModel RetrieveRecords(RetrieveRecordModel model, ILambdaContext context)
+        public MonitorItemScanResultModel RetrieveRecords(RetrieveRecordModel model, ILambdaContext context)
         {
             context.Logger.LogLine($"---------- RetrieveRecords  from DB with Periodicity [{(model.Periodicity)} milisec] ----------");
 
             var monitorItems = _resourceService.GetMonitoredItemsByPeriodicity(model.Periodicity);
-            var urlList = monitorItems.Select(record => new ResourceModel(record.Key.MonitorItem.Id, record.Key.Url, string.Empty, record.Key.CommunicationChanel, record.Key.UserId)).ToList();
-            var resourceToScanModel = new ResourceScanResultModel() { ResourcesStatuses = urlList };
+            var urlList = monitorItems.Select(record => new MonitorItemModel(record.Key.MonitorItem.Id, record.Key.Url, string.Empty, record.Key.CommunicationChanel, record.Key.UserId)).ToList();
+            var resourceToScanModel = new MonitorItemScanResultModel() { ResourcesStatuses = urlList };
 
             context.Logger.LogLine($"Retrieved {resourceToScanModel.ResourcesStatuses.Count} resources for scan with specified periodicity");
 
             return resourceToScanModel;
         }
 
-        public async Task<ResourceScanResultModel> MonitorRecords(ResourceScanResultModel model, ILambdaContext context)
+        public async Task<MonitorItemScanResultModel> MonitorRecords(MonitorItemScanResultModel model, ILambdaContext context)
         {
             context.Logger.LogLine($"---------- Start MonitorRecords [{model.ResourcesStatuses.Count} resources] ----------");
-            var resourceScanResultModel = new ResourceScanResultModel();
+            var resourceScanResultModel = new MonitorItemScanResultModel();
 
             foreach (var item in model.ResourcesStatuses)
             {
@@ -124,12 +124,12 @@ namespace Monitor.StepperLogic
                     var jSerializer = new JsonSerializer();
                     var statusCode = jSerializer.Deserialize(jReader);
 
-                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, statusCode.ToString(), item.CommunicationChanel, item.UserId));
+                    resourceScanResultModel.ResourcesStatuses.Add(new MonitorItemModel(item.MonitorId, item.Url, statusCode.ToString(), item.CommunicationChanel, item.UserId));
                 }
                 catch (Exception e)
                 {
                     context.Logger.LogLine($"Exception Occured: {e}");
-                    resourceScanResultModel.ResourcesStatuses.Add(new ResourceModel(item.ResourceId, item.Url, "000", item.CommunicationChanel, item.UserId));
+                    resourceScanResultModel.ResourcesStatuses.Add(new MonitorItemModel(item.MonitorId, item.Url, "000", item.CommunicationChanel, item.UserId));
                 }
             }
 
@@ -138,7 +138,7 @@ namespace Monitor.StepperLogic
             return resourceScanResultModel;
         }
 
-        public ResourceScanResultModel ProcessRecords(ResourceScanResultModel model, ILambdaContext context)
+        public MonitorItemScanResultModel ProcessRecords(MonitorItemScanResultModel model, ILambdaContext context)
         {
             context.Logger.LogLine($"---------- Start ProcessRecords ----------");
 
@@ -149,7 +149,7 @@ namespace Monitor.StepperLogic
             {
                 var addResourceHistoryDto = new AddMonitorHistoryDto()
                 {
-                    MonitorItemId = item.ResourceId,
+                    MonitorItemId = item.MonitorId,
                     ScanDate = DateTime.UtcNow,
                     Result = string.IsNullOrEmpty(item.StatusCode) ? "000" : item.StatusCode
                 };
@@ -162,7 +162,7 @@ namespace Monitor.StepperLogic
             return model;
         }
 
-        public async Task<string> GetResourceStatus(ResourceModel resource, ILambdaContext context)
+        public async Task<string> GetResourceStatus(MonitorItemModel resource, ILambdaContext context)
         {
             //TODO: improve by checking existing URL + Status code
             context.Logger.LogLine($"---------- GetResourceStatus Invocation: [{resource.Url}] ----------");

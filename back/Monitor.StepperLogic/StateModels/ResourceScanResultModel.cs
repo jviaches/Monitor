@@ -5,31 +5,31 @@ using System.Text;
 
 namespace Monitor.StepperLogic.StateModels
 {
-    public class ResourceScanResultModel
+    public class MonitorItemScanResultModel
     {
         /// <summary>
         /// <URL, StatusCode>
         /// </summary>
-        public List<ResourceModel> ResourcesStatuses { get; set; }
+        public List<MonitorItemModel> ResourcesStatuses { get; set; }
 
-        public ResourceScanResultModel()
+        public MonitorItemScanResultModel()
         {
-            ResourcesStatuses = new List<ResourceModel>();
+            ResourcesStatuses = new List<MonitorItemModel>();
         }
     }
 
-    public class ResourceModel
+    public class MonitorItemModel
     {
-        public ResourceModel(Guid resourceId, string url, string statusCode, CommunicationChanel communicationChanel, int userId)
+        public MonitorItemModel(Guid monitorItemId, string url, string statusCode, CommunicationChanel communicationChanel, int userId)
         {
-            ResourceId = resourceId;
+            MonitorId = monitorItemId;
             Url = url;
             StatusCode = statusCode;
             CommunicationChanel = communicationChanel;
             UserId = userId;
         }
 
-        public Guid ResourceId { get; set; }
+        public Guid MonitorId { get; set; }
         public string Url { get; set; }
         public string StatusCode { get; set; }
         public CommunicationChanel CommunicationChanel { get; set; }
