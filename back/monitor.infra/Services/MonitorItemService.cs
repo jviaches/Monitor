@@ -23,9 +23,9 @@ namespace monitor_infra.Services
             return await _monitorItemRepository.GetByPeriodicityAndMonitor(periodicity, isMonitored);
         }
 
-        public void AddHistoryItem(AddMonitorHistoryDto dto)
+        public async Task AddHistoryItem(AddMonitorHistoryDto dto)
         {
-            _monitorItemRepository.AddHistoryItem(dto);
+            await _monitorItemRepository.AddHistoryItem(dto);
         }
     }
 }

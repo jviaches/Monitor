@@ -9,6 +9,6 @@ namespace monitor_infra.Services.Interfaces
 {
     public interface IMonitorItemService
     {
-        void AddHistoryItem(AddMonitorHistoryDto dto);
+        Task AddHistoryItem(AddMonitorHistoryDto dto);
     }
 }

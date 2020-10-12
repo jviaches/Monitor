@@ -138,7 +138,7 @@ namespace Monitor.StepperLogic
             return resourceScanResultModel;
         }
 
-        public MonitorItemScanResultModel ProcessRecords(MonitorItemScanResultModel model, ILambdaContext context)
+        public async Task<MonitorItemScanResultModel> ProcessRecords(MonitorItemScanResultModel model, ILambdaContext context)
         {
             context.Logger.LogLine($"---------- Start ProcessRecords ----------");
 
@@ -156,7 +156,7 @@ namespace Monitor.StepperLogic
                 };
 
                 context.Logger.LogLine($"---------- adding [{item.Url}] to monitor history ----------");
-                _monitorItemService.AddHistoryItem(addResourceHistoryDto);
+                await _monitorItemService.AddHistoryItem(addResourceHistoryDto);
                 context.Logger.LogLine($"---------- Items has been added ----------");
             }
 
