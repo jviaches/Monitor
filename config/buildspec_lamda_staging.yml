@@ -5,7 +5,7 @@ phases:
       dotnet: latest
   pre_build:
     commands:
-      - cd back/monitor-back
+      - cd back/monitor.back
       - dotnet tool install --global Amazon.Lambda.Tools
   build:
     commands:
