@@ -53,15 +53,17 @@ namespace Monitor.StepperLogic
             serviceCollection.AddSingleton<IMonitorItemService, MonitorItemService>();
             serviceCollection.AddSingleton<IEmailSenderService, EmailSenderService>();
 
-            var DBHostName = Environment.GetEnvironmentVariable("DBHostName");
-            var DBName = Environment.GetEnvironmentVariable("DBName");
-            var DBUserName = Environment.GetEnvironmentVariable("DBUserName");
-            var DBPassword = Environment.GetEnvironmentVariable("DBPassword");
-            var DBPort = Environment.GetEnvironmentVariable("DBPort");
+            //var DBHostName = Environment.GetEnvironmentVariable("DBHostName");
+            //var DBName = Environment.GetEnvironmentVariable("DBName");
+            //var DBUserName = Environment.GetEnvironmentVariable("DBUserName");
+            //var DBPassword = Environment.GetEnvironmentVariable("DBPassword");
+            //var DBPort = Environment.GetEnvironmentVariable("DBPort");
 
             serviceCollection.AddDbContext<AppDbContext>(options =>
             {
-                options.UseNpgsql($"Host={DBHostName};Port={DBPort};Username={DBUserName};Password={DBPassword};Database={DBName};", b => b.MigrationsAssembly("Monitor.Infra"));
+                // options.UseNpgsql($"Host={DBHostName};Port={DBPort};Username={DBUserName};Password={DBPassword};Database={DBName};", b => b.MigrationsAssembly("Monitor.Infra"));
+                var connection = Environment.GetEnvironmentVariable("DefaultConnection");
+                options.UseNpgsql(connection, b => b.MigrationsAssembly("monitor.infra"));
             });
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
