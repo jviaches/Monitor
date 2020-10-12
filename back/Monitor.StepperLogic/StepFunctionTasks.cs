@@ -147,6 +147,7 @@ namespace Monitor.StepperLogic
 
             foreach (var item in model.ResourcesStatuses)
             {
+                context.Logger.LogLine($"---------- Found: [{item.Url}] ----------");
                 var addResourceHistoryDto = new AddMonitorHistoryDto()
                 {
                     MonitorItemId = item.MonitorId,
@@ -154,7 +155,9 @@ namespace Monitor.StepperLogic
                     Result = string.IsNullOrEmpty(item.StatusCode) ? "000" : item.StatusCode
                 };
 
+                context.Logger.LogLine($"---------- adding [{item.Url}] to monitor history ----------");
                 _monitorItemService.AddHistoryItem(addResourceHistoryDto);
+                context.Logger.LogLine($"---------- Items has been added ----------");
             }
 
             context.Logger.LogLine($"---------- End ProcessRecords ----------");
