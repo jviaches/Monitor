@@ -49,25 +49,22 @@ namespace Monitor.StepperLogic
             lambdaClient = new AmazonLambdaClient(awsOptions.Credentials, awsOptions.Region);
 
             var serviceCollection = new ServiceCollection();
-
+            
             // Repositories
             serviceCollection.AddScoped<ICommunicationChanelRepository, CommunicationChanelRepository>();
             serviceCollection.AddScoped<IMonitorHistoryRepository, MonitorHistoryRepository>();
             serviceCollection.AddScoped<IMonitorItemRepository, MonitorItemRepository>();
             serviceCollection.AddScoped<IResourceRepository, ResourceRepository>();
             serviceCollection.AddScoped<IUserActionRepository, UserActionRepository>();
-            serviceCollection.AddScoped<IUserRepository, UserRepository>();
 
             // Services
-            serviceCollection.AddScoped<IUserService, UserService>();
             serviceCollection.AddScoped<IUserActionService, UserActionService>();
             serviceCollection.AddScoped<IResourceService, ResourceService>();
             serviceCollection.AddScoped<IMonitorItemService, MonitorItemService>();
 
             // Infra Services
-            serviceCollection.AddScoped<ITokenService, JwtTokenService>();
             serviceCollection.AddScoped<IEmailSenderService, EmailSenderService>();
-            serviceCollection.AddScoped<IEncryptionService, EncryptionService>();
+
 
             serviceCollection.AddDbContext<AppDbContext>(options =>
             {
