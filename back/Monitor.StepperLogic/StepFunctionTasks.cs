@@ -129,6 +129,7 @@ namespace Monitor.StepperLogic
                 catch (Exception e)
                 {
                     context.Logger.LogLine($"Exception Occured: {e}");
+                    _emailSenderService.SendServicesException($"MonitorStepper::GetResourceStatus - Exception occured: [{e}]");
                     resourceScanResultModel.ResourcesStatuses.Add(new MonitorItemModel(item.MonitorId, item.Url, "000", item.CommunicationChanel, item.UserId));
                 }
             }
@@ -189,7 +190,7 @@ namespace Monitor.StepperLogic
             {
                 context.Logger.LogLine($"Exception occured: [{e}] ");
                 //await sendEmail(resource, "ERROR", context); //TODO: send to support@projscope.com
-                _emailSenderService.SendServicesException("Exception occured: [{e}]");
+                _emailSenderService.SendServicesException($"MonitorStepper::GetResourceStatus - Exception occured: [{e}]");
                 return string.Empty;
             }
         }
