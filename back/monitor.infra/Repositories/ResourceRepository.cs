@@ -66,13 +66,28 @@ namespace monitor_infra.Repositories
 
         public async Task<IEnumerable<Resource>> GetByUserId(int userId)
         {
+            // TODO: return History data in asc order
             var resource = await _dbContext.Resources
                 .Include(rs => rs.MonitorItem)
+                    .ThenInclude(l => l.History)
                 .Include(rs => rs.CommunicationChanel)
-                .Where(rs => rs.UserId == userId).ToListAsync();
+                .Where(rs => rs.UserId == userId)
+                .ToListAsync();
+
+
+            for (int i = 0; i < resource.Count; i++)
+                resource[i] = monitorHistorySortAsc(resource[i]);
+
             return resource;
         }
 
+
+        private Resource monitorHistorySortAsc(Resource resource)
+        {
+            var monitorHistories =  resource.MonitorItem.History.OrderBy(e => e.ScanDate);
+            resource.MonitorItem.History = monitorHistories.ToList();
+            return resource;
+        }
         public Dictionary<Resource, MonitorItem> GetMonitoredItemsByPeriodicity(int periodicity)
         {
             var result = new Dictionary<Resource, MonitorItem>();
