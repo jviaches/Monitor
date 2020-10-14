@@ -1,14 +1,8 @@
 ﻿using monitor.infra.Services.Interfaces;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace monitor.infra.Services.Communication
 {
@@ -21,8 +15,6 @@ namespace monitor.infra.Services.Communication
             data["channel"] = channel;
             data["as_user"] = "true";           // to send this message as the user who owns the token, false by default
             data["text"] = "Monitored resource returned abnormal status:";
-
-            //var formattedAttachement = "[{\"fallback\":\"error to display\", \"text\":\"Status code:{0} - Url:{1}\"}]";
 
             var attachments = new SlackAttachment[]
             {

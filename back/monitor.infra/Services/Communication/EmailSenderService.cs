@@ -126,7 +126,7 @@ namespace monitor_infra.Services
             var textTemplate = getExceptionTextTemplate(exceptionDetails);
 
             // TODO: change in production to support@projscope.com            
-            sendEmail("jviaches@gmail.com", "Password retrival - Projscope", htmlTemplate, textTemplate);
+            sendEmail("jviaches@gmail.com", "Exception - Projscope", htmlTemplate, textTemplate);
         }
 
         private string getExceptionTextTemplate(string exceptionDetails)
