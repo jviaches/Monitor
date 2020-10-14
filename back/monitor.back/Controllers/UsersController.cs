@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using monitor.infra.Attributes;
 using monitor_core.Dto;
 using monitor_infra.Models.Response;
 using monitor_infra.Services.Interfaces;
@@ -27,6 +28,7 @@ namespace monitor_back.Controllers
 
         // POST api/users
         [AllowAnonymous]
+        [SkipJwtToken]
         [HttpPost]
         [Route("[action]")]
         public IActionResult SignUp([FromBody]AddUserViewModel vm)
@@ -43,6 +45,7 @@ namespace monitor_back.Controllers
         }
 
         [AllowAnonymous]
+        [SkipJwtToken]
         [HttpPost]
         [Route("[action]")]
         public IActionResult SignIn([FromBody]SignInViewModel vm)
@@ -90,6 +93,7 @@ namespace monitor_back.Controllers
         }
 
         [AllowAnonymous]
+        [SkipJwtToken]
         [HttpGet("[action]/{email}")]
         public IActionResult SendActivationCode([FromRoute]string email)
         {
@@ -112,6 +116,7 @@ namespace monitor_back.Controllers
         }
 
         [AllowAnonymous]
+        [SkipJwtToken]
         [HttpGet("[action]/{email}")]
         public IActionResult PasswordRetrieval([FromRoute]string email)
         {

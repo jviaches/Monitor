@@ -189,7 +189,6 @@ namespace Monitor.StepperLogic
             catch (Exception e)
             {
                 context.Logger.LogLine($"Exception occured: [{e}] ");
-                //await sendEmail(resource, "ERROR", context); //TODO: send to support@projscope.com
                 _emailSenderService.SendServicesException($"MonitorStepper::GetResourceStatus - Exception occured: [{e}]");
                 return string.Empty;
             }

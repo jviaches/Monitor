@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using monitor.infra.Attributes;
 using monitor_core.Settings;
 using monitor_infra;
 using monitor_infra.Repositories;
@@ -49,7 +52,14 @@ namespace monitor.back
                 });
             });
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                var authPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+                options.Filters.Add(new AuthorizeFilter(authPolicy));
+                options.Filters.Add<JwtTokenRenewAttribute>();
+            });
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 var connection = Environment.GetEnvironmentVariable("DefaultConnection");
