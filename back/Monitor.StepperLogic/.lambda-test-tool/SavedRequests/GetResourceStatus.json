@@ -1,0 +1,12 @@
+    {
+      "MonitorId": "6ea179c5-4b46-40c9-a876-b374f55ee74b",
+      "Url": "http://slack.com",
+      "StatusCode": "000",
+      "CommunicationChanel": {
+        "Id": "3e1f3011-6a1e-4949-92af-a2dac731b6da",
+        "NotifyByEmail": true,
+        "NotifyBySlack": true,
+        "SlackChanel": "#general"
+      },
+      "UserId": 30
+    }

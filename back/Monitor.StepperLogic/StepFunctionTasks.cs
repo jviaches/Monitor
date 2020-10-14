@@ -10,10 +10,9 @@ using Amazon.Lambda;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Model;
 using Amazon.Runtime;
-using Amazon.SimpleEmail;
-using Amazon.SimpleEmail.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using monitor.infra.Services.Interfaces;
 using Monitor.StepperLogic.StateModels;
 using monitor_core.Dto;
 using monitor_infra;
@@ -22,6 +21,8 @@ using monitor_infra.Repositories.Interfaces;
 using monitor_infra.Services;
 using monitor_infra.Services.Interfaces;
 using Newtonsoft.Json;
+using monitor.infra.Services.Communication;
+
 using Environment = System.Environment;
 
 
@@ -37,6 +38,7 @@ namespace Monitor.StepperLogic
         private IUserService _userService;
         private IMonitorItemService _monitorItemService;
         private IEmailSenderService _emailSenderService;
+        private ISlackSenderService _slackSenderService;
 
         public StepFunctionTasks()
         {
@@ -64,6 +66,7 @@ namespace Monitor.StepperLogic
 
             // Infra Services
             serviceCollection.AddScoped<IEmailSenderService, EmailSenderService>();
+            serviceCollection.AddScoped<ISlackSenderService, SlackSenderService>();
 
 
             serviceCollection.AddDbContext<AppDbContext>(options =>
@@ -78,6 +81,7 @@ namespace Monitor.StepperLogic
             _userService = serviceProvider.GetService<IUserService>();
             _monitorItemService = serviceProvider.GetService<IMonitorItemService>();
             _emailSenderService = serviceProvider.GetService<IEmailSenderService>();
+            _slackSenderService = serviceProvider.GetService<ISlackSenderService>();
         }
 
         /// <summary>
@@ -180,8 +184,17 @@ namespace Monitor.StepperLogic
 
                 if (statusCodeResult.StartsWith("3") || statusCodeResult.StartsWith("4") || statusCodeResult.StartsWith("5"))
                 {
-                    var email = _userService.GetById(resource.UserId).Email;
-                    _emailSenderService.SendAbnormalStatus(email, resource.Url, statusCodeResult);
+                    if (resource.CommunicationChanel.NotifyByEmail)
+                    {
+                        var email = _userService.GetById(resource.UserId).Email;
+                        _emailSenderService.SendAbnormalStatus(email, resource.Url, statusCodeResult);
+                    }
+
+                    if (resource.CommunicationChanel.NotifyBySlack)
+                    {
+                        var channel = resource.CommunicationChanel.SlackChanel;
+                        _slackSenderService.SendAbnormalStatus(channel, resource.Url, statusCodeResult);
+                    }
                 }
 
                 return statusCodeResult;
