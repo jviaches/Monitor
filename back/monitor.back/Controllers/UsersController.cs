@@ -34,10 +34,14 @@ namespace monitor_back.Controllers
         [Route("[action]")]
         public IActionResult SignUp([FromBody]AddUserViewModel vm)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("Users: SignIn call");
+
             if (string.IsNullOrEmpty(vm.Email) || string.IsNullOrEmpty(vm.Email))
                 return BadRequest(new { message = "input data is empty!" });
 
             var user = _userService.Add(vm.Email, vm.Password);
+
+            AWSXRayRecorder.Instance.EndSubsegment();
 
             if (user == null)
                 return BadRequest(new { message = "User already exist!" });
@@ -51,7 +55,8 @@ namespace monitor_back.Controllers
         [Route("[action]")]
         public IActionResult SignIn([FromBody]SignInViewModel vm)
         {
-            AWSXRayRecorder.Instance.BeginSubsegment("SignIn call");
+            AWSXRayRecorder.Instance.BeginSubsegment("Users: SignIn call");
+
             var user = _userService.SignIn(vm.Email, vm.Password);
 
             if (user == null)
@@ -69,7 +74,10 @@ namespace monitor_back.Controllers
         [HttpGet("[action]/{email}")]
         public IActionResult GetByEmail([FromRoute] string email)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("Users: GetByEmail call");
             var user = _userService.GetByEmail(email);
+            AWSXRayRecorder.Instance.EndSubsegment();
+
             return Ok(user);
         }
 
@@ -77,7 +85,10 @@ namespace monitor_back.Controllers
         [HttpGet("[action]/{userId}")]
         public IActionResult GetById([FromRoute] int userId)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("Users: GetById call");
             var user = _userService.GetById(userId);
+            AWSXRayRecorder.Instance.EndSubsegment();
+
             return Ok(user);
         }
 
@@ -86,10 +97,15 @@ namespace monitor_back.Controllers
         [HttpGet("[action]/{email}/{code}")]
         public async Task<IActionResult> Confirmation([FromRoute]string email, [FromRoute]string code)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("Users: GetById call");
+
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(code))
                 return BadRequest("No Activation Code provided!");
 
             var result = await _userService.Activate(email, code);
+
+            AWSXRayRecorder.Instance.EndSubsegment();
+
             if (result)
                 return Ok(result);
 
@@ -104,7 +120,12 @@ namespace monitor_back.Controllers
             if (string.IsNullOrEmpty(email))
                 return BadRequest("No Email provided!");
 
+            AWSXRayRecorder.Instance.BeginSubsegment("Users: SendActivationCode call");
+
             _userService.ResendActivationCode(email);
+
+            AWSXRayRecorder.Instance.EndSubsegment();
+
             return Ok();
         }
 
@@ -115,7 +136,12 @@ namespace monitor_back.Controllers
             if (string.IsNullOrEmpty(vm.Email) ||  string.IsNullOrEmpty(vm.OldPassword) || (string.IsNullOrEmpty(vm.NewPassword)))
                 return BadRequest("Password is empty!");
 
+            AWSXRayRecorder.Instance.BeginSubsegment("Users: ChangePassword call");
+
             var result = _userService.ChangePassword(vm.Email, vm.OldPassword, vm.NewPassword);
+
+            AWSXRayRecorder.Instance.EndSubsegment();
+
             return Ok(result);
         }
 
@@ -124,10 +150,15 @@ namespace monitor_back.Controllers
         [HttpGet("[action]/{email}")]
         public IActionResult PasswordRetrieval([FromRoute]string email)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("Users: PasswordRetrieval call");
+
             if (string.IsNullOrEmpty(email))
                 return BadRequest("No Email provided!");
 
             _userService.ResendPassword(email);
+
+            AWSXRayRecorder.Instance.EndSubsegment();
+
             return Ok();
         }
     }

@@ -24,7 +24,12 @@ namespace monitor.back.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("Resources: GetById call");
+
             var resource = await _resourceService.GetById(id);
+
+            AWSXRayRecorder.Instance.EndSubsegment();
+
             return Ok(resource);
         }
 
@@ -46,6 +51,8 @@ namespace monitor.back.Controllers
         [Route("[action]")]
         public IActionResult Add([FromBody]AddResourceViewModel vm)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("Resources: Add call");
+
             var resource = _resourceService.Add(new AddResourceDto()
             {
                 UserId = vm.UserId,
@@ -53,6 +60,8 @@ namespace monitor.back.Controllers
                 Periodicity = vm.Periodicity,
                 MonitorActivated = vm.MonitorActivated
             });
+
+            AWSXRayRecorder.Instance.EndSubsegment();
 
             return Ok(resource);
         }
@@ -62,18 +71,26 @@ namespace monitor.back.Controllers
         [Route("[action]")]
         public void Update([FromBody]UpdateResourceViewModel vm)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("Resources: Update");
+
             _resourceService.Update(new UpdateResourceDto()
             {
                 ResourceId = vm.ResourceId,
                 IsMonitorActivate = vm.IsMonitorActivate
             });
+
+            AWSXRayRecorder.Instance.EndSubsegment();
         }
 
         // DELETE api/values/5
         [HttpDelete("[action]/{id}")]
         public void Delete(Guid id)
         {
-           _resourceService.Delete(id);
+            AWSXRayRecorder.Instance.BeginSubsegment("Resources: Delete");
+
+            _resourceService.Delete(id);
+
+            AWSXRayRecorder.Instance.EndSubsegment();
         }
     }
 }
