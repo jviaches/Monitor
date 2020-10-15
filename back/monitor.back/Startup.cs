@@ -132,6 +132,7 @@ namespace monitor.back
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseXRay("Projscope");
             app.UseRouting();
             app.UseCors("GlobalCorPolicy");
 
