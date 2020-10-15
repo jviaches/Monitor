@@ -15,7 +15,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - ng build
+      - ng build --configuration=staging --aot
   post_build:
      commands:
       - aws s3 cp dist/front s3://monitor-stage --recursive
