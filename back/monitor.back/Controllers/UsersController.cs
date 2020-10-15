@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.XRay.Recorder.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -50,12 +51,15 @@ namespace monitor_back.Controllers
         [Route("[action]")]
         public IActionResult SignIn([FromBody]SignInViewModel vm)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("SignIn call");
             var user = _userService.SignIn(vm.Email, vm.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
 
             var userModel = new ResponseUserModel(user, _tokenService.GetToken(user));
+            
+            AWSXRayRecorder.Instance.EndSubsegment();
 
             return Ok(userModel);
 

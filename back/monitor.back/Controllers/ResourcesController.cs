@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.XRay.Recorder.Core;
 using Microsoft.AspNetCore.Mvc;
 using monitor_core.Dto;
 using monitor_infra.Services.Interfaces;
@@ -31,7 +32,12 @@ namespace monitor.back.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetByUserId(int id)
         {
+            AWSXRayRecorder.Instance.BeginSubsegment("Resources: GetByUserId call");
+
             var resourceList = await _resourceService.GetByUserId(id);
+
+            AWSXRayRecorder.Instance.EndSubsegment();
+
             return Ok(resourceList);
         }
 
