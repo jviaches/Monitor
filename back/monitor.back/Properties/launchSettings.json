@@ -12,7 +12,6 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "DefaultConnection": "Host=localhost;Port=5433;Username=postgres;Password=postgres;Database=monitor;",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

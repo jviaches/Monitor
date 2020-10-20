@@ -62,7 +62,7 @@ namespace monitor.back
 
             services.AddDbContext<AppDbContext>(options =>
             {
-                var connection = Environment.GetEnvironmentVariable("DefaultConnection");
+                var connection = (Configuration.GetConnectionString("DefaultConnection"));
                 options.UseNpgsql(connection, b => b.MigrationsAssembly("monitor.infra"));
             });
 

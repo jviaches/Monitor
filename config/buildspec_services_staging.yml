@@ -3,10 +3,16 @@ phases:
   install:
     runtime-versions:
       dotnet: latest
-  build:
-    commands:
-      - echo Build started on `date`
       
+    commands:
+      - echo Installing Entity Framework Core tools reference - .NET CLI
+      - dotnet tool install --global dotnet-ef
+
+  build:
+    commands:  
+      - echo Build started on `date`
+            
+      - echo Deploying code on `date`
       - dotnet restore back/monitor.core/monitor.core.csproj
       - dotnet restore back/monitor.infra/monitor.infra.csproj
       - dotnet restore back/monitor.back/monitor.back.csproj
@@ -16,6 +22,10 @@ phases:
       - dotnet build back/monitor.back/monitor.back.csproj
       
       - dotnet publish back/monitor.back/monitor.back.csproj -o back/monitor.back/bin/Release/netcoreapp3.1
+      
+      - echo Update database on `date`
+      - dotnet ef database update --project monitor.infra -s monitor.back
+
 artifacts:
   files:
    - '**/*' 
