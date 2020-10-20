@@ -3,17 +3,27 @@ phases:
   install:
     runtime-versions:
       dotnet: latest
+      
   pre_build:
     commands:
       - cd back/monitor.back
       - dotnet tool install --global Amazon.Lambda.Tools
+      
+      - echo Installing Entity Framework Core tools reference - .NET CLI
+      - dotnet tool install --global dotnet-ef
+      
   build:
     commands:
       - echo Build started on `date`
       - dotnet build monitor.back.csproj
       - dotnet publish monitor.back.csproj -o bin/Release/netcoreapp3.1/publish
+      
       - echo Deploy Monitor Back project started on `date`
       - ~/.dotnet/tools/dotnet-lambda deploy-serverless --stackname ResourceManagementStaging --s3-bucket resource-management-staging
+      
+      - echo Update database on `date`
+      - dotnet ef database update --project monitor.infra -s monitor.back
+      
       - cd ../Monitor.StepperLogic
       - dotnet build
       - dotnet publish Monitor.StepperLogic.csproj -o bin/Release/netcoreapp3.1/publish
