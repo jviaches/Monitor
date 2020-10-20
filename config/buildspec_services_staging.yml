@@ -3,10 +3,12 @@ phases:
   install:
     runtime-versions:
       dotnet: latest
+
   build:
-    commands:
+    commands:  
       - echo Build started on `date`
-      
+            
+      - echo Deploying code on `date`
       - dotnet restore back/monitor.core/monitor.core.csproj
       - dotnet restore back/monitor.infra/monitor.infra.csproj
       - dotnet restore back/monitor.back/monitor.back.csproj
