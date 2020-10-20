@@ -22,7 +22,7 @@ phases:
       - ~/.dotnet/tools/dotnet-lambda deploy-serverless --stackname ResourceManagementStaging --s3-bucket resource-management-staging
       
       - echo Update database on `date`
-      - dotnet ef database update --project monitor.infra -s monitor.back
+      - dotnet ef database update
       
       - cd ../Monitor.StepperLogic
       - dotnet build
