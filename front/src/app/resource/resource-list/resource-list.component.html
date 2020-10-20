@@ -1,7 +1,7 @@
 <!-- Add Monitor section -->
 <mat-card class="mat-card-flat">
     <mat-card-content>
-        <form [formGroup]="siteFormGroup" name="siteFormGroup" role="form">
+        <form [formGroup]="addSiteFormGroup" name="addSiteFormGroup" role="form">
             <div class="flex_justify_content_space-between" style="height: 40px;">
                 <div style="display: flex; padding: 0;">
                     <mat-form-field style="width: 400px; margin-right: 20px;">
@@ -16,7 +16,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <button mat-stroked-button (click)="addResource()" [disabled]="siteFormGroup.invalid">Add
+                <button mat-stroked-button (click)="addResource()" [disabled]="addSiteFormGroup.invalid">Add
                     Monitor</button>
             </div>
         </form>
@@ -30,7 +30,8 @@
 
 <div style="display: flex; justify-content: space-between; flex-wrap: wrap">
     <ng-container *ngIf="this.resourceService.resources.length > 0">
-        <mat-card class="mat-card-flat;" style="margin-top:30px; width: 49%;" *ngFor="let resource of this.resourceService.resources">
+        <mat-card class="mat-card-flat;" style="margin-top:30px; width: 79%;"
+            *ngFor="let resource of this.resourceService.resources">
             <div style="padding-bottom:40px; display: flex; justify-content: space-between;">
                 <div>
                     <img src="https://www.google.com/s2/favicons?domain={{resource.url}}"><img>
@@ -38,21 +39,63 @@
                 </div>
                 <div style="display:flex">
                     <mat-chip-list>
-                        <!-- <mat-chip matTooltip="Monitor Periodicity"> {{resource.monitorPeriod | periodicy}}</mat-chip> -->
+                        <mat-chip matTooltip="Monitor Periodicity"> {{resource?.monitorItem.period | periodicy}}
+                        </mat-chip>
                     </mat-chip-list>
-                    <button mat-icon-button (click)="redirectToResourceDetails(resource)">
-                        <span class="material-icons">remove_red_eye</span>
-                    </button>
                 </div>
             </div>
             <mat-card-content>
                 <div class="graph" [chart]="this.resourceService.chartMap[resource.id]"></div>
+                <!-- <hr class="new1"> -->
+                <div class="actions" class="flex_justify_content_space-between">
+                    <!-- <mat-slide-toggle [checked]="resource.monitorItem.isActive" (change)="monitorChange($event, resource)">Enable/Disable</mat-slide-toggle>
+                    <button mat-stroked-button color="warn" (click)="deleteResource(resource)">Delete</button> -->
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="mat-card-flat;" style="margin-top:30px; width: 19%;"
+            *ngFor="let resource of this.resourceService.resources">
+            <mat-card-content>
+                <div>General: </div>
                 <hr class="new1">
+
                 <div class="actions" class="flex_justify_content_space-between">
                     <mat-slide-toggle [checked]="resource.monitorItem.isActive"
-                        (change)="monitorChange($event, resource)">Enable/Disable</mat-slide-toggle>
-                    <button mat-stroked-button color="warn" (click)="deleteResource(resource)">Delete</button>
+                        (change)="monitorActivityChange($event, resource)">Enable/Disable</mat-slide-toggle>
                 </div>
+                <div style="margin-top: 10px;">
+                    <mat-form-field>
+                        <input matInput placeholder="url" type="text" [(ngModel)]="resource.url">
+                    </mat-form-field>                        
+                </div>
+                <br />
+                <br />
+                <div>Communication Channels: </div>
+                <hr class="new1">
+                <div class="actions" class="flex_justify_content_space-between">
+                    <mat-slide-toggle [checked]="resource?.communicationChanel.notifyByEmail"
+                        (change)="monitorEmailNotification($event, resource)">Send alerts by Email</mat-slide-toggle>
+                    <span class="material-icons" matTooltip="Deliver to email">help_outline</span>
+                </div>
+                <div class="actions" class="flex_justify_content_space-between">
+                    <mat-slide-toggle [checked]="resource?.communicationChanel.notifyBySlack"
+                        (change)="monitorSlackNotification($event, resource)">Send alerts by Slack</mat-slide-toggle>
+                    <span class="material-icons" matTooltip="Deliver to Slack channel">help_outline</span>
+                </div>
+
+                <div class="actions" class="flex_justify_content_space-between">
+                    <mat-form-field>
+                        <input matInput placeholder="Slack Channels Link" type="text"
+                            [(ngModel)]="resource.communicationChanel.slackChanel"
+                            [disabled]="!resource.communicationChanel.notifyBySlack">
+                    </mat-form-field>
+                    <span class="material-icons" matTooltip="Specify slack channelto deliver alerts">help_outline</span>
+                </div>
+                <mat-card-actions>
+                    <button mat-stroked-button color="primary" (click)="updateResource(resource)">Update</button>
+                    <button mat-stroked-button color="warn" (click)="deleteResource(resource)">Delete</button>
+                </mat-card-actions>
+
             </mat-card-content>
         </mat-card>
     </ng-container>

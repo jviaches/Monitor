@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IResource } from 'src/app/core/models/resource.model';
-import { Chart } from 'angular-highcharts';
 import { SelectionOptions } from 'src/app/core/shared/selection-options';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ResourceService } from 'src/app/core/services/resource.service';
@@ -15,32 +14,42 @@ import { Router } from '@angular/router';
     styleUrls: ['./resource-list.component.scss']
 })
 export class ResourceListComponent implements OnInit {
-    chartMap: Map<number, Chart>;
     periodicityOptions = SelectionOptions.periodicityOptions();
-    siteFormGroup: FormGroup;
+    addSiteFormGroup: FormGroup;
+    updateSiteFormGroup: FormGroup;
     urlRegex = '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$';
 
     constructor(public resourceService: ResourceService, private formBuilder: FormBuilder, private router: Router,
                 private generalService: GeneralService, public authService: AuthenticationService) {
 
-        this.siteFormGroup = this.formBuilder.group({
+        this.addSiteFormGroup = this.formBuilder.group({
             url: ['', [Validators.required, Validators.pattern(this.urlRegex)]],
             periodicity: ['', Validators.required],
+        });
+
+        this.updateSiteFormGroup = this.formBuilder.group({
+            enabled: ['', [Validators.required]],
+            emailAlert: ['', Validators.required],
+            slackAlert: ['', Validators.required],
+            slackChannel: ['', Validators.required],
         });
     }
 
     ngOnInit(): void {
     }
 
-    monitorChange(event: MatSlideToggleChange, resource: IResource) {
+    monitorActivityChange(event: MatSlideToggleChange, resource: IResource) {
         resource.monitorItem.isActive = event.checked;
-
-        this.generalService.showYesNoModalMessage().subscribe(data => {
-            if (data === 'yes') {
-                this.resourceService.updateResource(resource);
-            }
-        });
     }
+
+    monitorEmailNotification(event: MatSlideToggleChange, resource: IResource) {
+        resource.communicationChanel.notifyByEmail = event.checked;
+    }
+
+    monitorSlackNotification(event: MatSlideToggleChange, resource: IResource) {
+        resource.communicationChanel.notifyBySlack = event.checked;
+    }
+
 
     addResource() {
         const resource = {
@@ -51,6 +60,10 @@ export class ResourceListComponent implements OnInit {
         };
 
         this.resourceService.addResource(resource);
+    }
+
+    updateResource(resource: IResource) {
+        this.resourceService.updateResource(resource);
     }
 
     deleteResource(resource: IResource) {
@@ -71,14 +84,14 @@ export class ResourceListComponent implements OnInit {
     }
 
     get getUrl() {
-        return this.siteFormGroup.get('url');
+        return this.addSiteFormGroup.get('url');
     }
 
     get getPeriodicity() {
-        return this.siteFormGroup.get('periodicity');
+        return this.addSiteFormGroup.get('periodicity');
     }
 
     redirectToResourceDetails(selectedResource: IResource) {
-        this.router.navigate(['dashboard/resource-details'], { state: { data: { selectedResource } } });
+        this.router.navigate([`dashboard/resource-details/${selectedResource.id}`], { state: { data: { selectedResource } } });
     }
 }

@@ -11,12 +11,9 @@ import { MainPageComponent } from './pages/main/main.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
 import { ResourceListComponent } from './resource/resource-list/resource-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
-// import { UserProfileComponent } from './user/user-profile/user-profile.component';
-
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
@@ -35,7 +32,6 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       { path: '', component: ResourceListComponent },
-      { path: 'resource-details', component: ResourceDetailsComponent },
       { path: 'profile', component: UserProfileComponent }
     ]
   },

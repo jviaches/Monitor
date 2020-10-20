@@ -31,7 +31,6 @@ import { HeaderMainComponent } from './pages/header-main/header-main.component';
 import { TermsOfServiceComponent } from './pages/terms-of-service/terms-of-service.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ModalLoaderDialogComponent } from './core/components/modal-loader-dialog/modal-loader-dialog.component';
-import { ResourceDetailsComponent } from './resource/resource-details/resource-details.component';
 import { ResourceListComponent } from './resource/resource-list/resource-list.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { IntegrationSettingsService } from './core/services/integration.service';
@@ -59,7 +58,6 @@ import { UserSlackIntegrationComponent } from './user/integrations/slack/user-sl
     FooterComponent,
     HeaderMainComponent,
     TermsOfServiceComponent,
-    ResourceDetailsComponent,
     ResourceListComponent,
     UserProfileComponent,
     UserSlackIntegrationComponent

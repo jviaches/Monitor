@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IResource } from '../models/resource.model';
 import { GeneralService } from './general.service';
 import { SeriesOptionsType, YAxisOptions } from 'highcharts';
@@ -38,22 +38,20 @@ export class ResourceService {
 
             this.chartMap[element.id] = new Chart({
                 chart: {
-                    // renderTo: 'chart',
-                    type: 'spline',
-                    zoomType: 'x',
-                    scrollablePlotArea: {
-                        minWidth: 300,
-                        scrollPositionX: 1
-                    },
+                    type: 'area'
                 },
                 title: {
                     text: 'Monitoring History'
                 },
-                subtitle: {
-                    text: 'Click and drag in the chart to zoom in.'
-                },
-                credits: {
-                    enabled: false
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 150,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: '#FFFFFF'
                 },
                 xAxis: {
                     categories: historyData.map(cat => cat.name),
@@ -66,7 +64,7 @@ export class ResourceService {
                         text: 'Timeline'
                     },
                     gridLineWidth: 0.5,
-                    tickInterval: 20,
+                    // tickInterval: 20,
                     lineWidth: 2,
                     lineColor: '#92A8CD',
                     tickWidth: 3,
@@ -116,32 +114,27 @@ export class ResourceService {
                     }]
                 } as unknown as YAxisOptions | YAxisOptions[],
                 tooltip: {
+                    shared: true,
                     valuePrefix: 'Http Code: '
                 },
+                credits: {
+                    enabled: false
+                },
                 plotOptions: {
-                    spline: {
-                        lineWidth: 4,
-                        states: {
-                            hover: {
-                                lineWidth: 5
-                            }
-                        },
-                        marker: {
-                            enabled: false
-                        },
+                    areaspline: {
+                        fillOpacity: 0.5
+                    },
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
                     }
                 },
                 series: [{
                     name: element.url,
                     showInLegend: false,
                     data: historyData,
-                    turboThreshold: 10000
-                } as unknown as SeriesOptionsType],
-                navigation: {
-                    menuItemStyle: {
-                        fontSize: '10px'
-                    }
-                },
+                    // turboThreshold: 10000
+                } as unknown as SeriesOptionsType]
             });
         });
         return this.chartMap;
@@ -168,7 +161,8 @@ export class ResourceService {
                     // resources.forEach(element => {
                     //     const foundResource = this.resources.find(res => res.id === element.id);
                     //     // tslint:disable-next-line:max-line-length
-                //  const lastMonitoredDate = foundResource.history.filter(res => Math.max(new Date(res.requestDate).getMilliseconds()))[0];
+                    // tslint:disable-next-line:max-line-length
+                    //  const lastMonitoredDate = foundResource.history.filter(res => Math.max(new Date(res.requestDate).getMilliseconds()))[0];
                     //  const newStartIndex = element.history.findIndex(history => history.requestDate === lastMonitoredDate.requestDate);
 
                     //     const newHistoryitems = element.history.slice(newStartIndex, element.history.length - 1);
@@ -194,6 +188,10 @@ export class ResourceService {
         return this.httpClient.get<IResource[]>(this.generalService.URL + `Resources/GetByUserId/${this.authService.currentUserValue.id}`);
     }
 
+    getResourceById(id): Observable<IResource> {
+        return this.httpClient.get<IResource>(this.generalService.URL + `Resources/GetById/${id}`);
+    }
+
     addResource(resource: any) {
         this.httpClient.post<any>(this.generalService.URL + 'Resources/Add', resource).subscribe(() => {
             console.log('resource has been added');
@@ -209,17 +207,28 @@ export class ResourceService {
         const updateDetails = {
             resourceId: resource.id,
             url: resource.url,
-            isMonitorActivate: resource.monitorItem.isActive
+            isMonitorActivate: resource.monitorItem.isActive,
+            emalAlert: resource.communicationChanel.notifyByEmail,
+            slackAlert: resource.communicationChanel.notifyBySlack,
+            slackChannel: resource.communicationChanel.slackChanel
         };
 
-        this.httpClient.post<any>(this.generalService.URL + 'Resources/Update', updateDetails).subscribe(() => {
-            console.log('resource has been updated');
-            this.getResources().subscribe(resources => {
-                this.resources = resources;
-                this.buildHistoryStatusChart();
+        console.log(updateDetails);
+
+        let headers = new HttpHeaders();
+        headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+        this.httpClient.put<any>(this.generalService.URL + 'Resources/Update',
+                updateDetails, { headers }).subscribe(() => {
+                console.log('resource has been updated');
+
+                this.generalService.showActionConfirmationSuccess('Updated!');
+                this.getResources().subscribe(resources => {
+                    this.resources = resources;
+                    this.buildHistoryStatusChart();
+                });
+                this.resetMonitoringIntervalRefresh();
             });
-            this.resetMonitoringIntervalRefresh();
-        });
     }
 
     deleteResource(id: any) {
